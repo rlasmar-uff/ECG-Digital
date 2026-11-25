@@ -21,7 +21,6 @@
       --muted: #475569;
       --border: #CBD5E1;
       --surface: #FFFFFF;
-      --bg: #E2E8F0;
       --paper: #FFFDFB;
       --grid-minor: #F6D7D5;
       --grid-major: #E8A6AA;
@@ -52,8 +51,8 @@
       top: 0;
       left: 0;
       height: 4px;
-      background: var(--crimson);
-      transition: width 0.25s ease;
+      background: linear-gradient(90deg, var(--navy), var(--crimson));
+      transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
       z-index: 1000;
     }
 
@@ -67,7 +66,7 @@
       max-width: calc(100vh * 16 / 9);
       max-height: calc(100vw * 9 / 16);
       background: var(--surface);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.48);
       overflow: hidden;
     }
 
@@ -76,12 +75,12 @@
       inset: 0;
       display: flex;
       flex-direction: column;
-      padding: clamp(24px, 3.2vw, 48px) clamp(28px, 4vw, 58px) clamp(50px, 5vh, 64px);
+      padding: clamp(22px, 3vw, 44px) clamp(26px, 3.8vw, 56px) clamp(48px, 4.8vh, 62px);
       background: var(--surface);
       opacity: 0;
       visibility: hidden;
-      transform: translateX(18px);
-      transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+      transform: translateX(24px);
+      transition: opacity 0.34s cubic-bezier(0.22, 1, 0.36, 1), transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.34s;
       overflow: hidden;
     }
 
@@ -89,6 +88,57 @@
       opacity: 1;
       visibility: visible;
       transform: translateX(0);
+    }
+
+    /* Animações em cascata ao entrar no slide */
+    .slide .anim {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    .slide.active .anim {
+      animation: slideReveal 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .slide.active .d1 { animation-delay: 0.06s; }
+    .slide.active .d2 { animation-delay: 0.14s; }
+    .slide.active .d3 { animation-delay: 0.22s; }
+    .slide.active .d4 { animation-delay: 0.30s; }
+    .slide.active .d5 { animation-delay: 0.38s; }
+    .slide.active .d6 { animation-delay: 0.46s; }
+
+    .slide .anim-scale {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    .slide.active .anim-scale {
+      animation: scaleReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+    }
+
+    @keyframes slideReveal {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleReveal {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.45); opacity: 0.55; }
+    }
+
+    @keyframes qrBreath {
+      0%, 100% { box-shadow: 0 10px 26px rgba(11, 37, 69, 0.14), 0 0 0 0 rgba(200, 30, 30, 0.22); }
+      50% { box-shadow: 0 12px 30px rgba(11, 37, 69, 0.2), 0 0 0 10px rgba(200, 30, 30, 0); }
+    }
+
+    @keyframes ctaGlow {
+      0%, 100% { box-shadow: 0 8px 20px rgba(200, 30, 30, 0.28), 0 0 0 0 rgba(200, 30, 30, 0.35); }
+      50% { box-shadow: 0 10px 24px rgba(200, 30, 30, 0.38), 0 0 0 8px rgba(200, 30, 30, 0); }
     }
 
     /* Fundo papel milimetrado sutil para capa e demo */
@@ -108,13 +158,13 @@
       justify-content: space-between;
       border-bottom: 2px solid var(--navy);
       padding-bottom: 10px;
-      margin-bottom: clamp(14px, 2vh, 22px);
+      margin-bottom: clamp(12px, 1.8vh, 20px);
       gap: 16px;
       flex-shrink: 0;
     }
 
     .slide-header h2 {
-      font-size: clamp(20px, 2.35vw, 34px);
+      font-size: clamp(20px, 2.3vw, 33px);
       font-weight: 700;
       color: var(--navy);
       line-height: 1.15;
@@ -131,7 +181,22 @@
       padding: 4px 10px;
       border-radius: 999px;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
+
+    .live-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--crimson);
+      animation: pulseDot 1.3s ease-in-out infinite;
+    }
+
+    .live-dot.green { background: var(--green); }
+    .live-dot.amber { background: var(--amber); }
 
     .slide-body {
       flex: 1;
@@ -139,14 +204,14 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: clamp(10px, 1.5vh, 18px);
+      gap: clamp(10px, 1.4vh, 16px);
     }
 
     .slide-footer {
       position: absolute;
       bottom: 12px;
-      left: clamp(28px, 4vw, 58px);
-      right: clamp(28px, 4vw, 58px);
+      left: clamp(26px, 3.8vw, 56px);
+      right: clamp(26px, 3.8vw, 56px);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -156,17 +221,17 @@
       padding-top: 6px;
     }
 
-    /* Capa */
+    /* Capa com Monitor ECG Vivo 60 FPS */
     .hero-card {
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.95);
       border: 1.5px solid var(--border);
       border-left: 8px solid var(--navy);
       border-radius: 12px;
-      padding: clamp(24px, 3.2vw, 44px);
+      padding: clamp(20px, 2.8vw, 38px);
       display: flex;
       flex-direction: column;
-      gap: clamp(12px, 1.8vh, 20px);
-      box-shadow: 0 12px 30px rgba(11, 37, 69, 0.08);
+      gap: clamp(10px, 1.5vh, 18px);
+      box-shadow: 0 14px 36px rgba(11, 37, 69, 0.1);
     }
 
     .hero-meta {
@@ -175,13 +240,13 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 8px;
-      font-size: clamp(12px, 1.1vw, 15px);
+      font-size: clamp(11.5px, 1.05vw, 14.5px);
       font-weight: 600;
       color: var(--teal);
     }
 
     .hero-title {
-      font-size: clamp(26px, 3.3vw, 48px);
+      font-size: clamp(24px, 3.1vw, 44px);
       font-weight: 700;
       color: var(--navy);
       line-height: 1.12;
@@ -189,28 +254,58 @@
     }
 
     .hero-sub {
-      font-size: clamp(14px, 1.45vw, 21px);
+      font-size: clamp(13.5px, 1.35vw, 19px);
       color: var(--muted);
-      max-width: 72ch;
+      max-width: 74ch;
     }
 
-    .ecg-divider {
+    /* Caixa do Monitor ECG ao vivo em Canvas 60 FPS */
+    .live-ecg-strip {
+      position: relative;
       width: 100%;
-      height: 36px;
+      height: clamp(82px, 12vh, 118px);
+      background: #08182E;
+      border: 1.5px solid #1E3A5F;
+      border-radius: 8px;
       overflow: hidden;
+      box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.45);
     }
 
-    .ecg-divider path {
-      stroke: var(--crimson);
-      stroke-width: 2.5;
-      fill: none;
-      stroke-dasharray: 1200;
-      stroke-dashoffset: 1200;
-      animation: drawPulse 2.4s ease forwards;
+    .live-ecg-strip canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
-    @keyframes drawPulse {
-      to { stroke-dashoffset: 0; }
+    .strip-hud {
+      position: absolute;
+      top: 7px;
+      left: 11px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #86EFAC;
+      background: rgba(8, 24, 46, 0.78);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(134, 239, 172, 0.25);
+      pointer-events: none;
+    }
+
+    .strip-bpm {
+      position: absolute;
+      top: 6px;
+      right: 12px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 14px;
+      color: #4ADE80;
+      background: rgba(8, 24, 46, 0.82);
+      padding: 2px 9px;
+      border-radius: 4px;
+      pointer-events: none;
     }
 
     .team-grid {
@@ -228,14 +323,14 @@
 
     .team-chip strong {
       display: block;
-      font-size: clamp(11px, 0.95vw, 13.5px);
+      font-size: clamp(10.5px, 0.92vw, 13px);
       color: var(--navy);
       line-height: 1.25;
     }
 
     .team-chip span {
       font-family: var(--font-mono);
-      font-size: clamp(10px, 0.85vw, 12px);
+      font-size: clamp(9.5px, 0.82vw, 11.5px);
       color: var(--muted);
     }
 
@@ -243,7 +338,7 @@
     .split {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: clamp(16px, 2.4vw, 36px);
+      gap: clamp(16px, 2.2vw, 32px);
       align-items: center;
       height: 100%;
     }
@@ -251,7 +346,7 @@
     .split-60-40 {
       display: grid;
       grid-template-columns: 1.45fr 1fr;
-      gap: clamp(16px, 2.2vw, 32px);
+      gap: clamp(16px, 2.2vw, 30px);
       align-items: center;
       height: 100%;
     }
@@ -259,20 +354,20 @@
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(12px, 1.6vw, 22px);
+      gap: clamp(12px, 1.5vw, 20px);
     }
 
     .grid-4 {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: clamp(10px, 1.3vw, 18px);
+      gap: clamp(10px, 1.2vw, 16px);
     }
 
     .card {
       background: #F8FAFC;
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: clamp(12px, 1.5vw, 20px);
+      padding: clamp(12px, 1.45vw, 18px);
     }
 
     .card-accent-navy { border-top: 4px solid var(--navy); }
@@ -281,15 +376,18 @@
     .card-accent-amber { border-top: 4px solid var(--amber); background: #FFFBEB; border-color: #FDE68A; }
 
     .card h3 {
-      font-size: clamp(14px, 1.3vw, 18px);
+      font-size: clamp(13.5px, 1.25vw, 17.5px);
       color: var(--navy);
       margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
     }
 
     .card p, .card li {
-      font-size: clamp(12px, 1.05vw, 15px);
+      font-size: clamp(11.5px, 1.02vw, 14.5px);
       color: #334155;
-      line-height: 1.45;
+      line-height: 1.44;
     }
 
     .card ul {
@@ -301,7 +399,7 @@
 
     .big-num {
       font-family: var(--font-mono);
-      font-size: clamp(24px, 2.9vw, 42px);
+      font-size: clamp(24px, 2.8vw, 40px);
       font-weight: 700;
       color: var(--navy);
       line-height: 1.08;
@@ -312,12 +410,12 @@
     .big-num.green { color: var(--green); }
 
     .kpi-caption {
-      font-size: clamp(11px, 0.95vw, 13.5px);
+      font-size: clamp(11px, 0.92vw, 13px);
       color: var(--muted);
       margin-top: 4px;
     }
 
-    /* Pipeline horizontal */
+    /* Pipeline horizontal com destaque animado sequencial */
     .pipeline-flow {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -331,14 +429,21 @@
       border: 1.5px solid var(--border);
       border-top: 5px solid var(--navy);
       border-radius: 9px;
-      padding: 12px 12px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       gap: 6px;
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
     }
 
     .pipe-step.step-lit { border-top-color: var(--teal); }
     .pipe-step.step-qrs { border-top-color: var(--crimson); }
+
+    .pipe-step.pipe-active {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(11, 37, 69, 0.14);
+      border-color: var(--navy);
+    }
 
     .pipe-num {
       font-family: var(--font-mono);
@@ -348,12 +453,12 @@
     }
 
     .pipe-step h4 {
-      font-size: clamp(12.5px, 1.1vw, 15.5px);
+      font-size: clamp(12.5px, 1.08vw, 15px);
       color: var(--navy);
     }
 
     .pipe-step p {
-      font-size: clamp(11px, 0.92vw, 13px);
+      font-size: clamp(11px, 0.9vw, 12.8px);
       color: #334155;
       line-height: 1.38;
     }
@@ -365,7 +470,7 @@
       border-radius: 6px;
       padding: 10px 14px;
       font-family: var(--font-mono);
-      font-size: clamp(12px, 1.15vw, 16px);
+      font-size: clamp(11.5px, 1.1vw, 15.5px);
       color: var(--navy);
       font-weight: 600;
     }
@@ -395,7 +500,7 @@
     table.clean-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: clamp(11px, 0.95vw, 13.5px);
+      font-size: clamp(11px, 0.94vw, 13.5px);
     }
 
     table.clean-table th, table.clean-table td {
@@ -426,16 +531,16 @@
       color: #FFFFFF;
       text-decoration: none;
       font-weight: 700;
-      font-size: clamp(14px, 1.3vw, 18px);
-      padding: 12px 24px;
+      font-size: clamp(14px, 1.25vw, 17.5px);
+      padding: 12px 22px;
       border-radius: 8px;
-      box-shadow: 0 8px 20px rgba(200, 30, 30, 0.28);
+      animation: ctaGlow 2.4s ease-in-out infinite;
       transition: transform 0.12s ease, background 0.15s ease;
     }
 
     .cta-btn:hover {
       background: #A61818;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
     }
 
     .cta-btn-outline {
@@ -447,9 +552,17 @@
       border: 1.5px solid var(--navy);
       text-decoration: none;
       font-weight: 600;
-      font-size: clamp(13px, 1.15vw, 16px);
+      font-size: clamp(13px, 1.12vw, 15.5px);
       padding: 10px 18px;
       border-radius: 8px;
+    }
+
+    .qr-box {
+      background: #FFFFFF;
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid var(--navy);
+      animation: qrBreath 2.6s ease-in-out infinite;
     }
 
     /* Controles flutuantes de apresentação */
@@ -460,7 +573,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(11, 37, 69, 0.9);
+      background: rgba(11, 37, 69, 0.92);
       color: #FFFFFF;
       padding: 6px 10px;
       border-radius: 999px;
@@ -512,6 +625,7 @@
       html, body { background: #FFFFFF; overflow: visible; height: auto; }
       .deck { position: static; max-width: none; max-height: none; width: 100%; height: auto; box-shadow: none; }
       .slide { position: relative; opacity: 1 !important; visibility: visible !important; transform: none !important; page-break-after: always; height: 100vh; }
+      .slide .anim, .slide .anim-scale { opacity: 1 !important; transform: none !important; animation: none !important; }
       .controls, .progress-bar, .notes-drawer { display: none !important; }
     }
   </style>
@@ -521,25 +635,28 @@
 
   <main class="deck" id="deck">
 
-    <!-- ==================== SLIDE 1: CAPA ==================== -->
-    <section class="slide slide-ecg-paper active" data-notes="Apresentar o tema do trabalho de extensão, destacar a equipe em ordem alfabética e situar que o objetivo foi conectar diretamente os conceitos de Sinais e Sistemas (filtros LIT, fase zero, periodicidade discreta, Fourier e Parseval) a um problema clínico real de leitura de ECG.">
+    <!-- ==================== SLIDE 1: CAPA COM MONITOR ECG AO VIVO ==================== -->
+    <section class="slide slide-ecg-paper active" data-notes="Apresentar o tema do trabalho de extensão, destacar a equipe em ordem alfabética e chamar atenção para o traçado de ECG sendo gerado em tempo real na capa — simbolizando a transição do sinal contínuo x(t) para o processamento digital discreto x[n].">
       <div class="slide-body">
         <div class="hero-card">
-          <div class="hero-meta">
+          <div class="hero-meta anim d1">
             <span>UNIVERSIDADE FEDERAL FLUMINENSE (UFF) · ESCOLA DE ENGENHARIA</span>
             <span class="mono">Sinais e Sistemas · Prof. André Pinho · 09/12/2026</span>
           </div>
 
-          <h1 class="hero-title">Suporte Computacional para Diagnóstico de Exames Biomédicos (ECG)</h1>
-          <p class="hero-sub">
+          <h1 class="hero-title anim d2">Suporte Computacional para Diagnóstico de Exames Biomédicos (ECG)</h1>
+          <p class="hero-sub anim d3">
             Filtragem digital por Sistemas LIT de fase zero, detecção automática de picos R, análise espectral (FFT/Parseval) e aplicação web aberta validada em 13.171 batimentos reais da base MIT-BIH.
           </p>
 
-          <svg class="ecg-divider" viewBox="0 0 1000 44" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0,26 L90,26 L105,21 L120,26 L145,26 L154,32 L166,4 L180,39 L190,26 L220,26 L240,18 L262,26 L360,26 L375,21 L390,26 L415,26 L424,32 L436,4 L450,39 L460,26 L490,26 L510,18 L532,26 L630,26 L645,21 L660,26 L685,26 L694,32 L706,4 L720,39 L730,26 L760,26 L780,18 L802,26 L900,26 L915,21 L930,26 L1000,26" />
-          </svg>
+          <!-- Osciloscópio ECG ao vivo 60 FPS (gera o traçado continuamente como monitor hospitalar!) -->
+          <div class="live-ecg-strip anim d4" aria-label="Monitor ECG animado em tempo real">
+            <canvas id="heroEcgCanvas"></canvas>
+            <div class="strip-hud"><span class="live-dot green"></span> DERIV. MLII · fs = 360 Hz · FASE ZERO</div>
+            <div class="strip-bpm" id="heroBpmHud">72 BPM</div>
+          </div>
 
-          <div class="team-grid">
+          <div class="team-grid anim d5">
             <div class="team-chip"><strong>Cauã Sales Cardoso de Carvalho</strong><span>221038054</span></div>
             <div class="team-chip"><strong>Livia da Conceição Paes</strong><span>221038088</span></div>
             <div class="team-chip"><strong>Mateus Figueiredo Abreu</strong><span>122038027</span></div>
@@ -550,7 +667,7 @@
       </div>
       <div class="slide-footer">
         <span>Atividade Extensionista 1 · Sinais e Sistemas (2º Semestre de 2026)</span>
-        <span class="mono">Use ← → para navegar · F tela cheia · N roteiro</span>
+        <span class="mono">← → navegar · F tela cheia · N roteiro</span>
       </div>
     </section>
 
@@ -562,22 +679,22 @@
       </div>
       <div class="slide-body">
         <div class="grid-3">
-          <div class="card card-accent-navy">
-            <div class="big-num">~15 ECGs</div>
+          <div class="card card-accent-navy anim d1">
+            <div class="big-num" data-count-to="15" data-prefix="~" data-suffix=" ECGs" data-decimals="0">~15 ECGs</div>
             <div class="kpi-caption">Analisados em média por turno de 12 horas em rotina clínica.</div>
           </div>
-          <div class="card card-accent-crimson">
-            <div class="big-num crimson">~2 min</div>
+          <div class="card card-accent-crimson anim d2">
+            <div class="big-num crimson" data-count-to="2" data-prefix="~" data-suffix=" min" data-decimals="0">~2 min</div>
             <div class="kpi-caption">Tempo médio de análise visual não especializada sobre papel milimetrado impresso.</div>
           </div>
-          <div class="card card-accent-teal">
+          <div class="card card-accent-teal anim d3">
             <div class="big-num teal">60–120 BPM</div>
             <div class="kpi-caption">Faixa de referência adotada na rotina clínica para triagem de adulto em repouso.</div>
           </div>
         </div>
 
         <div class="split" style="height:auto; margin-top:6px;">
-          <div class="card">
+          <div class="card anim d4">
             <h3>Principais Ruídos Relatados na Rotina</h3>
             <ul>
               <li><strong>Respiração do paciente:</strong> oscilação lenta da linha de base (<strong>&lt; 0,5 Hz</strong>).</li>
@@ -585,7 +702,7 @@
               <li><strong>Interferência da rede elétrica:</strong> ruído senoidal estreito centrado em <strong>60 Hz</strong>.</li>
             </ul>
           </div>
-          <div class="card card-accent-amber">
+          <div class="card card-accent-amber anim d5">
             <h3>Dor Crítica: Distorção por Filtros Comerciais</h3>
             <ul>
               <li>Aparelhos convencionais frequentemente <strong>deformam o pico R e o segmento ST</strong> devido a filtros causais com <strong>atraso de fase não linear</strong>.</li>
@@ -608,28 +725,28 @@
       </div>
       <div class="slide-body">
         <div class="grid-4">
-          <div class="card card-accent-navy">
+          <div class="card card-accent-navy anim d1">
             <span class="pipe-num">ETAPA 01 · RELATÓRIO 1</span>
             <h3 style="margin-top:6px;">Pesquisa Bibliográfica</h3>
             <p>Modelagem com δ[n], u[n], sistemas LIT e BIBO. Benchmarks: Pan &amp; Tompkins (1985), Hamilton &amp; Tompkins (1986), PhysioNet/MIT-BIH e Luz et al. (2016).</p>
           </div>
-          <div class="card card-accent-teal">
+          <div class="card card-accent-teal anim d2">
             <span class="pipe-num">ETAPA 02 · RELATÓRIOS 2–3</span>
             <h3 style="margin-top:6px;">Entrevista &amp; Crítica</h3>
             <p>Mapeamento dos ruídos clínicos e tradução direta para filtragem bidirecional de fase zero (0,5–40 Hz + Notch 60 Hz), periodicidade x[n]=x[n+N] e limiar 60–120 BPM.</p>
           </div>
-          <div class="card card-accent-crimson">
+          <div class="card card-accent-crimson anim d3">
             <span class="pipe-num">ETAPA 03 · PRODUTO</span>
             <h3 style="margin-top:6px;">Código &amp; Validação Real</h3>
             <p>Pipeline em Python + App Web 60 FPS (FastAPI + GitHub Pages). Validação rigorosa em 6 registros completos do MIT-BIH (13.171 batimentos reais).</p>
           </div>
-          <div class="card card-accent-amber">
+          <div class="card card-accent-amber anim d4">
             <span class="pipe-num">ETAPA 04 · REL. 4 &amp; 09/12</span>
             <h3 style="margin-top:6px;">Devolutiva &amp; Divulgação</h3>
             <p>Figuras 300 DPI, crítica clínica dos resultados, aplicativo público por QR Code para acesso aberto e demonstração ao vivo na apresentação.</p>
           </div>
         </div>
-        <div class="eq-box" style="text-align:center;">
+        <div class="eq-box anim d5" style="text-align:center;">
           Sinal contínuo x(t)  →  Amostragem fs = 360 Hz  →  Sequência discreta x[n] = x(nTs)  →  Triagem Clínica Automatizada
         </div>
       </div>
@@ -640,41 +757,41 @@
     </section>
 
     <!-- ==================== SLIDE 4: PIPELINE SINAIS E SISTEMAS ==================== -->
-    <section class="slide" data-notes="Explicar a sacada de engenharia das duas vias: a via diagnóstica (0,5–40 Hz + Notch 60 Hz, fase zero) preserva perfeitamente ondas P, QRS, ST e T para o médico; a via de detecção QRS implementa fielmente Pan & Tompkins (derivada 5 pts, quadratura, MWI 150 ms) e Hamilton & Tompkins (refratário 200 ms, rejeição de onda T e search-back).">
+    <section class="slide" data-notes="Explicar a sacada de engenharia das duas vias conforme os blocos se acendem em sequência: a via diagnóstica (0,5–40 Hz + Notch 60 Hz, fase zero) preserva perfeitamente ondas P, QRS, ST e T; a via de detecção QRS implementa fielmente Pan & Tompkins e Hamilton & Tompkins.">
       <div class="slide-header">
         <h2>Arquitetura de Processamento Digital de Sinais</h2>
-        <span class="slide-tag">Pipeline em Cascata</span>
+        <span class="slide-tag"><span class="live-dot"></span> Fluxo em Cascata</span>
       </div>
       <div class="slide-body">
-        <div class="pipeline-flow">
-          <div class="pipe-step">
+        <div class="pipeline-flow" id="pipelineFlow">
+          <div class="pipe-step anim d1">
             <span class="pipe-num">01 · AQUISIÇÃO</span>
             <h4>Sinal Discreto x[n]</h4>
             <p>Base MIT-BIH (360 Hz, .dat/.hea/.atr) ou upload de .csv/.txt. Alerta automático para exames em .pdf já filtrados.</p>
           </div>
-          <div class="pipe-step step-lit">
+          <div class="pipe-step step-lit anim d2">
             <span class="pipe-num">02 · LIT FASE ZERO</span>
             <h4>Notch + Butterworth</h4>
             <p>Notch 60 Hz (Q=30) + Butterworth 0,5–40 Hz (ordem 4) aplicados com <strong>filtfilt</strong>: zero deslocamento temporal.</p>
           </div>
-          <div class="pipe-step step-qrs">
+          <div class="pipe-step step-qrs anim d3">
             <span class="pipe-num">03 · PAN-TOMPKINS</span>
             <h4>Realce do QRS</h4>
             <p>Passa-faixa 5–15 Hz → Derivada 5 pontos (δ[n]=u[n]−u[n−1]) → Quadratura y² → Janela Móvel 150 ms.</p>
           </div>
-          <div class="pipe-step step-qrs">
+          <div class="pipe-step step-qrs anim d4">
             <span class="pipe-num">04 · HAMILTON</span>
             <h4>Decisão Adaptativa</h4>
             <p>Limiares SPKI/NPKI, período refratário <strong>≥ 200 ms</strong>, rejeição de onda T (200–360 ms) e <em>search-back</em>.</p>
           </div>
-          <div class="pipe-step step-lit">
+          <div class="pipe-step step-lit anim d5">
             <span class="pipe-num">05 · MÉTRICAS &amp; FFT</span>
             <h4>Triagem &amp; Parseval</h4>
             <p>Período discreto N̄, R-R médio, BPM, SDNN, classificação (60–120 BPM) e espectro FFT + Parseval.</p>
           </div>
         </div>
 
-        <div class="split" style="height:auto;">
+        <div class="split anim d6" style="height:auto;">
           <div class="eq-box">
             y_d[n] = (fs/8) · (2x[n+2] + x[n+1] − x[n−1] − 2x[n−2])
           </div>
@@ -696,17 +813,17 @@
         <span class="slide-tag">Plano Z &amp; Bode</span>
       </div>
       <div class="slide-body">
-        <div class="fig-frame">
+        <div class="fig-frame anim-scale">
           <img src="./figuras/resposta_filtros_lit.png" alt="Resposta em frequência e estabilidade BIBO no Plano Z" />
         </div>
         <div class="grid-3">
-          <div class="eq-box" style="font-size:13px;">
+          <div class="eq-box anim d2" style="font-size:13px;">
             H_ef(e^{jω}) = |H(e^{jω})|² · ∠H_ef = 0°
           </div>
-          <div class="eq-box" style="font-size:13px; border-left-color: var(--green);">
+          <div class="eq-box anim d3" style="font-size:13px; border-left-color: var(--green);">
             Estabilidade BIBO: max |pᵢ| = 0,99672 &lt; 1
           </div>
-          <div class="eq-box" style="font-size:13px; border-left-color: var(--crimson);">
+          <div class="eq-box anim d4" style="font-size:13px; border-left-color: var(--crimson);">
             Preserva pico R e segmento ST sem atraso
           </div>
         </div>
@@ -721,10 +838,10 @@
     <section class="slide" data-notes="Destacar o contraste visual no Registro 105 do MIT-BIH: o sinal bruto oscila quase 4 mV por causa da respiração e movimentação; após a filtragem LIT de fase zero, a linha de base fica plana em 0 mV e todos os 14 batimentos da janela são marcados com precisão sobre o papel milimetrado.">
       <div class="slide-header">
         <h2>Resultado Temporal: Antes × Depois em Papel Milimetrado</h2>
-        <span class="slide-tag">MIT-BIH Reg. 105</span>
+        <span class="slide-tag">MIT-BIH Reg. 105 · 14/14 Picos R</span>
       </div>
       <div class="slide-body">
-        <div class="fig-frame">
+        <div class="fig-frame anim-scale">
           <img src="./figuras/comparacao_ecg.png" alt="Comparação ECG Antes e Depois no Registro 105" />
         </div>
       </div>
@@ -742,24 +859,24 @@
       </div>
       <div class="slide-body">
         <div class="split-60-40">
-          <div class="fig-frame" style="height:100%;">
+          <div class="fig-frame anim-scale" style="height:100%;">
             <img src="./figuras/espectro_fft.png" alt="Espectro FFT Antes e Depois com Parseval" />
           </div>
           <div style="display:flex; flex-direction:column; gap:10px;">
-            <div class="eq-box" style="font-size:13.5px;">
+            <div class="eq-box anim d1" style="font-size:13.5px;">
               P_d = (1/M) Σ|x[n]|² = Σ|c_k|²<br/>
               <span style="font-size:11.5px; color:var(--muted);">Erro de identidade: 3,88 × 10⁻¹⁶</span>
             </div>
-            <div class="card card-accent-crimson">
-              <div class="big-num crimson">99,99%</div>
+            <div class="card card-accent-crimson anim d2">
+              <div class="big-num crimson" data-count-to="99.99" data-suffix="%" data-decimals="2">99,99%</div>
               <div class="kpi-caption">Atenuação na rede elétrica (<strong>60 Hz</strong>, Notch Q=30)</div>
             </div>
-            <div class="card card-accent-teal">
-              <div class="big-num teal">98,52%</div>
+            <div class="card card-accent-teal anim d3">
+              <div class="big-num teal" data-count-to="98.52" data-suffix="%" data-decimals="2">98,52%</div>
               <div class="kpi-caption">Atenuação na linha de base (<strong>&lt; 0,5 Hz</strong>, respiração)</div>
             </div>
-            <div class="card card-accent-navy">
-              <div class="big-num">96,91%</div>
+            <div class="card card-accent-navy anim d4">
+              <div class="big-num" data-count-to="96.91" data-suffix="%" data-decimals="2">96,91%</div>
               <div class="kpi-caption">Atenuação em alta frequência (<strong>&gt; 40 Hz</strong>, EMG) · <strong>37,8%</strong> potência total removida</div>
             </div>
           </div>
@@ -771,7 +888,7 @@
       </div>
     </section>
 
-    <!-- ==================== SLIDE 8: VALIDAÇÃO MIT-BIH (CHART.JS) ==================== -->
+    <!-- ==================== SLIDE 8: VALIDAÇÃO MIT-BIH (CHART.JS ANIMADO) ==================== -->
     <section class="slide" data-notes="Comprovação quantitativa frente à literatura do Relatório 1: 13.171 batimentos reais validados contra anotações .atr de cardiologistas com tolerância padrão de ±150 ms. Quatro registros tiveram 100% de sensibilidade; o global de 99,80% Se e 99,44% F1 equipara-se a Pan & Tompkins (1985) e Hamilton & Tompkins (1986).">
       <div class="slide-header">
         <h2>Validação Quantitativa no MIT-BIH vs. Literatura</h2>
@@ -779,32 +896,32 @@
       </div>
       <div class="slide-body">
         <div class="grid-4">
-          <div class="card card-accent-teal">
-            <div class="big-num teal">99,80%</div>
+          <div class="card card-accent-teal anim d1">
+            <div class="big-num teal" data-count-to="99.80" data-suffix="%" data-decimals="2">99,80%</div>
             <div class="kpi-caption">Sensibilidade Global (13.144 TP · 27 FN)</div>
           </div>
-          <div class="card card-accent-navy">
-            <div class="big-num">99,09%</div>
+          <div class="card card-accent-navy anim d2">
+            <div class="big-num" data-count-to="99.09" data-suffix="%" data-decimals="2">99,09%</div>
             <div class="kpi-caption">Precisão / +P Global (121 FP em 180,5 min)</div>
           </div>
-          <div class="card card-accent-crimson">
-            <div class="big-num crimson">99,44%</div>
+          <div class="card card-accent-crimson anim d3">
+            <div class="big-num crimson" data-count-to="99.44" data-suffix="%" data-decimals="2">99,44%</div>
             <div class="kpi-caption">F1-Score Global (tolerância ±150 ms)</div>
           </div>
-          <div class="card">
+          <div class="card anim d4">
             <div class="big-num green">4 / 6</div>
             <div class="kpi-caption">Registros com <strong>100,0%</strong> de sensibilidade (100, 119, 231, 209)</div>
           </div>
         </div>
 
         <div class="split-60-40" style="flex:1; min-height:0;">
-          <div class="card" style="height:100%; display:flex; flex-direction:column;">
-            <h3>F1-Score por Registro MIT-BIH (30 min cada)</h3>
+          <div class="card anim d4" style="height:100%; display:flex; flex-direction:column;">
+            <h3>Sensibilidade &amp; F1-Score por Registro MIT-BIH (30 min cada)</h3>
             <div style="flex:1; min-height:0; position:relative;">
               <canvas id="validationChart"></canvas>
             </div>
           </div>
-          <div class="card" style="height:100%; display:flex; flex-direction:column; justify-content:center;">
+          <div class="card anim d5" style="height:100%; display:flex; flex-direction:column; justify-content:center;">
             <h3>Comparação com a Literatura (Rel. 1)</h3>
             <table class="clean-table" style="margin-top:6px;">
               <thead>
@@ -836,20 +953,20 @@
         <span class="slide-tag">Bradicardia · Arritmia · Taquicardia</span>
       </div>
       <div class="slide-body">
-        <div class="fig-frame">
+        <div class="fig-frame anim-scale">
           <img src="./figuras/anomalias_clinicas.png" alt="Anomalias clínicas reais do MIT-BIH" />
         </div>
         <div class="grid-3">
-          <div class="card card-accent-crimson" style="padding:10px 14px;">
-            <h3>1. Bradicardia (Reg. 231)</h3>
+          <div class="card card-accent-crimson anim d2" style="padding:10px 14px;">
+            <h3><span class="live-dot"></span> 1. Bradicardia (Reg. 231)</h3>
             <p><strong>34,2 BPM</strong> · N̄ = 631 amostras · Bloqueio AV 2º grau (alerta &lt; 60 BPM).</p>
           </div>
-          <div class="card card-accent-amber" style="padding:10px 14px;">
-            <h3>2. Arritmia / PVCs (Reg. 119)</h3>
+          <div class="card card-accent-amber anim d3" style="padding:10px 14px;">
+            <h3><span class="live-dot amber"></span> 2. Arritmia / PVCs (Reg. 119)</h3>
             <p><strong>65,5 BPM</strong> (normal), mas <strong>SDNN = 359,5 ms</strong> acusa perda de periodicidade!</p>
           </div>
-          <div class="card card-accent-crimson" style="padding:10px 14px;">
-            <h3>3. Taquicardia (Reg. 209)</h3>
+          <div class="card card-accent-crimson anim d4" style="padding:10px 14px;">
+            <h3><span class="live-dot"></span> 3. Taquicardia (Reg. 209)</h3>
             <p><strong>161,9 BPM</strong> · N̄ = 133 amostras · Episódio supraventricular (&gt; 120 BPM).</p>
           </div>
         </div>
@@ -860,15 +977,15 @@
       </div>
     </section>
 
-    <!-- ==================== SLIDE 10: DEMO AO VIVO ==================== -->
-    <section class="slide slide-ecg-paper" data-notes="Hora da demonstração ao vivo! Clique no botão vermelho 'Abrir Monitor ECG Ao Vivo' — mostre o Reg. 105 (desligando/ligando Notch e Passa-Faixa), pule para 231 (Bradicardia) e 209 (Taquicardia), e depois arraste exemplo_ruidoso_mitbih.csv e um PDF qualquer para mostrar o alerta técnico.">
-      <div class="slide-header" style="background:rgba(255,255,255,0.9); padding:10px 14px; border-radius:8px;">
+    <!-- ==================== SLIDE 10: DEMO AO VIVO (SEMPRE ABRE NO GITHUB PAGES!) ==================== -->
+    <section class="slide slide-ecg-paper" data-notes="Hora da demonstração ao vivo! Clique no botão vermelho 'Abrir Monitor ECG no GitHub Pages' — ele abre direto no link público https://rlasmar-uff.github.io/ECG-Digital/. Mostre o Reg. 105 (ligando/desligando filtros), 231 (Bradicardia), 209 (Taquicardia), e arraste exemplo_ruidoso_mitbih.csv e um PDF.">
+      <div class="slide-header" style="background:rgba(255,255,255,0.92); padding:10px 14px; border-radius:8px;">
         <h2>Demonstração Ao Vivo do Produto Computacional</h2>
-        <span class="slide-tag">60 FPS · Web + Python</span>
+        <span class="slide-tag"><span class="live-dot green"></span> Online no GitHub Pages</span>
       </div>
       <div class="slide-body">
         <div class="split">
-          <div class="card" style="background:rgba(255,255,255,0.96);">
+          <div class="card anim d1" style="background:rgba(255,255,255,0.96);">
             <h3>Roteiro da Demonstração em Sala</h3>
             <ul style="margin-top:8px;">
               <li><strong>1. Filtragem ao vivo (Reg. 105):</strong> ligar/desligar Notch 60 Hz e Butterworth 0,5–40 Hz em tempo real e alternar para <em>Sobreposição Direta</em> (prova visual da fase zero).</li>
@@ -878,17 +995,22 @@
             </ul>
           </div>
 
-          <div class="card card-accent-navy" style="background:rgba(255,255,255,0.96); display:flex; flex-direction:column; gap:14px; align-items:flex-start;">
-            <h3>Arquitetura Dupla (Local + GitHub Pages)</h3>
+          <div class="card card-accent-navy anim d2" style="background:rgba(255,255,255,0.96); display:flex; flex-direction:column; gap:12px; align-items:flex-start;">
+            <h3>100% no Navegador via GitHub Pages</h3>
             <p>
-              Roda tanto localmente com <strong>FastAPI + SciPy</strong> (exames completos de 30 min) quanto <strong>100% no navegador via GitHub Pages</strong> usando nosso motor DSP em JavaScript puro — privacidade total e zero instalação!
+              Todo o motor de Sinais e Sistemas (Notch 60 Hz, Butterworth fase zero, Pan-Tompkins, FFT Bluestein e Parseval) roda direto no navegador do usuário — sem instalar Python e preservando a privacidade dos exames!
             </p>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;">
-              <a class="cta-btn" href="../index.html" target="_blank" rel="noopener">
-                🫀 Abrir Monitor ECG Ao Vivo ↗
+            <div class="live-ecg-strip" style="height:68px;">
+              <canvas id="demoEcgCanvas"></canvas>
+              <div class="strip-hud"><span class="live-dot"></span> TAQUICARDIA DEMO</div>
+              <div class="strip-bpm" style="color:#FCA5A5;">162 BPM</div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:2px;">
+              <a class="cta-btn" href="https://rlasmar-uff.github.io/ECG-Digital/" target="_blank" rel="noopener">
+                🫀 Abrir Monitor ECG no GitHub Pages ↗
               </a>
               <a class="cta-btn-outline" href="https://github.com/rlasmar-uff/ECG-Digital" target="_blank" rel="noopener">
-                Ver Código no GitHub ↗
+                Repositório GitHub ↗
               </a>
             </div>
             <span class="mono" style="font-size:12px; color:var(--teal);">
@@ -911,7 +1033,7 @@
       </div>
       <div class="slide-body">
         <div class="split">
-          <div class="card card-accent-amber" style="height:100%;">
+          <div class="card card-accent-amber anim d1" style="height:100%;">
             <h3>Limitações Reconhecidas</h3>
             <ul style="margin-top:8px;">
               <li><strong>Suporte à triagem, não laudo final:</strong> mede frequência cardíaca e regularidade temporal (BPM/SDNN), mas não substitui avaliação médica completa de ondas P, PR, QT e isquemia.</li>
@@ -919,7 +1041,7 @@
               <li><strong>Artefatos extremos de eletrodo solto:</strong> saturações abruptas em <code>105</code> e <code>108</code> respondem pela maioria dos 121 FP.</li>
             </ul>
           </div>
-          <div class="card card-accent-teal" style="height:100%;">
+          <div class="card card-accent-teal anim d2" style="height:100%;">
             <h3>Evoluções Futuras</h3>
             <ul style="margin-top:8px;">
               <li><strong>Delineamento completo P-QRS-T:</strong> medição automática de intervalo PR, duração do QRS e desnível do segmento ST.</li>
@@ -941,31 +1063,31 @@
       <div class="slide-body">
         <div class="hero-card" style="border-left-color: var(--crimson);">
           <div class="split-60-40">
-            <div style="display:flex; flex-direction:column; gap:14px;">
-              <span class="slide-tag" style="align-self:flex-start;">Acesso Aberto · Extensão UFF 2026/2</span>
-              <h2 style="font-size:clamp(24px, 3vw, 42px); color:var(--navy); line-height:1.12;">
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <span class="slide-tag anim d1" style="align-self:flex-start;"><span class="live-dot green"></span> Acesso Aberto · Extensão UFF 2026/2</span>
+              <h2 class="anim d2" style="font-size:clamp(24px, 2.9vw, 40px); color:var(--navy); line-height:1.12;">
                 Teste agora no seu celular ou navegador!
               </h2>
-              <p style="font-size:clamp(13px, 1.25vw, 17px); color:#334155;">
+              <p class="anim d3" style="font-size:clamp(13px, 1.2vw, 16.5px); color:#334155;">
                 Escaneie o QR Code ao lado para explorar os 6 registros reais do MIT-BIH, testar os filtros LIT de fase zero, visualizar a FFT/Parseval e enviar arquivos de ECG diretamente no navegador.
               </p>
-              <div class="eq-box" style="font-size:clamp(12px, 1.15vw, 16px);">
-                Site: https://rlasmar-uff.github.io/ECG-Digital/<br/>
-                Repo: https://github.com/rlasmar-uff/ECG-Digital
+              <div class="eq-box anim d4" style="font-size:clamp(11.5px, 1.08vw, 15px);">
+                Site: <a href="https://rlasmar-uff.github.io/ECG-Digital/" target="_blank" rel="noopener" style="color:var(--navy);">https://rlasmar-uff.github.io/ECG-Digital/</a><br/>
+                Repo: <a href="https://github.com/rlasmar-uff/ECG-Digital" target="_blank" rel="noopener" style="color:var(--teal);">https://github.com/rlasmar-uff/ECG-Digital</a>
               </div>
-              <p style="font-size:clamp(12px, 1vw, 14px); color:var(--muted);">
+              <p class="anim d5" style="font-size:clamp(12px, 1vw, 14px); color:var(--muted);">
                 <strong>Obrigado!</strong> Aberto para perguntas e demonstração interativa.
               </p>
             </div>
-            <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
-              <div style="background:#FFFFFF; padding:14px; border-radius:12px; border:2px solid var(--navy); box-shadow:0 10px 26px rgba(11,37,69,0.14);">
-                <img src="./figuras/qrcode_app.png" alt="QR Code para https://rlasmar-uff.github.io/ECG-Digital/" style="width:clamp(170px, 18vw, 240px); height:auto; display:block;" />
-              </div>
-              <span class="mono" style="font-size:12px; font-weight:600; color:var(--navy);">Escaneie para abrir o App ECG</span>
+            <div class="anim-scale" style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+              <a href="https://rlasmar-uff.github.io/ECG-Digital/" target="_blank" rel="noopener" class="qr-box" title="Abrir https://rlasmar-uff.github.io/ECG-Digital/">
+                <img src="./figuras/qrcode_app.png" alt="QR Code para https://rlasmar-uff.github.io/ECG-Digital/" style="width:clamp(168px, 17.5vw, 235px); height:auto; display:block;" />
+              </a>
+              <span class="mono" style="font-size:12px; font-weight:600; color:var(--navy);">Escaneie ou clique para abrir</span>
             </div>
           </div>
 
-          <div class="team-grid" style="margin-top:6px;">
+          <div class="team-grid anim d6" style="margin-top:4px;">
             <div class="team-chip"><strong>Cauã Sales Cardoso de Carvalho</strong><span>221038054</span></div>
             <div class="team-chip"><strong>Livia da Conceição Paes</strong><span>221038088</span></div>
             <div class="team-chip"><strong>Mateus Figueiredo Abreu</strong><span>122038027</span></div>
@@ -1003,16 +1125,201 @@
       const slides = Array.from(document.querySelectorAll(".slide"));
       const total = slides.length;
       let current = 1;
-      let chartCreated = false;
+      let valChart = null;
+      let pipeTimer = null;
 
       document.getElementById("totNum").textContent = total;
 
-      function renderValidationChart() {
-        if (chartCreated || typeof Chart === "undefined") return;
+      // -----------------------------------------------------------------------
+      // 1. Motor de Osciloscópio ECG Real-Time 60 FPS (gera o traçado ao vivo!)
+      // -----------------------------------------------------------------------
+      function ecgSampleAtPhase(phi) {
+        // Modelo fisiológico P-QRS-T limpo com fase phi em [0, 1)
+        const g = (c, w, a) => a * Math.exp(-0.5 * ((phi - c) / w) ** 2);
+        return (
+          g(0.16, 0.026, 0.13) +   // Onda P
+          g(0.285, 0.008, -0.15) + // Onda Q
+          g(0.312, 0.011, 1.05) +  // Pico R agudo
+          g(0.340, 0.010, -0.28) + // Onda S
+          g(0.54, 0.046, 0.28)     // Onda T
+        );
+      }
+
+      function createLiveEcgMonitor(canvasId, { bpm = 72, traceColor = "#4ADE80", glowColor = "rgba(74, 222, 128, 0.55)", speedPxPerSec = 145 }) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return null;
+        const ctx = canvas.getContext("2d");
+        let w = 0, h = 0, dpr = 1;
+        let bufferY = [];
+        let cursorX = 0;
+        let simTime = 0;
+        let lastTs = 0;
+
+        function resize() {
+          dpr = Math.min(window.devicePixelRatio || 1, 2);
+          const rect = canvas.getBoundingClientRect();
+          if (rect.width < 20 || rect.height < 20) return;
+          w = Math.floor(rect.width);
+          h = Math.floor(rect.height);
+          canvas.width = w * dpr;
+          canvas.height = h * dpr;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          bufferY = new Array(w).fill(null);
+          cursorX = 0;
+        }
+
+        function tick(ts) {
+          if (!lastTs) lastTs = ts;
+          const dt = Math.min(0.05, (ts - lastTs) / 1000);
+          lastTs = ts;
+
+          const rect = canvas.getBoundingClientRect();
+          if (rect.width > 20 && (Math.floor(rect.width) !== w || Math.floor(rect.height) !== h)) {
+            resize();
+          }
+          if (w < 20) return;
+
+          const pxAdvance = Math.max(1, Math.round(speedPxPerSec * dt));
+          const beatPeriod = 60 / bpm;
+          const baseLine = h * 0.68;
+          const ampScale = h * 0.50;
+
+          for (let step = 0; step < pxAdvance; step++) {
+            simTime += dt / pxAdvance;
+            const phi = (simTime % beatPeriod) / beatPeriod;
+            const val = ecgSampleAtPhase(phi);
+            bufferY[cursorX] = baseLine - val * ampScale;
+            cursorX = (cursorX + 1) % w;
+            // Cria a lacuna de varredura clássica de monitor cardíaco hospitalar
+            for (let g = 0; g < 22; g++) {
+              bufferY[(cursorX + g) % w] = null;
+            }
+          }
+
+          // Desenha fundo + grade sutil de osciloscópio clínico
+          ctx.fillStyle = "#08182E";
+          ctx.fillRect(0, 0, w, h);
+
+          ctx.strokeStyle = "rgba(56, 189, 248, 0.11)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          for (let gx = 0; gx < w; gx += 24) { ctx.moveTo(gx + 0.5, 0); ctx.lineTo(gx + 0.5, h); }
+          for (let gy = 0; gy < h; gy += 24) { ctx.moveTo(0, gy + 0.5); ctx.lineTo(w, gy + 0.5); }
+          ctx.stroke();
+
+          // Desenha traçado contínuo com brilho de fósforo
+          ctx.save();
+          ctx.strokeStyle = traceColor;
+          ctx.lineWidth = 2.2;
+          ctx.lineJoin = "round";
+          ctx.shadowColor = glowColor;
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          let drawing = false;
+          for (let x = 0; x < w; x++) {
+            const y = bufferY[x];
+            if (y === null) {
+              drawing = false;
+              continue;
+            }
+            if (!drawing) {
+              ctx.moveTo(x, y);
+              drawing = true;
+            } else {
+              ctx.lineTo(x, y);
+            }
+          }
+          ctx.stroke();
+
+          // Ponto brilhante na ponta da varredura
+          const headX = (cursorX - 1 + w) % w;
+          const headY = bufferY[headX];
+          if (headY !== null) {
+            ctx.fillStyle = "#FFFFFF";
+            ctx.shadowColor = traceColor;
+            ctx.shadowBlur = 14;
+            ctx.beginPath();
+            ctx.arc(headX, headY, 3.6, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+        }
+
+        resize();
+        return { tick, resize };
+      }
+
+      const heroMonitor = createLiveEcgMonitor("heroEcgCanvas", { bpm: 72, traceColor: "#4ADE80", glowColor: "rgba(74,222,128,0.6)", speedPxPerSec: 155 });
+      const demoMonitor = createLiveEcgMonitor("demoEcgCanvas", { bpm: 162, traceColor: "#F87171", glowColor: "rgba(248,113,113,0.65)", speedPxPerSec: 175 });
+
+      function animationLoop(ts) {
+        if (current === 1 && heroMonitor) heroMonitor.tick(ts);
+        if (current === 10 && demoMonitor) demoMonitor.tick(ts);
+        requestAnimationFrame(animationLoop);
+      }
+      requestAnimationFrame(animationLoop);
+
+      // -----------------------------------------------------------------------
+      // 2. Contadores Animados (Count-Up nos KPIs ao entrar nos slides 2, 7, 8)
+      // -----------------------------------------------------------------------
+      function animateCountersIn(slideEl) {
+        const els = slideEl.querySelectorAll("[data-count-to]");
+        els.forEach((el) => {
+          const target = parseFloat(el.dataset.countTo);
+          const dec = parseInt(el.dataset.decimals || "0", 10);
+          const prefix = el.dataset.prefix || "";
+          const suffix = el.dataset.suffix || "";
+          const dur = 780;
+          const start = performance.now();
+          const startVal = target > 80 ? Math.max(0, target - 18) : 0;
+
+          function step(now) {
+            const p = Math.min(1, (now - start) / dur);
+            const eased = 1 - Math.pow(1 - p, 3);
+            const val = startVal + (target - startVal) * eased;
+            el.textContent = prefix + val.toFixed(dec).replace(".", ",") + suffix;
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      }
+
+      // -----------------------------------------------------------------------
+      // 3. Destaque Sequencial do Pipeline no Slide 4
+      // -----------------------------------------------------------------------
+      function startPipelinePulse() {
+        stopPipelinePulse();
+        const steps = Array.from(document.querySelectorAll("#pipelineFlow .pipe-step"));
+        if (steps.length === 0) return;
+        let idx = 0;
+        const paint = () => {
+          steps.forEach((s, i) => s.classList.toggle("pipe-active", i === idx));
+          idx = (idx + 1) % steps.length;
+        };
+        paint();
+        pipeTimer = setInterval(paint, 1400);
+      }
+
+      function stopPipelinePulse() {
+        if (pipeTimer) {
+          clearInterval(pipeTimer);
+          pipeTimer = null;
+        }
+      }
+
+      // -----------------------------------------------------------------------
+      // 4. Gráfico Chart.js Animado no Slide 8
+      // -----------------------------------------------------------------------
+      function renderValidationChart(forceReplay = false) {
+        if (typeof Chart === "undefined") return;
         const ctx = document.getElementById("validationChart");
         if (!ctx) return;
-        chartCreated = true;
-        new Chart(ctx, {
+        if (valChart && forceReplay) {
+          valChart.destroy();
+          valChart = null;
+        }
+        if (valChart) return;
+        valChart = new Chart(ctx, {
           type: "bar",
           data: {
             labels: ["100\nNormal", "105\nRuído", "108\nDeriva", "119\nPVCs", "231\nBradic.", "209\nTaquic.", "GLOBAL\n(13.171)"],
@@ -1034,6 +1341,7 @@
           options: {
             responsive: true,
             maintainAspectRatio: false,
+            animation: { duration: 900, easing: "easeOutQuart" },
             plugins: {
               legend: { position: "top", labels: { font: { family: "IBM Plex Sans", size: 11 } } },
             },
@@ -1053,13 +1361,22 @@
         });
       }
 
+      // -----------------------------------------------------------------------
+      // 5. Navegação entre Slides
+      // -----------------------------------------------------------------------
       function show(n) {
         current = Math.max(1, Math.min(total, n));
         slides.forEach((s, i) => s.classList.toggle("active", i === current - 1));
+        const activeSlide = slides[current - 1];
         document.getElementById("curNum").textContent = current;
         document.getElementById("progressBar").style.width = `${(current / total) * 100}%`;
-        document.getElementById("notesText").textContent = slides[current - 1].dataset.notes || "";
-        if (current === 8) renderValidationChart();
+        document.getElementById("notesText").textContent = activeSlide.dataset.notes || "";
+
+        animateCountersIn(activeSlide);
+        if (current === 4) startPipelinePulse();
+        else stopPipelinePulse();
+
+        if (current === 8) renderValidationChart(true);
       }
 
       document.getElementById("btnPrev").addEventListener("click", () => show(current - 1));
@@ -1072,8 +1389,8 @@
         else document.exitFullscreen().catch(() => {});
       });
       document.getElementById("btnPrint").addEventListener("click", () => {
-        renderValidationChart();
-        setTimeout(() => window.print(), 200);
+        renderValidationChart(false);
+        setTimeout(() => window.print(), 250);
       });
 
       document.addEventListener("keydown", (e) => {
