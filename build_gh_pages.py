@@ -53,10 +53,11 @@ def main() -> None:
         shutil.copy2(WEB_DIR / fname, DOCS_DIR / fname)
     (DOCS_DIR / ".nojekyll").write_text("", encoding="utf-8")
 
-    # 1b) Copia apresentação interativa + figuras 300 DPI + QR Code para docs/apresentacao/
+    # 1b) Copia apresentação interativa + figuras 16:9 + QR Code para docs/apresentacao/
     if (SLIDES_DIR / "index.html").exists():
         DOCS_SLIDES_DIR.mkdir(parents=True, exist_ok=True)
         DOCS_SLIDES_FIG_DIR.mkdir(parents=True, exist_ok=True)
+        (SLIDES_DIR / "figuras").mkdir(parents=True, exist_ok=True)
         shutil.copy2(SLIDES_DIR / "index.html", DOCS_SLIDES_DIR / "index.html")
         for fig_name in (
             "comparacao_ecg.png",
@@ -67,10 +68,10 @@ def main() -> None:
         ):
             src_fig = OUTPUTS_DIR / fig_name
             if src_fig.exists():
-                shutil.copy2(src_fig, DOCS_SLIDES_FIG_DIR / fig_name)
-                # Também espelha em apresentacao/figuras para abrir localmente offline
-                (SLIDES_DIR / "figuras").mkdir(parents=True, exist_ok=True)
                 shutil.copy2(src_fig, SLIDES_DIR / "figuras" / fig_name)
+        # Espelha todas as figuras (incluindo as 10 figuras widescreen 16:9 dedicadas) para docs/
+        for png in sorted((SLIDES_DIR / "figuras").glob("*.png")):
+            shutil.copy2(png, DOCS_SLIDES_FIG_DIR / png.name)
 
     # 2) Gera data/meta.json (mesmo schema de GET /api/meta)
     val_csv = OUTPUTS_DIR / "tabela_validacao_mitbih.csv"
