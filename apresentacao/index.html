@@ -55,6 +55,7 @@
     .eq-box .katex { font-size: 1.08em; }
     .eq-box.eq-compact .katex { font-size: 1.02em; }
     .slide-header h2 .katex { font-size: 0.96em; color: var(--navy); }
+    .chapter-kicker .katex { text-transform: none; color: inherit; font-size: 1.08em; }
     .slide-tag .katex { font-size: 0.96em; color: inherit; }
 
     /* Barra de progresso no topo */
@@ -382,6 +383,78 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: clamp(9px, 1.15vw, 15px);
     }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(8px, 1.05vw, 13px);
+    }
+
+    .course-card {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--navy);
+      border-radius: 9px;
+      padding: clamp(8px, 1vw, 12px) clamp(10px, 1.15vw, 14px);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .course-card.c-teal { border-top-color: var(--teal); background: #F0FDFA; border-color: #99F6E4; }
+    .course-card.c-crimson { border-top-color: var(--crimson); background: #FEF2F2; border-color: #FECACA; }
+    .course-card.c-amber { border-top-color: var(--amber); background: #FFFBEB; border-color: #FDE68A; }
+    .course-card.c-green { border-top-color: var(--green); background: #F0FDF4; border-color: #BBF7D0; }
+    .course-card.c-purple { border-top-color: var(--purple); background: #F5F3FF; border-color: #DDD6FE; }
+
+    .course-badge {
+      font-family: var(--font-mono);
+      font-size: clamp(9.5px, 0.8vw, 11px);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--teal);
+    }
+    .course-card.c-crimson .course-badge { color: var(--crimson); }
+    .course-card.c-amber .course-badge { color: var(--amber); }
+    .course-card.c-green .course-badge { color: var(--green); }
+    .course-card.c-purple .course-badge { color: var(--purple); }
+    .course-card h4 { font-size: clamp(12px, 1.05vw, 14.5px); color: var(--navy); line-height: 1.22; }
+    .course-card p { font-size: clamp(10.5px, 0.88vw, 12.5px); color: #334155; line-height: 1.36; }
+    .course-card .where {
+      margin-top: auto;
+      padding-top: 4px;
+      border-top: 1px dashed rgba(15, 23, 42, 0.14);
+      font-size: clamp(10px, 0.84vw, 11.8px);
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .code-snippet {
+      background: #0F172A;
+      color: #E2E8F0;
+      font-family: var(--font-mono);
+      font-size: clamp(10.2px, 0.86vw, 12px);
+      line-height: 1.48;
+      padding: 8px 11px;
+      border-radius: 7px;
+      border-left: 4px solid var(--teal);
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .code-snippet .kw { color: #7DD3FC; }
+    .code-snippet .cm { color: #94A3B8; font-style: italic; }
+    .code-snippet .hi { color: #86EFAC; font-weight: 600; }
+
+    .biquad-svg-wrap {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .biquad-svg-wrap svg { width: 100%; height: auto; max-height: 215px; display: block; }
 
     .card {
       background: #F8FAFC;
@@ -753,7 +826,7 @@
   <main class="deck" id="deck">
 
     <!-- ==================== SLIDE 01: CAPA COM MONITOR ECG AO VIVO ==================== -->
-    <section class="slide slide-ecg-paper active" data-title="Capa — Projeto ECG Digital" data-notes="Apresentar o tema do trabalho de extensão, destacar a equipe em ordem alfabética e apontar o monitor ECG ao vivo na tela: hoje vamos explicar desde o problema clínico real ouvido na entrevista até todas as equações por baixo dos panos (Notch 60 Hz, Butterworth SOS, Fase Zero, Plano Z, Pan-Tompkins, FFT/Parseval, anomalias reais e o site público).">
+    <section class="slide slide-ecg-paper active" data-title="Capa — Projeto ECG Digital" data-notes="Apresentar o tema do trabalho de extensão (Aula 1, Slide 8), destacar a equipe em ordem alfabética e apontar o monitor ECG ao vivo na tela: hoje vamos mostrar como TODAS as 16 aulas da disciplina (Sinais Básicos, Somatórios, Séries, Propriedades de Sistemas, Convolução, Equações de Diferenças, Laplace, 2ª Ordem, Fourier, Amostragem, DTFT/DFT, Transformada Z e Espaço de Estados) operam juntas por baixo dos panos no nosso produto aberto!">
       <div class="slide-body">
         <div class="hero-card">
           <div class="hero-meta anim d1">
@@ -763,7 +836,7 @@
 
           <h1 class="hero-title anim d2">Suporte Computacional para Diagnóstico de Exames Biomédicos (ECG)</h1>
           <p class="hero-sub anim d3">
-            Da teoria de <strong>Sinais e Sistemas</strong> ao produto aberto: filtragem digital LIT de fase zero, detecção de picos R (Pan-Tompkins / Hamilton-Tompkins), análise espectral (FFT/Parseval) e validação em <strong>13.171 batimentos reais</strong> do MIT-BIH.
+            <strong>Das Aulas 1 a 16 de Sinais e Sistemas ao produto aberto:</strong> amostragem, sistemas LIT de fase zero, Transformada Z, <strong>Espaço de Estados nos biquads SOS</strong>, Pan-Tompkins, DFT/Parseval e validação em <strong>13.171 batimentos reais</strong> do MIT-BIH.
           </p>
 
           <div class="live-ecg-strip anim d4" aria-label="Monitor ECG animado em tempo real">
@@ -782,16 +855,16 @@
         </div>
       </div>
       <div class="slide-footer">
-        <span>Atividade Extensionista 1 · Sinais e Sistemas (2º Semestre de 2026)</span>
+        <span>Atividade Extensionista 1 (Aula 1, Slide 8) · Sinais e Sistemas · 2º Semestre de 2026</span>
         <span class="mono">← → navegar · G índice · F tela cheia · N roteiro</span>
       </div>
     </section>
 
     <!-- ==================== SLIDE 02: PROBLEMA CLÍNICO REAL ==================== -->
-    <section class="slide" data-title="O Problema Clínico Real" data-notes="Antes de programar, realizamos a entrevista de campo (Relatórios 2 e 3) para entender os gargalos reais da interpretação rotineira de ECGs. Destacar a dor crítica: filtros comerciais causais distorcem o pico R e o segmento ST!">
+    <section class="slide" data-title="O Problema Clínico Real" data-notes="Antes de programar, realizamos a entrevista de campo prevista na Atividade Extensionista 1 da Aula 1 (Relatórios 2 e 3) para entender os gargalos reais da interpretação rotineira de ECGs. Destacar a dor crítica: filtros comerciais causais distorcem o pico R e o segmento ST!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">01 · Contexto &amp; Extensão</span>
+          <span class="chapter-kicker">01 · Contexto &amp; Extensão · Aula 1 (Slide 8)</span>
           <h2>O Problema Clínico Real (Levantamento em Campo)</h2>
         </div>
         <span class="slide-tag">Relatórios 2 &amp; 3</span>
@@ -832,18 +905,18 @@
       </div>
       <div class="slide-footer">
         <span>UFF · Sinais e Sistemas · Levantamento extensionista sem exposição de dados pessoais</span>
-        <span class="mono">02 / 23</span>
+        <span class="mono">02 / 25</span>
       </div>
     </section>
 
     <!-- ==================== SLIDE 03: TRAJETÓRIA EXTENSIONISTA ==================== -->
-    <section class="slide" data-title="Trajetória do Projeto (Aula 1)" data-notes="Mostrar o encadeamento das 4 etapas exigidas na Aula 1: cada relatório alimentou tecnicamente o próximo até o produto computacional validado em 13.171 batimentos reais.">
+    <section class="slide" data-title="Trajetória do Projeto (Aula 1)" data-notes="Mostrar o encadeamento das 4 etapas exigidas na Aula 1 (Slides 7–8): cada relatório alimentou tecnicamente o próximo até o produto computacional validado em 13.171 batimentos reais.">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">01 · Contexto &amp; Extensão</span>
+          <span class="chapter-kicker">01 · Contexto &amp; Extensão · Aula 1 (Slides 7–8)</span>
           <h2>Trajetória Completa do Projeto (Ensino · Pesquisa · Extensão)</h2>
         </div>
-        <span class="slide-tag navy">Escopo Aula 1</span>
+        <span class="slide-tag navy">Escopo Oficial · Aula 1</span>
       </div>
       <div class="slide-body">
         <div class="grid-4">
@@ -870,23 +943,87 @@
         </div>
 
         <div class="eq-box navy anim d5" style="text-align:center;">
-          \(x(t) \;\xrightarrow{\;f_s = 360\text{ Hz}\;}\; x[n] \;\xrightarrow{\;\text{LIT Fase Zero}\;}\; y[n] \;\xrightarrow{\;\text{Pan-Tompkins}\;}\; \{n_k\} \;\xrightarrow{\;\text{FFT / Parseval}\;}\; \text{Triagem Clínica}\)
+          \(x_a(t) \;\xrightarrow{\;f_s = 360\text{ Hz}\;}\; x[n] \;\xrightarrow{\;\text{LIT Fase Zero}\;}\; y[n] \;\xrightarrow{\;\text{Pan-Tompkins}\;}\; \{n_k\} \;\xrightarrow{\;\text{DFT / Parseval}\;}\; \text{Triagem Clínica}\)
         </div>
       </div>
       <div class="slide-footer">
         <span>UFF · Sinais e Sistemas · Indissociabilidade entre ensino, pesquisa e extensão</span>
-        <span class="mono">03 / 23</span>
+        <span class="mono">03 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 04: ANATOMIA ECG E AMOSTRAGEM (CANVAS ANIMADO) ==================== -->
-    <section class="slide" data-title="Anatomia do ECG e Amostragem x[n]" data-notes="Explicar o que é o sinal que entra no computador: o coração gera um sinal contínuo x(t) com Onda P, Complexo QRS (pico R), Segmento ST e Onda T. Pelo Teorema da Amostragem de Nyquist (fs > 2·fmax), como o ECG útil vai até 40 Hz (Nyquist mínimo = 80 Hz), a taxa de 360 Hz do MIT-BIH (Nyquist = 180 Hz) garante amostragem sem aliasing, gerando 1 número a cada Ts = 2,78 ms!">
+    <!-- ==================== SLIDE 04 [NOVO]: MAPA DAS AULAS 1 A 16 NO PROJETO ==================== -->
+    <section class="slide" data-title="Mapa das Aulas 1 a 16 no Projeto" data-notes="Este é o mapa-múndi da apresentação! Mostrar para o Prof. André Pinho que praticamente TODA a ementa da disciplina (Aulas 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 e 16!) está rodando de verdade dentro do nosso código Python e JavaScript — desde reflexão temporal x[-n] e somatórios telescópicos até Transformada Z com RDC em anel e Espaço de Estados 2×2 em cada biquad SOS!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">02 · Fundamentos de Sinais e Sistemas</span>
+          <span class="chapter-kicker">01 · Mapa da Disciplina · Programa Completo (Oppenheim &amp; Willsky)</span>
+          <h2>Das Aulas 1 a 16 ao Código: Onde Cada Conteúdo Roda no Projeto</h2>
+        </div>
+        <span class="slide-tag teal">100% da Ementa Aplicada</span>
+      </div>
+      <div class="slide-body">
+        <div class="course-grid">
+          <div class="course-card anim d1">
+            <span class="course-badge">Aulas 1, 3 e 4 · Fundamentos</span>
+            <h4>Sinais, Somatórios &amp; Séries</h4>
+            <p>Potência \(P_d\), reflexão \(x[-n]\), período \(N_0\); recorrência \(S_n = S_{n-1}+a_n\) e soma telescópica; série geométrica (\(|r|\lt 1\)).</p>
+            <div class="where">No projeto: BPM/SDNN, MWI em \(O(N)\) e convergência da TZ (Slides 10, 14, 16)</div>
+          </div>
+
+          <div class="course-card c-teal anim d2">
+            <span class="course-badge">Aulas 5, 6 e 7 · Sistemas LIT</span>
+            <h4>Propriedades, Convolução &amp; Eq. Dif.</h4>
+            <p>\(\delta[n]=u[n]-u[n-1]\), 6 propriedades de sistemas, soma de convolução \(x[n]*h[n]\), FIR vs. IIR e risco de diferenciadores em ruído.</p>
+            <div class="where">No projeto: Duas Vias, cascata associativa e Pan-Tompkins (Slides 6, 7, 13, 14)</div>
+          </div>
+
+          <div class="course-card c-amber anim d3">
+            <span class="course-badge">Aulas 8, 9 e 10 · Laplace &amp; 2ª Ordem</span>
+            <h4>\(H(s)\), Polos/Zeros &amp; Blocos</h4>
+            <p>Polos estáveis no SPE (\(\operatorname{Re}(s)\lt 0\)), zeros próximos a polos, 2ª ordem (\(\xi,\omega_n\)) e blocos em série.</p>
+            <div class="where">No projeto: Protótipo Butterworth (\(\xi_1=0{,}924, \xi_2=0{,}383\)) e 4 SOS (Slides 7, 8)</div>
+          </div>
+
+          <div class="course-card c-crimson anim d4">
+            <span class="course-badge">Aulas 11, 12 e 13 · Fourier &amp; Amostragem</span>
+            <h4>Filtros FPF/FRF, Nyquist &amp; DFT</h4>
+            <p>Corte \(-3\text{ dB}\) (\(0{,}707\)), fator \(F_q = f_R/BW\), \(x[n]=x_a(nT_s)\), DTFT \(H(e^{j\Omega})\), DFT \(W_N\), \(f=\frac{k}{N}f_s\) e Parseval.</p>
+            <div class="where">No projeto: \(f_s=360\text{ Hz}\), Notch \(F_q=30\), Bode e FFT/Parseval (Slides 5, 11, 18, 19)</div>
+          </div>
+
+          <div class="course-card c-green anim d5">
+            <span class="course-badge">Aulas 14 e 15 · Transformada Z</span>
+            <h4>RDC, Reflexão, Conjugação &amp; BIBO</h4>
+            <p>\(X(e^{j\Omega})=X(z)|_{z=e^{j\Omega}}\), \(h[-n]\leftrightarrow H(1/z)\) (RDC em anel), polos conjugados e estabilidade \(|p_i|\lt 1\).</p>
+            <div class="where">No projeto: Fase zero \(H(z)H(z^{-1})\), biquads reais e \(\max|p_i|=0{,}99672\) (Slides 10, 12)</div>
+          </div>
+
+          <div class="course-card c-purple anim d6">
+            <span class="course-badge">Aula 16 · Espaço de Estados</span>
+            <h4>Modelo Matricial \((\mathbf{A}, \mathbf{B}, \mathbf{C}, D)\)</h4>
+            <p>Variáveis de estado \(\mathbf{x}[n+1]=\mathbf{A}\mathbf{x}[n]+\mathbf{B}u[n]\), \(y[n]=\mathbf{C}\mathbf{x}[n]+Du[n]\) e \(G(z)=\mathbf{C}(z\mathbf{I}-\mathbf{A})^{-1}\mathbf{B}+D\).</p>
+            <div class="where">No projeto: Registradores <code>z1, z2</code> de cada biquad SOS em <code>dsp_engine.js</code> (Slide 9)</div>
+          </div>
+        </div>
+
+        <div class="eq-box navy anim d6" style="text-align:center; padding:6px 12px;">
+          Nos próximos slides, seguimos <strong>exatamente a notação das aulas</strong> (\(\Omega = \omega T_s\), \(H(e^{j\Omega})\), \(F_q\), \(W_N\), \(\text{RDC}\) e \((\mathbf{A},\mathbf{B},\mathbf{C},D)\)) demonstrada no sinal real do MIT-BIH!
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Alinhamento integral entre o programa de Sinais e Sistemas (Aulas 1–16) e a implementação real</span>
+        <span class="mono">04 / 25</span>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 05: ANATOMIA ECG E AMOSTRAGEM (CANVAS ANIMADO) ==================== -->
+    <section class="slide" data-title="Aulas 1 & 12: Anatomia P-QRS-T e Amostragem" data-notes="Conectar diretamente com a Aula 1 (sinais contínuos x(t) vs discretos x[n]) e a Aula 12 (Teorema da Amostragem, Slides 2–7): multiplicar o ECG contínuo xa(t) pelo trem de impulsos p(t) = Σ δ(t - n·Ts) replica o espectro a cada ωs. Como o ECG clínico termina em 40 Hz (Nyquist mínimo = 80 Hz) e a rede elétrica está em 60 Hz, a amostragem fs = 360 Hz do MIT-BIH (f_Nyq = 180 Hz) garante zero aliasing e mapeia frequências analógicas para a frequência digital Ω = ω·Ts da Aula 13!">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <span class="chapter-kicker">02 · Aulas 1 &amp; 12 · Sinais Básicos &amp; Teorema da Amostragem</span>
           <h2>Do Coração ao Vetor Digital: Anatomia P-QRS-T e Amostragem</h2>
         </div>
-        <span class="slide-tag teal"><span class="live-dot green"></span> \(x[n] = x(nT_s)\)</span>
+        <span class="slide-tag teal"><span class="live-dot green"></span> \(x[n] = x_a(nT_s)\)</span>
       </div>
       <div class="slide-body">
         <div class="canvas-stage anim-scale">
@@ -908,87 +1045,90 @@
           </div>
           <div style="background:#FECACA; color:#7F1D1D;">
             <span>60 Hz · &gt; 60 Hz</span>
-            <small>Rede Elétrica (60 Hz) + EMG até Nyquist (180 Hz)</small>
+            <small>Rede Elétrica (60 Hz) + EMG até \(f_s/2 = 180\text{ Hz}\)</small>
           </div>
         </div>
 
         <div class="takeaway-strip anim d4">
-          <div class="takeaway-pill"><strong>Discretização:</strong> \(f_s = 360\text{ Hz} \Rightarrow T_s = \frac{1}{360} \approx 2{,}78\text{ ms}\) entre amostras consecutivas.</div>
-          <div class="takeaway-pill teal"><strong>Critério de Nyquist:</strong> \(f_s = 360 \gt  2 f_{\max} = 80\text{ Hz}\) (\(f_{\text{Nyq}} = 180\text{ Hz}\)) → <strong>zero <em>aliasing</em></strong>!</div>
-          <div class="takeaway-pill crimson"><strong>Separação espectral:</strong> tudo abaixo de \(0{,}5\text{ Hz}\), em \(60\text{ Hz}\) ou acima de \(40\text{ Hz}\) é ruído removível!</div>
+          <div class="takeaway-pill"><strong>Aula 12 (Amostragem):</strong> \(X_p(j\omega) = \frac{1}{T_s}\sum_{k=-\infty}^{\infty} X_a(j\omega - jk\omega_s)\), com \(T_s = \frac{1}{360} \approx 2{,}78\text{ ms}\).</div>
+          <div class="takeaway-pill teal"><strong>Critério de Nyquist:</strong> \(f_s = 360 \gt 2 f_{\max} = 80\text{ Hz}\) (\(f_s/2 = 180\text{ Hz}\)) \(\Rightarrow\) <strong>zero <em>aliasing</em></strong>!</div>
+          <div class="takeaway-pill crimson"><strong>Aula 13 (Freq. Digital):</strong> \(\Omega = \omega T_s = 2\pi\frac{f}{f_s} \in [-\pi, \pi]\) mapeia \(180\text{ Hz} \leftrightarrow \pi\text{ rad}\).</div>
         </div>
       </div>
       <div class="slide-footer">
-        <span>Amostragem uniforme e mapa de frequências que definem o projeto dos filtros digitais</span>
-        <span class="mono">04 / 23</span>
+        <span>Aulas 1, 12 e 13 · Discretização uniforme sem aliasing e separação espectral que define os filtros</span>
+        <span class="mono">05 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 05: ARQUITETURA EM DUAS VIAS (PIPELINE ANIMADO) ==================== -->
-    <section class="slide" data-title="Arquitetura Geral em Duas Vias" data-notes="Destacar a sacada de engenharia das DUAS VIAS: a Via Diagnóstica (0,5–40 Hz + Notch 60 Hz) preserva perfeitamente ondas P, QRS, ST e T para leitura médica; a Via de Detecção (5–15 Hz + Pan-Tompkins) é seletiva para isolar só o QRS e localizar o instante exato de cada batimento!">
+    <!-- ==================== SLIDE 06: ARQUITETURA EM DUAS VIAS + 6 PROPRIEDADES (AULAS 5, 6, 7, 10) ==================== -->
+    <section class="slide" data-title="Aulas 5–7 & 10: Arquitetura e Propriedades LIT" data-notes="Aqui conectamos a arquitetura em Duas Vias diretamente às Aulas 5, 6, 7 e 10! Na Aula 5 o professor classificou sistemas em 6 propriedades: Linearidade, Invariância no Tempo, Memória, Causalidade, Estabilidade BIBO e Invertibilidade. Olha cada bloco do nosso ECG: (1) Filtros Notch e Butterworth são LIT, com memória, IIR recursivos (Aula 7) e BIBO estáveis — em cascata pela propriedade associativa da convolução (Aula 6, slide 40) e blocos em série (Aula 10, slide 22); (2) ao aplicar filtfilt abrimos mão da causalidade (offline!) para zerar a fase; (3) na Via QRS a derivada e a MWI são FIR não-recursivos, enquanto a quadratura y = x² é propositalmente NÃO-LINEAR, sem memória e não-invertível!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">02 · Fundamentos de Sinais e Sistemas</span>
-          <h2>Por Baixo dos Panos: Arquitetura do Pipeline em Duas Vias</h2>
+          <span class="chapter-kicker">02 · Aulas 5, 6, 7 &amp; 10 · Propriedades de Sistemas, Convolução, FIR/IIR &amp; Cascata</span>
+          <h2>Por Baixo dos Panos: Arquitetura em Duas Vias &amp; Classificação LIT</h2>
         </div>
-        <span class="slide-tag"><span class="live-dot"></span> Fluxo em Cascata</span>
+        <span class="slide-tag"><span class="live-dot"></span> Blocos em Série</span>
       </div>
       <div class="slide-body">
         <div class="pipeline-flow" id="pipelineFlow">
           <div class="pipe-step anim d1">
-            <span class="pipe-num">01 · AQUISIÇÃO</span>
-            <h4>Sinal Discreto \(x[n]\)</h4>
-            <p>MIT-BIH real (<code>.dat/.hea/.atr</code>) ou upload de <code>.csv/.txt</code>. Detecta e avisa se for <code>.pdf</code> já filtrado.</p>
+            <span class="pipe-num">01 · AULAS 1 &amp; 12</span>
+            <h4>Sinal \(x[n] = x_a(nT_s)\)</h4>
+            <p>MIT-BIH real (<code>.dat/.hea/.atr</code>) ou upload <code>.csv/.txt</code>. Bloqueia <code>.pdf</code> já filtrado.</p>
           </div>
           <div class="pipe-step step-lit anim d2">
-            <span class="pipe-num">02 · VIA DIAGNÓSTICA</span>
+            <span class="pipe-num">02 · VIA DIAGNÓSTICA (IIR)</span>
             <h4>LIT Fase Zero</h4>
-            <p>Notch \(60\text{ Hz}\) (\(Q=30\)) + Butterworth \(0{,}5\text{–}40\text{ Hz}\) (ordem 4, SOS) via <code>filtfilt</code>. <strong>Traçado da tela!</strong></p>
+            <p>Notch \(60\text{ Hz}\) (FRF) + Butterworth \(0{,}5\text{–}40\text{ Hz}\) (FPF, 4 SOS) via <code>filtfilt</code>. <strong>Traçado da tela!</strong></p>
           </div>
           <div class="pipe-step step-qrs anim d3">
-            <span class="pipe-num">03 · VIA QRS (PT-85)</span>
-            <h4>Realce do Complexo</h4>
-            <p>Passa-faixa \(5\text{–}15\text{ Hz}\) → Derivada 5 pts → Quadratura → Janela Móvel \(150\text{ ms}\). <strong>Apaga P e T!</strong></p>
+            <span class="pipe-num">03 · VIA QRS (FIR + NL)</span>
+            <h4>Pan-Tompkins</h4>
+            <p>FPF \(5\text{–}15\text{ Hz}\) \(\to\) Derivada FIR \(\to\) Quadratura \(y^2\) (<strong>Não-Linear!</strong>) \(\to\) Convolução FIR (\(W=55\)).</p>
           </div>
           <div class="pipe-step step-qrs anim d4">
             <span class="pipe-num">04 · DECISÃO (HT-86)</span>
             <h4>Regras Adaptativas</h4>
-            <p>Limiares SPKI/NPKI, refratário \(\ge 200\text{ ms}\), rejeição de Onda T, <em>search-back</em> e refinamento no sinal \(0{,}5\text{–}40\text{ Hz}\).</p>
+            <p>Limiares SPKI/NPKI, refratário \(\ge 200\text{ ms}\), rejeição Onda T, <em>search-back</em> e refinamento \(\pm 80\text{ ms}\).</p>
           </div>
           <div class="pipe-step step-lit anim d5">
-            <span class="pipe-num">05 · SAÍDAS CLÍNICAS</span>
+            <span class="pipe-num">05 · AULAS 1, 11 &amp; 13</span>
             <h4>Métricas &amp; Espectro</h4>
-            <p>Período discreto \(\bar{N}\), \(\overline{RR}\), BPM, SDNN, RMSSD, classificação (\(60\text{–}120\text{ BPM}\)) e FFT + Parseval.</p>
+            <p>Período discreto \(N_0\), \(\overline{RR}\), BPM, SDNN, RMSSD, triagem \(60\text{–}120\text{ BPM}\) e DFT/Parseval.</p>
           </div>
         </div>
 
         <div class="split anim d6">
           <div class="card card-accent-teal">
-            <h3>Por que separar em DUAS vias?</h3>
-            <p>Se exibíssemos direto o sinal do filtro estreito <strong>5–15 Hz</strong>, apagaríamos as ondas <strong>P</strong>, <strong>T</strong> e o <strong>segmento ST</strong>. Mantendo duas vias paralelas, mostramos um ECG fiel ao exame clínico (\(0{,}5\text{–}40\text{ Hz}\)) enquanto detectamos os picos R com máxima imunidade a ruído!</p>
+            <h3>Classificação Formal dos Blocos (Aulas 5, 6 e 7)</h3>
+            <ul>
+              <li><strong>Filtros Diagnósticos (Notch + Butter SOS):</strong> <strong>LIT</strong>, <strong>IIR recursivos</strong> (Aula 7), <strong>com memória</strong>, <strong>BIBO estáveis</strong>; cascata justificada por \((x*h_1)*h_2 = x*(h_1*h_2)\) (Aula 6, Slide 40).</li>
+              <li><strong><code>filtfilt</code> (Offline):</strong> <strong>não-causal</strong> (usa \(x[-n]\), Aula 5 Slide 21) para obter fase zero!</li>
+              <li><strong>Derivada e MWI:</strong> <strong>LIT FIR</strong> (duração finita, \(N=0\)). <strong>Quadratura \(y_s=y_d^2\):</strong> <strong>não-linear, sem memória e não-invertível</strong> (Aula 5, Slides 19, 20 e 26)!</li>
+            </ul>
           </div>
           <div class="card card-accent-navy">
-            <h3>A seguir: abrindo CADA equação por baixo dos panos</h3>
-            <ul>
-              <li><strong>Slides 6–10:</strong> Derivação exata do Notch 60 Hz, Butterworth SOS, Fase Zero, Bode e Plano Z.</li>
-              <li><strong>Slides 11–14:</strong> Pan-Tompkins passo a passo, regras de Hamilton, BPM, SDNN e RMSSD.</li>
-              <li><strong>Slides 15–21:</strong> Resultados reais no MIT-BIH (FFT, Parseval, 13.171 batimentos e 3 anomalias).</li>
-            </ul>
+            <h3>Por que separar em DUAS vias (0,5–40 Hz vs. 5–15 Hz)?</h3>
+            <p>Se exibíssemos o sinal da faixa estreita <strong>5–15 Hz</strong>, apagaríamos as ondas <strong>P</strong>, <strong>T</strong> e o <strong>segmento ST</strong>. Mantendo a Via Diagnóstica paralela à Via QRS, garantimos fidelidade morfológica para o médico e máxima imunidade a ruído para o detector!</p>
+            <div class="eq-box navy" style="padding:5px 9px; font-size:12px;">
+              <strong>Blocos em série (Aula 10, Slide 22):</strong> \(\;H_{\text{total}}(z) = H_{\text{notch}}(z)\cdot\prod_{k=1}^{4} H_{\text{SOS},k}(z)\)
+            </div>
           </div>
         </div>
       </div>
       <div class="slide-footer">
-        <span>Separação entre fidelidade morfológica (Via Diagnóstica) e robustez de detecção (Via QRS)</span>
-        <span class="mono">05 / 23</span>
+        <span>Aulas 5, 6, 7 e 10 · Superposição, associatividade da convolução, FIR vs. IIR e diagrama em cascata</span>
+        <span class="mono">06 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 06: COMO É FEITO O FILTRO NOTCH 60 HZ (DERIVAÇÃO EXATA) ==================== -->
-    <section class="slide" data-title="Filtro Notch 60 Hz — Contas & Diferenças" data-notes="Abrir 100% o capô do primeiro filtro! Mostrar como o computador calcula os coeficientes do Notch 60 Hz (Q=30, fs=360 Hz): primeiro converte 60 Hz para frequência angular digital ω0 = π/3 (60°). Note a elegância: 2·cos(π/3) = 1! Os zeros ficam exatamente sobre o círculo unitário em e^{±jπ/3}, dando ganho exatamente ZERO em 60 Hz. E no bloco de baixo está a equação de diferenças REAL que Python e JS executam amostra por amostra!">
+    <!-- ==================== SLIDE 07: COMO É FEITO O FILTRO NOTCH 60 HZ (DERIVAÇÃO EXATA) ==================== -->
+    <section class="slide" data-title="Aulas 7, 11 & 14: Filtro FRF Notch 60 Hz" data-notes="Abrir 100% o capô do Filtro 1 usando exatamente a terminologia das Aulas 7, 9, 11 e 14! É um Filtro Rejeita-Faixa (FRF, Aula 11 slide 50) com Fator de Qualidade Fq = fR/BW = 60/2 = 30 (Aula 11 slide 60!). Primeiro convertemos 60 Hz para a frequência digital Ω0 = ω0·Ts = π/3 rad (Aula 13). Note a elegância: 2·cos(π/3) = 1! Os 2 zeros sobre |z|=1 zeram exatamente 60 Hz, e os 2 polos bem próximos (r = 0,98269) cancelam o efeito fora de 60 Hz — exatamente o 'efeito de zeros próximos aos polos' da Aula 9 (Slide 20)! E na direita temos a equação de diferenças IIR recursiva (Aula 7, Slide 24) executada amostra a amostra!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">03 · Por Baixo dos Panos — Projeto dos Filtros LIT</span>
-          <h2>Como é Feito o Filtro 1: Notch 60 Hz (<code>iirnotch</code>, \(Q = 30\))</h2>
+          <span class="chapter-kicker">03 · Aulas 7, 9, 11 &amp; 14 · FRF, Fator de Qualidade \(F_q\) &amp; Equação de Diferenças</span>
+          <h2>Filtro 1: Rejeita-Faixa (FRF) Notch 60 Hz (\(F_q = Q = 30\))</h2>
         </div>
         <span class="slide-tag">IIR 2ª Ordem · Rede Elétrica</span>
       </div>
@@ -996,72 +1136,71 @@
         <div class="split">
           <!-- Esquerda: Parâmetros e Função de Transferência -->
           <div class="card card-accent-crimson anim d1">
-            <h3>1. Frequência Digital e Parâmetros (\(f_s = 360\text{ Hz}\))</h3>
+            <h3>1. Frequência Digital \(\Omega_0\) e Seletividade \(F_q\) (Aulas 11 &amp; 13)</h3>
             <div class="eq-box crimson eq-compact">
-              $$\omega_0 = 2\pi\frac{f_0}{f_s} = 2\pi\frac{60}{360} = \frac{\pi}{3}\text{ rad}\;(60^\circ) \;\implies\; 2\cos(\omega_0) = 1$$
-              $$\Delta f = \frac{f_0}{Q} = \frac{60}{30} = 2\text{ Hz}, \qquad \Delta\omega = \frac{2\pi \cdot 2}{360} = \frac{\pi}{90}\text{ rad}$$
-              $$\beta = \frac{1}{1 + \tan(\Delta\omega / 2)} = 0{,}982844, \qquad r = \sqrt{2\beta - 1} = 0{,}98269 \lt  1$$
+              $$\Omega_0 = \omega_0 T_s = 2\pi\frac{f_R}{f_s} = 2\pi\frac{60}{360} = \frac{\pi}{3}\text{ rad}\;(60^\circ) \;\implies\; 2\cos(\Omega_0) = 1$$
+              $$F_q = \frac{f_R}{BW} = 30 \;\implies\; BW = 2\text{ Hz}, \qquad \Delta\Omega = \frac{2\pi \cdot 2}{360} = \frac{\pi}{90}\text{ rad}$$
+              $$\beta = \frac{1}{1 + \tan(\Delta\Omega / 2)} = 0{,}982844, \qquad r = \sqrt{2\beta - 1} = 0{,}98269 \lt 1$$
             </div>
             <ul>
               <li><strong>Zeros sobre \(|z| = 1\):</strong> \(z_{1,2} = e^{\pm j\pi/3} \implies H_{\text{notch}}(e^{j\pi/3}) = 0\) (\(-\infty\text{ dB}\) exatos em \(60\text{ Hz}\)).</li>
-              <li><strong>Polos internos (\(r = 0{,}98269\)):</strong> ficam logo atrás dos zeros para fechar uma fenda estreita de apenas \(2\text{ Hz}\), mantendo ganho \(\approx 1\) fora de \(60\text{ Hz}\).</li>
+              <li><strong>Aula 9 (Slide 20 — Zeros próximos aos polos):</strong> polos em \(r = 0{,}98269\) quase cancelam os zeros fora de \(60\text{ Hz}\), criando um vale cirúrgico de \(BW = 2\text{ Hz}\)!</li>
             </ul>
           </div>
 
           <!-- Direita: H(z) e Equação de Diferenças Executada -->
           <div class="card card-accent-navy anim d2">
-            <h3>2. Função de Transferência \(H_{\text{notch}}(z)\)</h3>
+            <h3>2. Função de Transferência \(H_{\text{notch}}(z)\) (Aula 14)</h3>
             <div class="eq-box navy">
-              $$H_{\text{notch}}(z) = \frac{Y(z)}{X(z)} = \beta\,\frac{1 - 2\cos(\omega_0)z^{-1} + z^{-2}}{1 - 2\beta\cos(\omega_0)z^{-1} + (2\beta - 1)z^{-2}}$$
+              $$H_{\text{notch}}(z) = \frac{Y(z)}{X(z)} = \beta\,\frac{1 - 2\cos(\Omega_0)z^{-1} + z^{-2}}{1 - 2\beta\cos(\Omega_0)z^{-1} + (2\beta - 1)z^{-2}}$$
             </div>
-            <h3 style="margin-top:4px;">3. Equação de Diferenças (Executada Amostra a Amostra!)</h3>
+            <h3 style="margin-top:4px;">3. Equação de Diferenças Recursiva IIR (Aula 7, Slide 24)</h3>
             <div class="eq-box eq-compact">
-              $$y[n] = b_0 x[n] + b_1 x[n-1] + b_2 x[n-2] - a_1 y[n-1] - a_2 y[n-2]$$
+              $$y[n] = \sum_{k=0}^{2} b_k x[n-k] - \sum_{k=1}^{2} a_k y[n-k] \qquad (a_0 = 1)$$
               $$y[n] = 0{,}9828\,x[n] - 0{,}9828\,x[n-1] + 0{,}9828\,x[n-2] + 0{,}9828\,y[n-1] - 0{,}9657\,y[n-2]$$
             </div>
-            <p>Apenas <strong>5 multiplicações e 4 somas por amostra</strong> — custo computacional \(O(M)\), rodando em microssegundos tanto no Python quanto no navegador!</p>
+            <p>Apenas <strong>5 multiplicações e 4 somas por amostra</strong> — equação IIR de 2ª ordem rodando em microssegundos tanto no Python quanto no navegador!</p>
           </div>
         </div>
       </div>
       <div class="slide-footer">
-        <span>Coeficientes exatos verificados em Python (scipy.signal.iirnotch) e JavaScript (web/dsp_engine.js)</span>
-        <span class="mono">06 / 23</span>
+        <span>Aulas 7, 9, 11 e 14 · Fator de qualidade Fq = fR/BW e equação de diferenças verificados em Python e JS</span>
+        <span class="mono">07 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 07: COMO É FEITO O BUTTERWORTH 0,5-40 HZ (SOS) ==================== -->
-    <section class="slide" data-title="Filtro Butterworth 0,5–40 Hz (Bilinear + SOS)" data-notes="Abrir o capô do segundo filtro! Explicar como um filtro Butterworth analógico vira um filtro digital: (1) parte do protótipo Butterworth maximamente plano (sem ondulações na banda passante, ao contrário de Chebyshev); (2) aplica pré-empenamento (pre-warping) + Transformação Bilinear que mapeia o semiplano esquerdo estável Re(s)<0 exatamente para o interior do círculo unitário |z|<1; (3) fatora os 8 polos em 4 seções biquad de 2ª ordem em série (SOS) para evitar erro de arredondamento, porque os polos de 0,5 Hz ficam a apenas 0,00328 da borda |z|=1!">
+    <!-- ==================== SLIDE 08: COMO É FEITO O BUTTERWORTH 0,5-40 HZ (LAPLACE + 2ª ORDEM + SOS) ==================== -->
+    <section class="slide" data-title="Aulas 8–10 & 14: Butterworth H(s) → 4 Biquads SOS" data-notes="Conectar o Filtro 2 diretamente às Aulas 8, 9, 10, 11 e 14! Começamos no plano s da Transformada de Laplace (Aulas 8–9): o protótipo Butterworth de ordem 4 tem magnitude maximamente plana (corte -3 dB = 1/√2 = 0,707 da Aula 11 slide 51) e todos os polos no semiplano esquerdo aberto Re(s) < 0 (estável!). Pela Aula 10 (Sistemas de 2ª Ordem), esses 4 polos formam 2 pares conjugados com taxas de amortecimento ξ1 = cos(22,5°) = 0,924 e ξ2 = cos(67,5°) = 0,383! Ao passar para FPF (8 polos) e aplicar a Transformação Bilinear, mapeamos Re(s) < 0 para |z| < 1; pela Propriedade da Conjugação da Aula 14 (Slide 37), polos conjugados formam 4 biquads reais em série (SOS)!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">03 · Por Baixo dos Panos — Projeto dos Filtros LIT</span>
-          <h2>Como é Feito o Filtro 2: Butterworth \(0{,}5\text{–}40\text{ Hz}\) (Ordem 4, SOS)</h2>
+          <span class="chapter-kicker">03 · Aulas 8, 9, 10, 11 &amp; 14 · Laplace \(H(s)\), 2ª Ordem (\(\xi\)), Corte \(-3\text{ dB}\) &amp; Bilinear</span>
+          <h2>Filtro 2: Passa-Faixa (FPF) Butterworth \(0{,}5\text{–}40\text{ Hz}\) (4 SOS)</h2>
         </div>
-        <span class="slide-tag teal">Transformação Bilinear + 4 Biquads</span>
+        <span class="slide-tag teal">Plano \(s \to\) Plano \(z\) (4 Biquads)</span>
       </div>
       <div class="slide-body">
         <div class="split">
-          <!-- Esquerda: Protótipo + Transformação Bilinear -->
+          <!-- Esquerda: Protótipo Laplace + 2ª ordem + Transformação Bilinear -->
           <div class="card card-accent-teal anim d1">
-            <h3>1. Do Analógico ao Digital (Transformação Bilinear)</h3>
-            <p>O filtro <strong>Butterworth</strong> garante magnitude <strong>maximamente plana</strong> na banda passante (zero <em>ripple</em>, sem deformar a amplitude do ECG):</p>
+            <h3>1. Do Plano \(s\) (Aulas 8–10) ao Plano \(z\) (Aula 14)</h3>
+            <p>Protótipo <strong>Butterworth</strong> (\(N=4\)): ganho plano (zero <em>ripple</em>), corte em \(-3\text{ dB}\) (\(\frac{1}{\sqrt{2}} = 0{,}707\), <strong>Aula 11</strong>) e <strong>polos no SPE</strong> (\(\operatorname{Re}(s)\lt 0\), <strong>Aula 9</strong>):</p>
             <div class="eq-box eq-compact">
-              $$\left|H_a(j\Omega)\right|^2 = \frac{1}{1 + \left(\Omega / \Omega_c\right)^{2N}}, \qquad N = 4$$
-              $$\Omega_c = 2f_s\tan\!\left(\frac{\pi f_c}{f_s}\right) \quad\text{(pré-empenamento)}$$
-              $$s = 2f_s\,\frac{1 - z^{-1}}{1 + z^{-1}} \quad\text{(mapeia }\operatorname{Re}(s)\lt 0 \to |z|\lt 1\text{)}$$
+              $$\left|H_a(j\omega)\right|^2 = \frac{1}{1 + (\omega/\omega_c)^{2N}}, \qquad \xi_1 = \cos 22{,}5^\circ = 0{,}924,\;\; \xi_2 = \cos 67{,}5^\circ = 0{,}383$$
+              $$\omega_{c,\text{pre}} = 2f_s\tan\!\left(\frac{\pi f_c}{f_s}\right), \qquad s = 2f_s\,\frac{1 - z^{-1}}{1 + z^{-1}} \;\;(\operatorname{Re}(s)\lt 0 \to |z|\lt 1)$$
             </div>
-            <p>A transformação passa-baixa \(\to\) passa-faixa dobra o grau: \(N = 4\) gera <strong>8 polos</strong> (4 para o corte em \(0{,}5\text{ Hz}\) + 4 para o corte em \(40\text{ Hz}\)).</p>
+            <p>A conversão passa-baixas \(\to\) <strong>FPF</strong> dobra a ordem para <strong>8 polos</strong> (4 pares conjugados — <strong>Aula 14, Slide 37</strong>) + 4 zeros em \(z=+1\) e 4 zeros em \(z=-1\).</p>
           </div>
 
           <!-- Direita: Fatoração SOS + Biquads Reais -->
           <div class="card card-accent-navy anim d2">
-            <h3>2. Cascata de 4 Seções de 2ª Ordem (SOS / Biquads)</h3>
+            <h3>2. Blocos de 2ª Ordem em Série (SOS · Aula 10, Slide 22)</h3>
             <div class="eq-box navy eq-compact">
               $$H_{\text{BP}}(z) = \prod_{k=1}^{4} \frac{b_{0k} + b_{1k}z^{-1} + b_{2k}z^{-2}}{1 + a_{1k}z^{-1} + a_{2k}z^{-2}}$$
             </div>
             <ul>
-              <li><strong>Por que NÃO usar polinômio direto de grau 8?</strong> Como \(0{,}5\text{ Hz} \ll 360\text{ Hz}\), os polos da borda inferior ficam em \(|p| = 0{,}99672\) (a \(0{,}00328\) da instabilidade!). Em forma direta, arredondamentos em ponto flutuante empurram polos para \(|z| \ge 1\).</li>
-              <li><strong>Biquads extremos reais no nosso código:</strong>
-                <div class="eq-box" style="margin-top:5px; font-size:12.5px; line-height:2.1;">
+              <li><strong>Por que 4 biquads e NÃO polinômio direto de grau 8?</strong> Como \(0{,}5\text{ Hz} \ll 360\text{ Hz}\), os polos mais lentos ficam em \(|p| = 0{,}99672\) (a \(0{,}00328\) de \(|z|=1\)). Em grau 8 direto, erros de ponto flutuante tornam o filtro instável!</li>
+              <li><strong>Biquads extremos reais executados no código:</strong>
+                <div class="eq-box" style="margin-top:5px; font-size:12px; line-height:2.05;">
                   \(\text{SOS}_1\text{ (40 Hz):}\;\dfrac{0{,}0066(1 + 2z^{-1} + z^{-2})}{1 - 0{,}9789z^{-1} + 0{,}2640z^{-2}}\;\;(\text{zeros em }z=-1)\)
                   <br/>
                   \(\text{SOS}_4\text{ (0,5 Hz):}\;\dfrac{1 - 2z^{-1} + z^{-2}}{1 - 1{,}9934z^{-1} + 0{,}9935z^{-2}}\;\;(\text{zeros em }z=+1)\)
@@ -1072,20 +1211,141 @@
         </div>
 
         <div class="eq-box navy anim d3" style="text-align:center;">
-          Zeros em \(z = +1\) anulam \(0\text{ Hz}\) (DC/respiração) · Zeros em \(z = -1\) anulam \(180\text{ Hz}\) (Nyquist/EMG) · Zeros do Notch em \(z = e^{\pm j\pi/3}\) anulam \(60\text{ Hz}\)!
+          Zeros em \(z = +1\) anulam \(0\text{ Hz}\) (respiração) · Zeros em \(z = -1\) anulam \(180\text{ Hz}\) (Nyquist/EMG) · Zeros do Notch em \(z = e^{\pm j\pi/3}\) anulam \(60\text{ Hz}\)!
         </div>
       </div>
       <div class="slide-footer">
-        <span>Mesma cascata de 4 biquads SOS (butter + bilinear) em Python (SciPy) e JavaScript (dsp_engine.js)</span>
-        <span class="mono">07 / 23</span>
+        <span>Aulas 8, 9, 10, 11 e 14 · Polos no SPE (Laplace), fatoração de 2ª ordem (ξ) e mapeamento bilinear para 4 SOS</span>
+        <span class="mono">08 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 08: O SEGREDO DA FASE ZERO (CANVAS ANIMADO + PROVA 4 PASSOS) ==================== -->
-    <section class="slide" data-title="O Segredo da Fase Zero (filtfilt)" data-notes="Este slide responde diretamente à maior reclamação da entrevista! Mostrar a animação ao vivo comparando um filtro causal comum (curva vermelha atrasada e com deformação pós-QRS no segmento ST!) contra a nossa filtragem bidirecional filtfilt (curva verde-azulada cravada em cima do pico R original). E mostrar a prova matemática exata em 4 passos usando a propriedade de reversão temporal da DTFT!">
+    <!-- ==================== SLIDE 09 [NOVO]: DIAGRAMAS z⁻¹ (AULA 15) E ESPAÇO DE ESTADOS (AULA 16) ==================== -->
+    <section class="slide" data-title="Aulas 15 & 16: Diagrama z⁻¹ e Espaço de Estados" data-notes="Slide de ouro conectando as DUAS ÚLTIMAS AULAS do semestre (Aula 15: diagramas em blocos com atrasadores z⁻¹; Aula 16: Representação no Espaço de Estados!) diretamente às linhas 196–200 do nosso código web/dsp_engine.js e scipy.signal.sosfilt! Explicar que cada seção biquad de 2ª ordem tem EXATAMENTE 2 variáveis de estado (os registradores de memória z1[n] e z2[n] na Forma Direta II Transposta). Escrevendo na forma matricial x[n+1] = A·x[n] + B·x_in[n] e y[n] = C·x[n] + D·x_in[n], obtemos as matrizes REAIS do Notch 60 Hz! E provamos a fórmula da Aula 16 (Slide 12): G(z) = C(zI - A)⁻¹B + D = H_notch(z), onde os autovalores de A (λ = 0,4914 ± j0,8510, |λ| = 0,98269 < 1) SÃO EXATAMENTE os polos do filtro!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">03 · Por Baixo dos Panos — Filtragem LIT</span>
+          <span class="chapter-kicker">03 · Aulas 15 &amp; 16 · Diagramas de Blocos (\(z^{-1}\)) &amp; Espaço de Estados</span>
+          <h2>Na Prática: Espaço de Estados \((\mathbf{A}, \mathbf{B}, \mathbf{C}, D)\) em Cada Biquad</h2>
+        </div>
+        <span class="slide-tag navy">10 Variáveis de Estado Reais</span>
+      </div>
+      <div class="slide-body">
+        <div class="split">
+          <!-- Esquerda: Diagrama em Blocos Forma Direta II Transposta (Aula 15) + Código Real -->
+          <div class="card card-accent-teal anim d1">
+            <h3>1. Diagrama em Blocos \(z^{-1}\) (Aula 15) &amp; Código Executado</h3>
+            <div class="biquad-svg-wrap">
+              <svg viewBox="0 0 490 206" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama em blocos Forma Direta II Transposta de um biquad com 2 estados z1 e z2">
+                <defs>
+                  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#0B2545" />
+                  </marker>
+                  <marker id="arrT" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#0F766E" />
+                  </marker>
+                  <marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#C81E1E" />
+                  </marker>
+                </defs>
+                <!-- Entrada x[n] -->
+                <text x="10" y="34" font-family="IBM Plex Mono" font-size="13" font-weight="700" fill="#0B2545">x[n]</text>
+                <line x1="48" y1="30" x2="112" y2="30" stroke="#0B2545" stroke-width="2" marker-end="url(#arr)" />
+                <!-- Derivação vertical da entrada -->
+                <circle cx="72" cy="30" r="3.2" fill="#0B2545" />
+                <line x1="72" y1="30" x2="72" y2="176" stroke="#0B2545" stroke-width="1.8" />
+                <line x1="72" y1="103" x2="112" y2="103" stroke="#0B2545" stroke-width="1.8" marker-end="url(#arr)" />
+                <line x1="72" y1="176" x2="112" y2="176" stroke="#0B2545" stroke-width="1.8" marker-end="url(#arr)" />
+
+                <!-- Ganhos b0, b1, b2 -->
+                <rect x="114" y="16" width="44" height="28" rx="5" fill="#F0FDFA" stroke="#0F766E" stroke-width="1.7" />
+                <text x="136" y="34" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" font-weight="700" fill="#0F766E">b₀</text>
+                <rect x="114" y="89" width="44" height="28" rx="5" fill="#F0FDFA" stroke="#0F766E" stroke-width="1.7" />
+                <text x="136" y="107" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" font-weight="700" fill="#0F766E">b₁</text>
+                <rect x="114" y="162" width="44" height="28" rx="5" fill="#F0FDFA" stroke="#0F766E" stroke-width="1.7" />
+                <text x="136" y="180" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" font-weight="700" fill="#0F766E">b₂</text>
+
+                <!-- Linhas para somadores -->
+                <line x1="158" y1="30" x2="225" y2="30" stroke="#0F766E" stroke-width="1.9" marker-end="url(#arrT)" />
+                <line x1="158" y1="103" x2="225" y2="103" stroke="#0F766E" stroke-width="1.9" marker-end="url(#arrT)" />
+                <line x1="158" y1="176" x2="225" y2="176" stroke="#0F766E" stroke-width="1.9" marker-end="url(#arrT)" />
+
+                <!-- Somadores centrais -->
+                <circle cx="240" cy="30" r="13" fill="#EFF6FF" stroke="#0B2545" stroke-width="1.9" />
+                <text x="240" y="35" text-anchor="middle" font-family="IBM Plex Sans" font-size="16" font-weight="700" fill="#0B2545">+</text>
+                <circle cx="240" cy="103" r="13" fill="#EFF6FF" stroke="#0B2545" stroke-width="1.9" />
+                <text x="240" y="108" text-anchor="middle" font-family="IBM Plex Sans" font-size="16" font-weight="700" fill="#0B2545">+</text>
+                <circle cx="240" cy="176" r="13" fill="#EFF6FF" stroke="#0B2545" stroke-width="1.9" />
+                <text x="240" y="181" text-anchor="middle" font-family="IBM Plex Sans" font-size="16" font-weight="700" fill="#0B2545">+</text>
+
+                <!-- Blocos de atraso z^-1 (Estados z1 e z2) -->
+                <rect x="215" y="54" width="50" height="24" rx="5" fill="#F5F3FF" stroke="#6D28D9" stroke-width="1.8" />
+                <text x="240" y="70" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="700" fill="#6D28D9">z⁻¹</text>
+                <text x="270" y="64" font-family="IBM Plex Mono" font-size="10.5" font-weight="700" fill="#6D28D9">z₁[n]</text>
+
+                <rect x="215" y="128" width="50" height="24" rx="5" fill="#F5F3FF" stroke="#6D28D9" stroke-width="1.8" />
+                <text x="240" y="144" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="700" fill="#6D28D9">z⁻¹</text>
+                <text x="270" y="138" font-family="IBM Plex Mono" font-size="10.5" font-weight="700" fill="#6D28D9">z₂[n]</text>
+
+                <!-- Conexões verticais entre estados -->
+                <line x1="240" y1="163" x2="240" y2="154" stroke="#0B2545" stroke-width="1.8" />
+                <line x1="240" y1="128" x2="240" y2="118" stroke="#0B2545" stroke-width="1.8" marker-end="url(#arr)" />
+                <line x1="240" y1="90" x2="240" y2="80" stroke="#0B2545" stroke-width="1.8" />
+                <line x1="240" y1="54" x2="240" y2="45" stroke="#0B2545" stroke-width="1.8" marker-end="url(#arr)" />
+
+                <!-- Saída y[n] e realimentação (-a1, -a2) -->
+                <line x1="253" y1="30" x2="438" y2="30" stroke="#0B2545" stroke-width="2.1" marker-end="url(#arr)" />
+                <text x="446" y="34" font-family="IBM Plex Mono" font-size="13" font-weight="700" fill="#0B2545">y[n]</text>
+
+                <circle cx="408" cy="30" r="3.2" fill="#C81E1E" />
+                <line x1="408" y1="30" x2="408" y2="176" stroke="#C81E1E" stroke-width="1.8" />
+                <line x1="408" y1="103" x2="368" y2="103" stroke="#C81E1E" stroke-width="1.8" marker-end="url(#arrR)" />
+                <line x1="408" y1="176" x2="368" y2="176" stroke="#C81E1E" stroke-width="1.8" marker-end="url(#arrR)" />
+
+                <rect x="318" y="89" width="48" height="28" rx="5" fill="#FEF2F2" stroke="#C81E1E" stroke-width="1.7" />
+                <text x="342" y="107" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="700" fill="#C81E1E">-a₁</text>
+                <rect x="318" y="162" width="48" height="28" rx="5" fill="#FEF2F2" stroke="#C81E1E" stroke-width="1.7" />
+                <text x="342" y="180" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="700" fill="#C81E1E">-a₂</text>
+
+                <line x1="318" y1="103" x2="255" y2="103" stroke="#C81E1E" stroke-width="1.8" marker-end="url(#arrR)" />
+                <line x1="318" y1="176" x2="255" y2="176" stroke="#C81E1E" stroke-width="1.8" marker-end="url(#arrR)" />
+              </svg>
+            </div>
+            <div class="code-snippet"><span class="cm">// web/dsp_engine.js (linhas 196–200) — Forma Direta II Transposta</span>
+<span class="kw">const</span> yi = b0 * xi + <span class="hi">z1</span>;             <span class="cm">// y[n]   = C·x[n] + D·u[n]</span>
+<span class="hi">z1</span> = b1 * xi - a1 * yi + <span class="hi">z2</span>;         <span class="cm">// z1[n+1] = -a1·z1 + z2 + (b1-a1·b0)·u</span>
+<span class="hi">z2</span> = b2 * xi - a2 * yi;              <span class="cm">// z2[n+1] = -a2·z1 + (b2-a2·b0)·u</span></div>
+          </div>
+
+          <!-- Direita: Equações de Estado (Aula 16) com Matrizes Reais do Notch 60 Hz -->
+          <div class="card card-accent-navy anim d2">
+            <h3>2. Modelo em Espaço de Estados Discreto (Aula 16)</h3>
+            <div class="eq-box navy eq-compact">
+              $$\mathbf{x}[n+1] = \mathbf{A}\,\mathbf{x}[n] + \mathbf{B}\,u[n], \qquad y[n] = \mathbf{C}\,\mathbf{x}[n] + D\,u[n]$$
+              $$\begin{bmatrix} z_1[n+1] \\ z_2[n+1] \end{bmatrix} = \begin{bmatrix} -a_1 &amp; 1 \\ -a_2 &amp; 0 \end{bmatrix}\begin{bmatrix} z_1[n] \\ z_2[n] \end{bmatrix} + \begin{bmatrix} b_1 - a_1 b_0 \\ b_2 - a_2 b_0 \end{bmatrix}x[n]$$
+            </div>
+            <p><strong>Substituindo os coeficientes reais do nosso Notch 60 Hz (\(F_q = 30\)):</strong></p>
+            <div class="eq-box eq-compact">
+              $$\mathbf{A} = \begin{bmatrix} 0{,}9828 &amp; 1 \\ -0{,}9657 &amp; 0 \end{bmatrix},\;\; \mathbf{B} = \begin{bmatrix} -0{,}0169 \\ 0{,}0337 \end{bmatrix},\;\; \mathbf{C} = \begin{bmatrix} 1 &amp; 0 \end{bmatrix},\;\; D = 0{,}9828$$
+            </div>
+            <ul>
+              <li><strong>Aula 16 (Slide 12):</strong> \(G(z) = \mathbf{C}(z\mathbf{I}-\mathbf{A})^{-1}\mathbf{B} + D = H_{\text{notch}}(z)\) (verificado a \(10^{-12}\))!</li>
+              <li><strong>Autovalores de \(\mathbf{A}\) = Polos de \(H(z)\):</strong> \(\det(z\mathbf{I}-\mathbf{A})=0 \implies \lambda_{1,2} = 0{,}4914 \pm j0{,}8510\) (\(|\lambda| = 0{,}98269 \lt 1\)).</li>
+              <li><strong>Sistema completo:</strong> \(1\) Notch (\(2\) estados) + \(4\) biquads Butterworth (\(8\) estados) = <strong>10 variáveis de estado</strong> desacopladas em blocos \(2\times 2\)!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Aulas 15 e 16 · Forma Direta II Transposta equivale exatamente a blocos 2×2 no Espaço de Estados!</span>
+        <span class="mono">09 / 25</span>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 10: O SEGREDO DA FASE ZERO (AULAS 1, 5, 13 & 14) ==================== -->
+    <section class="slide" data-title="Aulas 1, 5 & 14: Fase Zero (filtfilt) e RDC em Anel" data-notes="Este slide une 4 aulas de uma vez para responder à maior reclamação da entrevista! Na Aula 1 (Slide 19) vimos reflexão temporal x[-n]; na Aula 5 (Slide 21) vimos que y[n]=x[-n] é não-causal (mas como nosso ECG já está gravado offline, podemos usá-lo!); na Aula 14 (Slide 34) vimos a Propriedade da Reflexão na Transformada Z: h[-n] ↔ H(1/z) com RDC = 1/R! Ao filtrar ida e volta (filtfilt), a função de transferência efetiva vira H_ef(z) = H(z)·H(z⁻¹), cuja RDC bilateral é o anel 0,99672 < |z| < 1,00329 contendo o círculo unitário |z|=1 — e no círculo unitário z=e^{jΩ} obtemos H_ef(e^{jΩ}) = |H(e^{jΩ})|² ≥ 0 com FASE EXATAMENTE ZERO!">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <span class="chapter-kicker">03 · Aulas 1, 5, 13 &amp; 14 · Reflexão \(x[-n]\), Não-Causalidade &amp; RDC Bilateral</span>
           <h2>Por que Fase Zero (<code>filtfilt</code>)? Causal vs. Bidirecional</h2>
         </div>
         <span class="slide-tag"><span class="live-dot"></span> Simulação Ao Vivo</span>
@@ -1098,84 +1358,84 @@
         <div class="grid-3 anim d3">
           <div class="card card-accent-crimson" style="padding:9px 12px;">
             <h3>Filtro Causal Comum (<code>lfilter</code>)</h3>
-            <p>Passa só para frente: \(Y(e^{j\omega}) = H(e^{j\omega})X(e^{j\omega})\). A fase não linear \(\angle H(e^{j\omega}) \neq 0\) atrasa o pico R e <strong>entorta o segmento ST</strong>.</p>
+            <p>Passa só para frente: \(Y(e^{j\Omega}) = H(e^{j\Omega})X(e^{j\Omega})\). A fase \(\angle H(e^{j\Omega}) \neq 0\) atrasa o pico R e <strong>entorta o segmento ST</strong>.</p>
           </div>
           <div class="card card-accent-navy" style="padding:9px 12px;">
-            <h3>Demonstração da Filtragem Bidirecional</h3>
-            <p><strong>1)</strong> Ida: \(V(e^{j\omega}) = H(e^{j\omega})X(e^{j\omega})\)<br/>
-               <strong>2)</strong> Espelho \(v[-n]\): \(\mathcal{F}\{v[-n]\} = V^*(e^{j\omega})\)<br/>
-               <strong>3)</strong> Volta + re-espelho: multiplica por \(H^*(e^{j\omega})\)</p>
+            <h3>Reflexão na TZ (Aula 14, Slide 34)</h3>
+            <p><strong>1)</strong> Ida: \(H(z)\), \(\text{RDC}: |z| \gt 0{,}99672\)<br/>
+               <strong>2)</strong> Reflexão \(v[-n]\) (Aula 1): \(H(z^{-1})\), \(\text{RDC}: |z| \lt 1{,}00329\)<br/>
+               <strong>3)</strong> Cascata offline (Aula 5): \(H_{\text{ef}}(z) = H(z)H(z^{-1})\)</p>
           </div>
           <div class="card card-accent-green" style="padding:9px 12px;">
-            <h3>Resultado Matemático Exato</h3>
+            <h3>RDC em Anel &amp; Fase Zero (\(z = e^{j\Omega}\))</h3>
             <div class="eq-box eq-compact" style="border-left-color:var(--green); padding:4px 8px;">
-              $$H_{\text{ef}}(e^{j\omega}) = H(e^{j\omega})\,H^*(e^{j\omega}) = \left|H(e^{j\omega})\right|^2$$
+              $$H_{\text{ef}}(e^{j\Omega}) = H(e^{j\Omega})\,H^*(e^{j\Omega}) = \left|H(e^{j\Omega})\right|^2$$
             </div>
-            <p>Real e \(\ge 0 \implies \angle H_{\text{ef}}(e^{j\omega}) \equiv 0^\circ\) e <strong>dobro da atenuação</strong>!</p>
+            <p>RDC \(0{,}99672 \lt |z| \lt 1{,}00329 \ni |z|=1 \implies \angle H_{\text{ef}} \equiv 0^\circ\) e <strong>dobro da atenuação</strong>!</p>
           </div>
         </div>
       </div>
       <div class="slide-footer">
-        <span>Solução matemática exata para a distorção morfológica relatada na rotina clínica (Relatórios 2 e 3)</span>
-        <span class="mono">08 / 23</span>
+        <span>Aulas 1, 5, 13 e 14 · Propriedade da reflexão na TZ resolve a distorção morfológica da entrevista</span>
+        <span class="mono">10 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 09: RESPOSTA EM FREQUÊNCIA (GRÁFICO DEDICADO 16:9) ==================== -->
-    <section class="slide" data-title="Resposta em Frequência (Bode)" data-notes="Gráfico gigante 16:9 da resposta em frequência: mostrar a faixa verde plana em 0 dB entre 0,5 e 40 Hz, o corte abrupto fora da banda (como o filtfilt eleva |H| ao quadrado, dobra o decaimento em dB — de 24 para 48 dB/oitava por borda!) e o vale cirúrgico profundo em 60 Hz.">
+    <!-- ==================== SLIDE 11: RESPOSTA EM FREQUÊNCIA (AULAS 11 & 13) ==================== -->
+    <section class="slide" data-title="Aulas 11 & 13: DTFT e Resposta em Frequência" data-notes="Gráfico 16:9 da resposta em frequência avaliada exatamente pela fórmula da Aula 13 (Slide 18): H(e^{jΩ}) = Σ b_k e^{-jkΩ} / Σ a_k e^{-jkΩ}, que é a Transformada Z avaliada no círculo unitário z = e^{jΩ} (Aula 14, Slide 5)! Mostrar a faixa verde plana em 0 dB entre 0,5 e 40 Hz, o critério de corte -3 dB (0,707, Aula 11 slide 51), o vale cirúrgico em 60 Hz (Fq = 30) e o dobro de inclinação (48 dB/oitava por borda) graças ao |H(e^{jΩ})|² do filtfilt!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">03 · Por Baixo dos Panos — Filtragem LIT</span>
-          <h2>Resposta em Frequência da Cascata LIT (\(\left|H(e^{j\omega})\right|\) em dB)</h2>
+          <span class="chapter-kicker">03 · Aulas 11 &amp; 13 · DTFT \(H(e^{j\Omega})\), Filtros FPF/FRF &amp; Corte \(-3\text{ dB}\)</span>
+          <h2>Resposta em Frequência da Cascata LIT (\(\left|H(e^{j\Omega})\right|\) em dB)</h2>
         </div>
-        <span class="slide-tag navy">Diagrama de Bode</span>
+        <span class="slide-tag navy">\(H(e^{j\Omega}) = \left.H(z)\right|_{z=e^{j\Omega}}\)</span>
       </div>
       <div class="slide-body">
         <div class="fig-frame anim-scale">
           <img src="./figuras/slide_bode_filtros.png" alt="Resposta em frequência da cascata LIT" />
         </div>
         <div class="takeaway-strip anim d3">
-          <div class="takeaway-pill teal"><strong>Banda Passante (\(0{,}5\text{–}40\text{ Hz}\)):</strong> ganho plano em \(0\text{ dB}\), preservando amplitudes clínicas em \(\text{mV}\).</div>
-          <div class="takeaway-pill crimson"><strong>Notch em \(60\text{ Hz}\):</strong> vale cirúrgico (\(Q = 30\), \(\Delta f = 2\text{ Hz}\)) elimina a rede elétrica sem cortar \(40\text{ Hz}\).</div>
-          <div class="takeaway-pill"><strong>Efeito <code>filtfilt</code> (\(|H|^2\)):</strong> dobra a inclinação de corte em \(\text{dB}\) (de \(24\) para \(48\text{ dB/oitava}\) por borda!) com \(\angle H = 0^\circ\).</div>
+          <div class="takeaway-pill teal"><strong>Aula 13 (Slide 18):</strong> \(H(e^{j\Omega}) = \frac{\sum b_k e^{-jk\Omega}}{\sum a_k e^{-jk\Omega}}\) — banda plana em \(0\text{ dB}\) (\(0{,}5\text{–}40\text{ Hz}\)), corte em \(-3\text{ dB} = 0{,}707\) (Aula 11).</div>
+          <div class="takeaway-pill crimson"><strong>FRF Notch \(60\text{ Hz}\):</strong> \(F_q = 30\) (\(BW = 2\text{ Hz}\)) zera a rede elétrica sem cortar a borda clínica em \(40\text{ Hz}\).</div>
+          <div class="takeaway-pill"><strong>Efeito <code>filtfilt</code> (\(|H|^2\)):</strong> dobra o decaimento em \(\text{dB}\) (\(24 \to 48\text{ dB/oitava}\) por borda!) com \(\angle H_{\text{ef}} \equiv 0^\circ\).</div>
         </div>
       </div>
       <div class="slide-footer">
-        <span>Notch 60 Hz (Q = 30) em cascata com Butterworth 0,5–40 Hz (ordem 4, SOS) a fs = 360 Hz</span>
-        <span class="mono">09 / 23</span>
+        <span>Aulas 11, 13 e 14 · DTFT da cascata FRF (60 Hz, Fq = 30) + FPF Butterworth (0,5–40 Hz, ordem 4)</span>
+        <span class="mono">11 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 10: ESTABILIDADE BIBO NO PLANO Z (GRÁFICO DEDICADO 16:9) ==================== -->
-    <section class="slide" data-title="Estabilidade BIBO no Plano Z" data-notes="Conexão direta com Transformada Z e Estabilidade BIBO: todo sistema causal discreto é BIBO estável se e somente se a RDC inclui |z|=1, isto é, todos os polos estão estritamente dentro do círculo unitário |p_i| < 1. À esquerda vemos os zeros que acabamos de derivar nos Slides 6 e 7 (z=+1, z=-1 e z=e^{±j60°}) e todos os 10 polos na região verde. À direita provamos numericamente polo por polo que o maior módulo é 0,99672 < 1!">
+    <!-- ==================== SLIDE 12: ESTABILIDADE BIBO NO PLANO Z (AULAS 4, 6, 14 & 15) ==================== -->
+    <section class="slide" data-title="Aulas 4, 6, 14 & 15: Transformada Z, RDC e BIBO" data-notes="Conexão direta com 4 aulas: (1) Aula 4 (Slide 5): a série geométrica Σ r^n converge sse |r| < 1; (2) Aula 6 (Slide 47): estabilidade BIBO no tempo exige resposta ao impulso absolutamente somável Σ |h[k]| < ∞; (3) Aula 14 & Aula 15 (Slides 6–8): um sistema LIT causal de FT racional é BIBO estável se e somente se a RDC (exterior ao maior polo) inclui a circunferência unitária |z|=1 — isto é, todos os polos satisfazem |p_i| < 1! À esquerda vemos os zeros (z=+1, z=-1 e z=e^{±jπ/3}) e os 10 polos na região verde; à direita provamos numericamente polo por polo que max|p_i| = 0,99672 < 1!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">03 · Por Baixo dos Panos — Filtragem LIT</span>
-          <h2>Transformada Z e Prova Numérica de Estabilidade BIBO</h2>
+          <span class="chapter-kicker">03 · Aulas 4, 6, 14 &amp; 15 · Série Geométrica, RDC &amp; Estabilidade BIBO</span>
+          <h2>Transformada Z, RDC e Prova Numérica de Estabilidade BIBO</h2>
         </div>
-        <span class="slide-tag teal">\(\max |p_i| = 0{,}99672 \lt  1\)</span>
+        <span class="slide-tag teal">\(\max |p_i| = 0{,}99672 \lt 1\)</span>
       </div>
       <div class="slide-body">
         <div class="fig-frame anim-scale">
           <img src="./figuras/slide_plano_z.png" alt="Plano Z e módulos dos 10 polos do sistema LIT" />
         </div>
         <div class="takeaway-strip anim d3">
-          <div class="takeaway-pill green"><strong>Critério BIBO:</strong> \(\sum_{n=-\infty}^{\infty}|h[n]| \lt  \infty \iff |p_i| \lt  1\;\forall\, i \in \{1,\dots,10\}\) (entrada limitada \(\Rightarrow\) saída limitada).</div>
+          <div class="takeaway-pill green"><strong>Aulas 4, 6 &amp; 15 (BIBO):</strong> \(\sum|h[n]|\lt\infty \iff \text{RDC} \ni |z|=1 \iff |p_i| \lt 1\;\forall\, i \in \{1,\dots,10\}\) (série geométrica convergente!).</div>
           <div class="takeaway-pill crimson"><strong>Zeros no Círculo \(|z|=1\):</strong> \(z = e^{\pm j\pi/3}\) zera \(60\text{ Hz}\); \(z = +1\) zera DC (\(0\text{ Hz}\)); \(z = -1\) zera Nyquist (\(180\text{ Hz}\)).</div>
-          <div class="takeaway-pill"><strong>Importância do SOS:</strong> os polos #7 e #8 estão em \(|p| = 0{,}99672\) (a \(0{,}00328\) da borda) — SOS garante precisão numérica!</div>
+          <div class="takeaway-pill"><strong>Autovalores dos Biquads (Aula 16):</strong> os polos #7 e #8 ficam em \(|\lambda| = 0{,}99672\) (a \(0{,}00328\) da borda) — SOS mantém estabilidade!</div>
         </div>
       </div>
       <div class="slide-footer">
-        <span>Critério de estabilidade BIBO (Oppenheim et al.) verificado numericamente nos 10 polos da cascata</span>
-        <span class="mono">10 / 23</span>
+        <span>Aulas 4, 6, 14, 15 e 16 · Critério BIBO (Oppenheim &amp; Willsky) verificado numericamente nos 10 polos</span>
+        <span class="mono">12 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 11: PAN-TOMPKINS ETAPAS 1 A 3 (SINAL REAL 16:9) ==================== -->
-    <section class="slide" data-title="Pan-Tompkins Passo a Passo (Etapas 1–3)" data-notes="Agora vamos ver como o algoritmo encontra cada batimento em um sinal real do MIT-BIH (Registro 100)! Etapa 1: ECG diagnóstico (0,5–40 Hz) com P, QRS e T. Etapa 2: Passa-faixa QRS 5–15 Hz (Butterworth ordem 3 SOS, fase zero) apaga P e T lentas e isola o QRS. Etapa 3: Derivada discreta de 5 pontos centrada (sem atraso!) mede dV/dt e dispara justamente na inclinação íngreme do QRS!">
+    <!-- ==================== SLIDE 13: PAN-TOMPKINS ETAPAS 1 A 3 (AULAS 5 & 7) ==================== -->
+    <section class="slide" data-title="Aulas 5 & 7: Pan-Tompkins (Etapas 1–3)" data-notes="Agora abrimos o detector de picos R em sinal real do MIT-BIH (Registro 100)! E olha a conexão genial com a Aula 7 (Slide 35): lá o Prof. André alertou explicitamente que 'a implementação de diferenciadores é difícil e extremamente sensível a ruído'! É EXATAMENTE por isso que a Etapa 2 aplica um FPF 5–15 Hz ANTES de calcular a derivada discreta de 5 pontos (análoga a δ[n] = u[n] - u[n-1] da Aula 5, Slide 4) na Etapa 3 — assim a derivada dispara apenas na inclinação íngreme dV/dt do complexo QRS, sem amplificar ruído muscular!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">04 · Por Baixo dos Panos — Detecção de Picos R</span>
+          <span class="chapter-kicker">04 · Aulas 5 &amp; 7 · Impulso \(\delta[n]\), Derivada FIR &amp; Sensibilidade a Ruído</span>
           <h2>Como o Algoritmo Acha os Picos R: Pan-Tompkins (Etapas 1 a 3)</h2>
         </div>
         <span class="slide-tag navy">Sinal Real MIT-BIH 100</span>
@@ -1185,46 +1445,46 @@
           <img src="./figuras/slide_pantompkins_1_3.png" alt="Pan-Tompkins Etapas 1 a 3 em sinal real do MIT-BIH" />
         </div>
         <div class="eq-box anim d3" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-          <span><strong>Derivada centrada 5 pts:</strong> \(\;y_d[n] = \dfrac{f_s}{8}\bigl(2x_{\text{bp}}[n+2] + x_{\text{bp}}[n+1] - x_{\text{bp}}[n-1] - 2x_{\text{bp}}[n-2]\bigr)\)</span>
-          <span style="color:var(--teal); font-weight:600;">Diferença finita análoga a \(\delta[n] = u[n] - u[n-1]\)</span>
+          <span><strong>Derivada FIR centrada (Aula 5):</strong> \(\;y_d[n] = \dfrac{f_s}{8}\bigl(2x_{\text{bp}}[n+2] + x_{\text{bp}}[n+1] - x_{\text{bp}}[n-1] - 2x_{\text{bp}}[n-2]\bigr)\)</span>
+          <span style="color:var(--crimson); font-weight:600;">Aula 7 (Slide 35): FPF \(5\text{–}15\text{ Hz}\) vem ANTES para evitar ruído no diferenciador!</span>
         </div>
       </div>
       <div class="slide-footer">
-        <span>Etapas lineares de realce QRS: Passa-faixa 5–15 Hz (ordem 3, fase zero) + Derivada de 5 pontos</span>
-        <span class="mono">11 / 23</span>
+        <span>Aulas 5 e 7 · Filtro FPF 5–15 Hz (ordem 3, fase zero) protege o diferenciador discreto FIR de 5 pontos</span>
+        <span class="mono">13 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 12: PAN-TOMPKINS ETAPAS 4 E 5 + LIMIARES (SINAL REAL 16:9) ==================== -->
-    <section class="slide" data-title="Pan-Tompkins Passo a Passo (Etapas 4–5)" data-notes="Continuando no MESMO trecho de 4 segundos: Etapa 4 faz a quadratura y_s[n] = (y_d[n])², deixando tudo positivo e amplificando quadraticamente o QRS em relação às ondas P e T. Etapa 5 aplica a integração por janela móvel centrada de W = 55 amostras (~152,8 ms a 360 Hz — duração fisiológica de um QRS!), fundindo o complexo em um único pico suave acima do limiar T1!">
+    <!-- ==================== SLIDE 14: PAN-TOMPKINS ETAPAS 4 E 5 (AULAS 3, 5 & 6) ==================== -->
+    <section class="slide" data-title="Aulas 3, 5 & 6: Quadratura, Convolução FIR & Somatórios" data-notes="Continuando no mesmo trecho real de 4 s, agora conectando às Aulas 3, 5 e 6! Na Etapa 4, a quadratura y_s[n] = (y_d[n])² é um sistema propositalmente NÃO-LINEAR, sem memória e não-invertível (exemplos diretos da Aula 5, Slides 19, 20 e 26!) para tornar tudo positivo e amplificar o QRS. Na Etapa 5, a janela móvel é uma Soma de Convolução FIR (Aula 6, Slide 6) com pulso retangular h_mwi[n] = 1/W (W = 55 amostras ímpares ≈ 152,8 ms para ser perfeitamente simétrica!). E no nosso código JS/Python, calculamos essa convolução em tempo linear O(N) usando a recorrência de somas acumuladas S_n = S_{n-1} + a_n e a soma telescópica da Aula 3 (Slides 2 e 29)!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">04 · Por Baixo dos Panos — Detecção de Picos R</span>
-          <h2>Pan-Tompkins (Etapas 4 e 5): Quadratura, Integração e Limiares</h2>
+          <span class="chapter-kicker">04 · Aulas 3, 5 &amp; 6 · Não-Linearidade, Convolução FIR &amp; Somas Telescópicas</span>
+          <h2>Pan-Tompkins (Etapas 4 e 5): Quadratura, Convolução e Somatórios</h2>
         </div>
-        <span class="slide-tag">Envoltória MWI · \(W = 55\) amostras</span>
+        <span class="slide-tag">Convolução MWI · \(W = 55\) · \(O(N)\)</span>
       </div>
       <div class="slide-body">
         <div class="fig-frame anim-scale">
           <img src="./figuras/slide_pantompkins_4_5.png" alt="Pan-Tompkins Etapas 4 e 5 com limiares adaptativos" />
         </div>
         <div class="takeaway-strip anim d3">
-          <div class="takeaway-pill amber"><strong>Etapa 4 · Quadratura:</strong> \(y_s[n] = \bigl(y_d[n]\bigr)^2\) — tudo positivo; QRS cresce quadraticamente sobre ruído pequeno.</div>
-          <div class="takeaway-pill"><strong>Etapa 5 · Janela Móvel:</strong> \(y_{\text{mwi}}[n] = \frac{1}{W}\sum_{k=-27}^{27} y_s[n-k]\) (\(W = 55 \approx 153\text{ ms}\)) cria 1 pulso por QRS.</div>
-          <div class="takeaway-pill crimson"><strong>Limiares \(T_1\) e \(T_2\):</strong> adaptam-se em tempo real à amplitude do paciente — nunca usa limiar fixo!</div>
+          <div class="takeaway-pill amber"><strong>Aula 5 (Sistema Não-Linear):</strong> \(y_s[n] = (y_d[n])^2\) é sem memória e não-invertível — amplifica QRS sobre ruídos!</div>
+          <div class="takeaway-pill"><strong>Aula 6 (Convolução FIR):</strong> \(y_{\text{mwi}}[n] = y_s[n]*h_{\text{mwi}}[n] = \frac{1}{W}\sum_{k=-27}^{27} y_s[n-k]\) (\(W = 55 \approx 153\text{ ms}\)).</div>
+          <div class="takeaway-pill crimson"><strong>Aula 3 (Recorrência \(S_n\)):</strong> somas acumuladas \(S_n = S_{n-1}+y_s[n]\) e telescópica \((S_{n+27}-S_{n-28})/W\) em \(O(N)\)!</div>
         </div>
       </div>
       <div class="slide-footer">
-        <span>Operação não linear + integrador móvel simétrico centrado (W = 55 amostras a fs = 360 Hz)</span>
-        <span class="mono">12 / 23</span>
+        <span>Aulas 3, 5 e 6 · Quadratura não-linear + convolução FIR simétrica acelerada por soma telescópica em O(N)</span>
+        <span class="mono">14 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 13: REGRAS DE DECISÃO INTELIGENTES (HAMILTON & TOMPKINS) ==================== -->
-    <section class="slide" data-title="Regras de Decisão (Hamilton & Tompkins)" data-notes="Explicar as 4 regras inteligentes de Hamilton & Tompkins (1986) que garantem 99,80% de sensibilidade no MIT-BIH: (1) limiar duplo adaptativo SPKI/NPKI com proteção anti-saturação no percentil 99,5; (2) período refratário fisiológico >= 200 ms; (3) rejeição de Onda T hiperaguda entre 200 e 360 ms comparando a derivada com 50% do último QRS; (4) search-back quando RR excede 1,55·RR_médio usando limiar reduzido T2 = 0,5·T1 e refinamento do pico R em ±80 ms no sinal diagnóstico!">
+    <!-- ==================== SLIDE 15: REGRAS DE DECISÃO INTELIGENTES (HAMILTON & TOMPKINS) ==================== -->
+    <section class="slide" data-title="Regras de Decisão (Hamilton & Tompkins)" data-notes="Explicar as 4 regras inteligentes de Hamilton & Tompkins (1986) que garantem 99,80% de sensibilidade no MIT-BIH: (1) limiar duplo adaptativo SPKI/NPKI com proteção anti-saturação no percentil 99,5 (note que SPKI ← 0,125·P + 0,875·SPKI é um filtro recursivo IIR de 1ª ordem de média exponencial!); (2) período refratário fisiológico >= 200 ms; (3) rejeição de Onda T hiperaguda entre 200 e 360 ms comparando a derivada com 50% do último QRS; (4) search-back quando RR excede 1,55·RR_médio usando limiar reduzido T2 = 0,5·T1 e refinamento do pico R em ±80 ms no sinal diagnóstico!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">04 · Por Baixo dos Panos — Detecção de Picos R</span>
+          <span class="chapter-kicker">04 · Detecção de Picos R · Média Exponencial IIR &amp; Lógica Fisiológica</span>
           <h2>As 4 Regras Inteligentes de Decisão (Hamilton &amp; Tompkins, 1986)</h2>
         </div>
         <span class="slide-tag teal">Lógica Exata do Detector</span>
@@ -1232,8 +1492,8 @@
       <div class="slide-body">
         <div class="split">
           <div class="card card-accent-navy anim d1">
-            <h3>1. Limiar Duplo Adaptativo (\(\text{SPKI}\) e \(\text{NPKI}\))</h3>
-            <p>Mantém estimativas exponenciais de <strong>Sinal QRS</strong> e <strong>Ruído</strong> (na MWI e no passa-faixa \(5\text{–}15\text{ Hz}\)):</p>
+            <h3>1. Limiar Duplo Adaptativo (IIR 1ª Ordem · Aula 7)</h3>
+            <p>Estimativa recursiva exponencial de <strong>Sinal QRS</strong> e <strong>Ruído</strong> (na MWI e no passa-faixa \(5\text{–}15\text{ Hz}\)):</p>
             <div class="eq-box navy eq-compact">
               $$\text{SPKI} \leftarrow 0{,}125\,P + 0{,}875\,\text{SPKI} \quad (\text{QRS}), \qquad \text{NPKI} \leftarrow 0{,}125\,P + 0{,}875\,\text{NPKI} \quad (\text{ruído})$$
               $$T_{I1} = \text{NPKI} + 0{,}25\,(\text{SPKI} - \text{NPKI}), \qquad T_{I2} = 0{,}5\,T_{I1}$$
@@ -1245,7 +1505,7 @@
             <h3>2. Período Refratário Fisiológico (\(\ge 200\text{ ms}\))</h3>
             <p>Após a despolarização ventricular, o miocárdio fica biologicamente refratário por \(200\text{ ms}\) (teto fisiológico de \(300\text{ BPM}\)).</p>
             <div class="eq-box crimson eq-compact">
-              $$\Delta n = n_{\text{cand}} - n_{\text{últ}} \lt  0{,}200\,f_s = 72\text{ amostras} \;\implies\; \text{ignora (mantém o maior)}$$
+              $$\Delta n = n_{\text{cand}} - n_{\text{últ}} \lt 0{,}200\,f_s = 72\text{ amostras} \;\implies\; \text{ignora (mantém o maior)}$$
             </div>
             <p>Elimina instantaneamente duplas detecções em complexos QRS largos ou bífidos.</p>
           </div>
@@ -1254,14 +1514,14 @@
             <h3>3. Rejeição de Onda T Hiperaguda (\(200\text{–}360\text{ ms}\))</h3>
             <p>Se um candidato surgir entre \(200\text{ ms}\) e \(360\text{ ms}\) após o último QRS, testamos sua inclinação máxima \(\max|y_d|\):</p>
             <div class="eq-box amber eq-compact">
-              $$200\text{ ms} \le \Delta t \lt  360\text{ ms} \;\land\; S_{\text{cand}} \lt  0{,}50\,S_{\text{QRS}} \;\implies\; \text{Onda T (rejeita!)}$$
+              $$200\text{ ms} \le \Delta t \lt 360\text{ ms} \;\land\; S_{\text{cand}} \lt 0{,}50\,S_{\text{QRS}} \;\implies\; \text{Onda T (rejeita!)}$$
             </div>
           </div>
 
           <div class="card card-accent-teal anim d4">
             <h3>4. <em>Search-Back</em> + Refinamento de Polaridade</h3>
             <ul>
-              <li><strong><em>Search-Back</em>:</strong> se \(\Delta t \gt  1{,}55\,\overline{RR}\), revisita o intervalo com \(T_{I2} = 0{,}5\,T_{I1}\) e atualiza \(\text{SPKI} \leftarrow 0{,}25\,P + 0{,}75\,\text{SPKI}\) para resgatar batimentos fracos!</li>
+              <li><strong><em>Search-Back</em>:</strong> se \(\Delta t \gt 1{,}55\,\overline{RR}\), revisita o intervalo com \(T_{I2} = 0{,}5\,T_{I1}\) e atualiza \(\text{SPKI} \leftarrow 0{,}25\,P + 0{,}75\,\text{SPKI}\) para resgatar batimentos fracos!</li>
               <li><strong>Refinamento (\(\pm 80\text{ ms}\)):</strong> retorna ao sinal diagnóstico \(0{,}5\text{–}40\text{ Hz}\) e crava o vértice do pico R — tratando inclusive <strong>PVCs invertidos</strong> (Reg. 108/119).</li>
             </ul>
           </div>
@@ -1269,36 +1529,36 @@
       </div>
       <div class="slide-footer">
         <span>Mesmas equações implementadas com paridade em Python (src/ecg_pipeline.py) e JavaScript (web/dsp_engine.js)</span>
-        <span class="mono">13 / 23</span>
+        <span class="mono">15 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 14: PERIODICIDADE DISCRETA, BPM, SDNN E RMSSD ==================== -->
-    <section class="slide" data-title="Periodicidade Discreta, BPM, SDNN e RMSSD" data-notes="Conectar a sequência de picos R detectados {n_k} diretamente com a definição de periodicidade discreta x[n] = x[n+N] da disciplina! Mostrar todas as contas limpas: período discreto N_k, intervalo RR_k em ms, BPM médio, SDNN (dispersão global da periodicidade) e RMSSD (variação batimento a batimento). Explicar a régua clínica 60–120 BPM da entrevista e por que o SDNN é essencial para detectar arritmias com BPM aparentemente normal!">
+    <!-- ==================== SLIDE 16: PERIODICIDADE DISCRETA, BPM, SDNN E RMSSD (AULA 1) ==================== -->
+    <section class="slide" data-title="Aula 1: Periodicidade Discreta, BPM, SDNN e RMSSD" data-notes="Conectar a sequência de picos R detectados {n_k} diretamente à definição de periodicidade discreta da Aula 1 (Slide 24): x[n] = x[n + N0], onde N0 é o período fundamental discreto! Em ritmo sinusal regular, o ECG é quase-periódico com N0 estável; na bradicardia N0 aumenta (> 360 amostras); na taquicardia N0 encolhe (< 180 amostras); e na arritmia a periodicidade é violada e o SDNN dispara acima de 100 ms!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">04 · Por Baixo dos Panos — Métricas Clínicas</span>
-          <h2>Periodicidade Discreta \(x[n] = x[n + N]\), BPM, SDNN e RMSSD</h2>
+          <span class="chapter-kicker">04 · Aula 1 (Slide 24) · Sinais Periódicos em Tempo Discreto</span>
+          <h2>Periodicidade Discreta \(x[n] = x[n + N_0]\), BPM, SDNN e RMSSD</h2>
         </div>
         <span class="slide-tag navy">Da Matemática à Triagem</span>
       </div>
       <div class="slide-body">
         <div class="grid-3 anim d1">
           <div class="card card-accent-navy">
-            <h3>Período Discreto \(N\) e Intervalo R-R</h3>
+            <h3>Período Fundamental \(N_0\) e R-R</h3>
             <div class="eq-box navy eq-compact">
               $$N_k = n_k - n_{k-1} \;\text{(amostras)}$$
-              $$RR_k = \frac{N_k}{f_s}\cdot 1000\text{ ms}$$
+              $$RR_k = N_k\,T_s\cdot 1000 = \frac{N_k}{f_s}\cdot 1000\text{ ms}$$
             </div>
-            <p>Em ritmo sinusal regular, o sinal é quase-periódico: \(x[n] \approx x[n + \bar{N}]\).</p>
+            <p>Em ritmo sinusal regular (Aula 1), o sinal é quase-periódico: \(x[n] \approx x[n + \bar{N}_0]\).</p>
           </div>
           <div class="card card-accent-teal">
             <h3>Frequência Cardíaca (BPM)</h3>
             <div class="eq-box eq-compact">
               $$\overline{RR} = \frac{1}{K}\sum_{k=1}^{K} RR_k$$
-              $$\text{BPM} = \frac{60\,000}{\overline{RR}} = \frac{60\,f_s}{\bar{N}}$$
+              $$\text{BPM} = \frac{60\,000}{\overline{RR}} = \frac{60\,f_s}{\bar{N}_0}$$
             </div>
-            <p>Inversamente proporcional ao período fundamental discreto médio \(\bar{N}\).</p>
+            <p>Inversamente proporcional ao período fundamental discreto médio \(\bar{N}_0\).</p>
           </div>
           <div class="card card-accent-amber">
             <h3>Variabilidade (SDNN &amp; RMSSD)</h3>
@@ -1306,7 +1566,7 @@
               $$\text{SDNN} = \sqrt{\frac{1}{K-1}\sum_{k=1}^{K}(RR_k - \overline{RR})^2}$$
               $$\text{RMSSD} = \sqrt{\frac{1}{K-1}\sum_{k=1}^{K-1}(RR_{k+1} - RR_k)^2}$$
             </div>
-            <p>Medem o desvio da periodicidade: \(\text{SDNN} \gt  100\text{ ms}\) sinaliza <strong>ritmo irregular / arritmia</strong>!</p>
+            <p>Medem a quebra da periodicidade: \(\text{SDNN} \gt 100\text{ ms}\) sinaliza <strong>ritmo irregular / arritmia</strong>!</p>
           </div>
         </div>
 
@@ -1318,36 +1578,36 @@
             <div style="background:#FEE2E2; color:#991B1B;">
               <strong style="font-size:16.5px;">&lt; 60 BPM</strong>
               <span style="font-weight:700;">BRADICARDIA</span>
-              <small>Período longo (\(\bar{N} \gt  360\) amostras a \(360\text{ Hz}\))</small>
+              <small>Período longo (\(\bar{N}_0 \gt 360\) amostras a \(360\text{ Hz}\))</small>
             </div>
             <div style="background:#DCFCE7; color:#14532D; border-left:2px solid #94A3B8; border-right:2px solid #94A3B8;">
               <strong style="font-size:16.5px;">60 a 120 BPM</strong>
               <span style="font-weight:700;">RITMO NORMAL</span>
-              <small>Se \(\text{SDNN} \gt  100\text{ ms} \Rightarrow\) alerta complementar de Arritmia!</small>
+              <small>Se \(\text{SDNN} \gt 100\text{ ms} \Rightarrow\) alerta complementar de Arritmia!</small>
             </div>
             <div style="background:#FEE2E2; color:#991B1B;">
               <strong style="font-size:16.5px;">&gt; 120 BPM</strong>
               <span style="font-weight:700;">TAQUICARDIA</span>
-              <small>Período curto (\(\bar{N} \lt  180\) amostras a \(360\text{ Hz}\))</small>
+              <small>Período curto (\(\bar{N}_0 \lt 180\) amostras a \(360\text{ Hz}\))</small>
             </div>
           </div>
         </div>
 
         <div class="eq-box crimson anim d3" style="font-size:12.8px;">
-          <strong>Insight clínico (Slide 20):</strong> no Registro 119, o BPM médio é <strong>65,5 BPM</strong> (faixa normal!), mas o <strong>\(\text{SDNN} = 359{,}5\text{ ms}\)</strong> acusa na hora o bigeminismo ventricular!
+          <strong>Insight clínico (Slide 22):</strong> no Registro 119, o BPM médio é <strong>65,5 BPM</strong> (faixa normal!), mas o <strong>\(\text{SDNN} = 359{,}5\text{ ms}\)</strong> acusa na hora o bigeminismo ventricular!
         </div>
       </div>
       <div class="slide-footer">
-        <span>Periodicidade discreta aplicada diretamente à triagem clínica de frequência e regularidade</span>
-        <span class="mono">14 / 23</span>
+        <span>Aula 1 (Slide 24) · Periodicidade discreta aplicada diretamente à triagem clínica de frequência e regularidade</span>
+        <span class="mono">16 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 15: RESULTADO TEMPORAL ANTES X DEPOIS (REG. 105) ==================== -->
-    <section class="slide" data-title="Resultado Temporal: Antes × Depois (Reg. 105)" data-notes="Resultados reais na base MIT-BIH! No Registro 105 (ruído severo), o sinal bruto oscila ~4,0 mV pela respiração e movimentação. Depois dos filtros LIT fase zero, a linha de base trava em 0 mV, a morfologia fica intacta sobre o papel milimetrado e todos os 14/14 batimentos da janela são marcados sem 1 ms de atraso!">
+    <!-- ==================== SLIDE 17: RESULTADO TEMPORAL ANTES X DEPOIS (REG. 105) ==================== -->
+    <section class="slide" data-title="Aulas 1 & 6: Antes × Depois em Papel Milimetrado" data-notes="Resultados reais na base MIT-BIH! No Registro 105 (ruído severo), o sinal bruto oscila ~4,0 mV pela respiração e movimentação, com potência discreta média (Aula 1, Slide 16) de Pd = 0,2148 mV². Depois dos filtros LIT fase zero, a linha de base trava em 0 mV (Pd = 0,1336 mV², removendo 37,81% de potência de ruído!), a morfologia fica intacta sobre o papel milimetrado e todos os 14/14 batimentos da janela são marcados sem 1 ms de atraso!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">05 · Resultados Reais no MIT-BIH</span>
+          <span class="chapter-kicker">05 · Aulas 1 &amp; 6 · Domínio do Tempo &amp; Potência Discreta \(P_d\)</span>
           <h2>Resultado Temporal: Antes × Depois em Papel Milimetrado</h2>
         </div>
         <span class="slide-tag">MIT-BIH Reg. 105 · 14/14 Picos R</span>
@@ -1357,23 +1617,23 @@
           <img src="./figuras/slide_antes_depois_105.png" alt="Comparação Antes e Depois no Registro 105 em 16:9" />
         </div>
         <div class="takeaway-strip anim d3">
-          <div class="takeaway-pill crimson"><strong>Antes (Bruto):</strong> deriva de \(\approx 4{,}0\text{ mV}\) + interferência \(60\text{ Hz}\) + EMG comprometem a leitura visual.</div>
-          <div class="takeaway-pill teal"><strong>Depois (Fase Zero):</strong> linha de base plana em \(0\text{ mV}\) e picos R no instante exato (\(0\text{ ms}\) de atraso).</div>
-          <div class="takeaway-pill green"><strong>Reg. 105 (30 min):</strong> \(86{,}5\text{ BPM}\) · \(\overline{RR} = 693{,}4\text{ ms}\) (\(\bar{N} = 249{,}6\)) · <strong>14/14 batimentos</strong> na janela!</div>
+          <div class="takeaway-pill crimson"><strong>Antes (Bruto):</strong> deriva de \(\approx 4{,}0\text{ mV}\) + \(60\text{ Hz}\) + EMG (\(P_d = 0{,}2148\text{ mV}^2\), Aula 1 Slide 16).</div>
+          <div class="takeaway-pill teal"><strong>Depois (Fase Zero):</strong> linha de base em \(0\text{ mV}\), \(P_d = 0{,}1336\text{ mV}^2\) (\(-37{,}81\%\) ruído) e \(0\text{ ms}\) de atraso!</div>
+          <div class="takeaway-pill green"><strong>Reg. 105 (30 min):</strong> \(86{,}5\text{ BPM}\) · \(\overline{RR} = 693{,}4\text{ ms}\) (\(\bar{N}_0 = 249{,}6\)) · <strong>14/14 batimentos</strong> na janela!</div>
         </div>
       </div>
       <div class="slide-footer">
         <span>Registro 105 (ruído severo) · Papel milimetrado padrão ECG (25 mm/s · 10 mm/mV)</span>
-        <span class="mono">15 / 23</span>
+        <span class="mono">17 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 16: FFT GLOBAL E TEOREMA DE PARSEVAL ==================== -->
-    <section class="slide" data-title="Espectro FFT Global & Teorema de Parseval" data-notes="No domínio da frequência (FFT de 650.000 amostras = 30 min completos do Reg. 105!): dentro da banda verde (0,5–40 Hz) as curvas Antes e Depois coincidem, provando que preservamos o sinal cardíaco; fora dela a energia de ruído cai drasticamente. E verificamos numericamente o Teorema de Parseval (potência no tempo = potência na frequência) com erro de 3,88 × 10⁻¹⁶ (precisão de máquina IEEE-754)!">
+    <!-- ==================== SLIDE 18: DFT E TEOREMA DE PARSEVAL (AULAS 11 & 13) ==================== -->
+    <section class="slide" data-title="Aulas 11 & 13: DFT, f = (k/N)fs e Parseval" data-notes="No domínio da frequência, aplicamos exatamente as fórmulas da Aula 13 (Slides 8–13) e da Aula 11 (Slide 20) sobre os 30 min completos do Reg. 105 (N = 650.000 amostras)! Notação exata das aulas: X[k] = Σ x[n] W_N^{kn} com W_N = e^{-j2π/N}, frequência digital Ω_k = 2πk/N e conversão para frequência real f = (k/N)·fs (Aula 13, Slide 13!). E verificamos numericamente o Teorema de Parseval da DFT (Aula 13, Slide 11: Σ|x[n]|² = (1/N)Σ|X[k]|²) com erro de 3,88 × 10⁻¹⁶ (precisão de máquina IEEE-754)!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">05 · Resultados Reais no MIT-BIH</span>
-          <h2>Domínio da Frequência (FFT) e Teorema de Parseval</h2>
+          <span class="chapter-kicker">05 · Aulas 11 &amp; 13 · DFT (\(W_N\)), Conversão \(f = \frac{k}{N}f_s\) &amp; Parseval</span>
+          <h2>Domínio da Frequência (DFT/FFT) e Teorema de Parseval</h2>
         </div>
         <span class="slide-tag teal">Erro Parseval: \(3{,}88 \times 10^{-16}\)</span>
       </div>
@@ -1382,8 +1642,8 @@
           <img src="./figuras/slide_fft_espectro_global.png" alt="Espectro FFT global Antes e Depois no Registro 105" />
         </div>
         <div class="eq-box navy eq-compact anim d2" style="display:flex; justify-content:space-around; align-items:center; flex-wrap:wrap; gap:10px; padding:6px 12px;">
-          <span><strong>DFT / FFT:</strong> \(\;X[k] = \sum_{n=0}^{M-1} x[n]\,e^{-j\frac{2\pi}{M}kn},\;\; c_k = \frac{X[k]}{M}\)</span>
-          <span><strong>Teorema de Parseval:</strong> \(\;P_d = \frac{1}{M}\sum_{n=0}^{M-1}|x[n]|^2 = \sum_{k=0}^{M-1}|c_k|^2\)</span>
+          <span><strong>DFT (Aula 13):</strong> \(\;X[k] = \sum_{n=0}^{N-1} x[n]\,W_N^{kn},\;\; W_N = e^{-j\frac{2\pi}{N}},\;\; f = \frac{k}{N}f_s\)</span>
+          <span><strong>Parseval (Aulas 11 &amp; 13):</strong> \(\;\sum_{n=0}^{N-1}|x[n]|^2 = \frac{1}{N}\sum_{k=0}^{N-1}|X[k]|^2 \iff P_d = \sum_{k=0}^{N-1}|c_k|^2\)</span>
         </div>
         <div class="grid-3 anim d3">
           <div class="card card-accent-teal" style="padding:7px 12px; flex-direction:row; align-items:center; gap:12px;">
@@ -1401,16 +1661,16 @@
         </div>
       </div>
       <div class="slide-footer">
-        <span>Análise de Fourier e conservação de energia (Parseval) sobre M = 650.000 amostras do MIT-BIH Reg. 105</span>
-        <span class="mono">16 / 23</span>
+        <span>Aulas 11 e 13 · Análise de Fourier (DFT) e conservação de energia (Parseval) em N = 650.000 amostras (Reg. 105)</span>
+        <span class="mono">18 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 17: ZOOMS NAS BANDAS DE REJEIÇÃO (<0,5 Hz E 60 Hz) ==================== -->
-    <section class="slide" data-title="Zoom nas Bandas Rejeitadas (<0,5 Hz e 60 Hz)" data-notes="Dois zooms grandes lado a lado: à esquerda o corte abrupto abaixo de 0,5 Hz (-98,52% no Reg. 105; média de 99,21% nos 6 registros), preservando intacta a energia cardíaca acima de 0,8 Hz; à direita a agulha de 60 Hz desaparece no piso de ruído (-99,99% no Reg. 105; média de 99,99% nos 6 registros, variando entre 99,98% e 100,00%)!">
+    <!-- ==================== SLIDE 19: ZOOMS NAS BANDAS DE REJEIÇÃO (<0,5 Hz E 60 Hz) ==================== -->
+    <section class="slide" data-title="Aulas 11 & 13: Lupa Espectral (<0,5 Hz e 60 Hz)" data-notes="Dois zooms grandes lado a lado comprovando a seletividade (Aula 11, Slide 60): à esquerda o corte abrupto abaixo de 0,5 Hz (-98,52% no Reg. 105; média de 99,21% nos 6 registros), preservando intacta a energia cardíaca acima de 0,8 Hz; à direita a agulha de 60 Hz desaparece no piso de ruído (-99,99% no Reg. 105; média de 99,99% nos 6 registros) graças ao Fq = 30 e aos zeros sobre |z|=1 em e^{±jπ/3}!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">05 · Resultados Reais no MIT-BIH</span>
+          <span class="chapter-kicker">05 · Aulas 11 &amp; 13 · Seletividade Espectral &amp; Fator \(F_q = 30\)</span>
           <h2>Lupa Espectral: Eliminação da Linha de Base e da Rede 60 Hz</h2>
         </div>
         <span class="slide-tag crimson">−98,52% (&lt;0,5 Hz) · −99,99% (60 Hz)</span>
@@ -1421,24 +1681,24 @@
         </div>
         <div class="split anim d3">
           <div class="takeaway-pill teal">
-            <strong>Esquerda (\(\lt  0{,}5\text{ Hz}\) — Respiração):</strong> atenuação de \(98{,}52\%\) no Reg. 105 (média de <strong>\(99{,}21\%\)</strong> nos 6 registros), mantendo intactos os harmônicos cardíacos acima de \(0{,}8\text{ Hz}\).
+            <strong>Esquerda (\(\lt 0{,}5\text{ Hz}\) — Respiração):</strong> atenuação de \(98{,}52\%\) no Reg. 105 (média de <strong>\(99{,}21\%\)</strong> nos 6 registros), mantendo intactos os harmônicos cardíacos acima de \(0{,}8\text{ Hz}\).
           </div>
           <div class="takeaway-pill crimson">
-            <strong>Direita (\(60{,}0\text{ Hz}\) — Rede Elétrica):</strong> a "agulha" cinza some no piso de ruído (<strong>média de \(99{,}99\%\)</strong> nos 6 registros; faixa \(99{,}98\%\text{–}100{,}00\%\)) graças aos zeros em \(z = e^{\pm j\pi/3}\).
+            <strong>Direita (\(60{,}0\text{ Hz}\) — Rede Elétrica):</strong> a "agulha" cinza some no piso de ruído (<strong>média de \(99{,}99\%\)</strong> nos 6 registros; faixa \(99{,}98\%\text{–}100{,}00\%\)) graças ao FRF \(F_q = 30\) e zeros em \(z = e^{\pm j\pi/3}\).
           </div>
         </div>
       </div>
       <div class="slide-footer">
-        <span>Comprovação visual e quantitativa da seletividade dos filtros projetados (MIT-BIH Reg. 105)</span>
-        <span class="mono">17 / 23</span>
+        <span>Aulas 11 e 13 · Comprovação visual e quantitativa da seletividade dos filtros projetados (MIT-BIH Reg. 105)</span>
+        <span class="mono">19 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 18: VALIDAÇÃO QUANTITATIVA MIT-BIH VS LITERATURA ==================== -->
+    <!-- ==================== SLIDE 20: VALIDAÇÃO QUANTITATIVA MIT-BIH VS LITERATURA ==================== -->
     <section class="slide" data-title="Validação Quantitativa (13.171 Batimentos)" data-notes="Validação oficial ANSI/AAMI EC57 (±150 ms contra as anotações .atr de cardiologistas) em 6 registros completos de 30 minutos = 180,5 minutos e 13.171 batimentos reais! Mostrar as 3 fórmulas exatas (Se, +P e F1) e o resultado global de 99,80% Se, 99,09% +P e 99,44% F1, equiparando-se a Pan & Tompkins (1985), Hamilton & Tompkins (1986) e Luz et al. (2016)!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">05 · Resultados Reais no MIT-BIH</span>
+          <span class="chapter-kicker">05 · Relatório 1 &amp; Validação · Padrão ANSI/AAMI EC57</span>
           <h2>Validação Quantitativa no MIT-BIH vs. Literatura (Rel. 1)</h2>
         </div>
         <span class="slide-tag teal">13.171 Batimentos Reais</span>
@@ -1496,18 +1756,18 @@
       </div>
       <div class="slide-footer">
         <span>Padrão ANSI/AAMI EC57 · Matching 1-para-1 contra anotações oficiais (.atr) do PhysioNet</span>
-        <span class="mono">18 / 23</span>
+        <span class="mono">20 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 19: ANOMALIA 1 — BRADICARDIA (TELA CHEIA 16:9) ==================== -->
-    <section class="slide" data-title="Caso Real 1: Bradicardia (Reg. 231)" data-notes="Caso Real 1 em tela cheia: Registro 231 — Bradicardia severa (34,2 BPM na janela; 52,2 BPM nos 30 min) com Bloqueio AV de 2º grau. Repare entre os picos R: ondas P não conduzidas ficam nítidas na linha de base graças ao filtro fase zero, e o Pan-Tompkins NÃO gera falso positivo nelas!">
+    <!-- ==================== SLIDE 21: ANOMALIA 1 — BRADICARDIA (TELA CHEIA 16:9) ==================== -->
+    <section class="slide" data-title="Caso Real 1: Bradicardia (Reg. 231)" data-notes="Caso Real 1 em tela cheia (Aula 1 — período fundamental alto N0 ≈ 631 amostras!): Registro 231 — Bradicardia severa (34,2 BPM na janela; 52,2 BPM nos 30 min) com Bloqueio AV de 2º grau. Repare entre os picos R: ondas P não conduzidas ficam nítidas na linha de base graças ao filtro fase zero, e o Pan-Tompkins NÃO gera falso positivo nelas!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">05 · Detecção em Anomalias Cardíacas Reais</span>
+          <span class="chapter-kicker">05 · Aula 1 · Período Discreto Longo (\(\bar{N}_0 \approx 631\))</span>
           <h2>Caso Real 1 · Bradicardia Severa (MIT-BIH Reg. 231)</h2>
         </div>
-        <span class="slide-tag"><span class="live-dot"></span> \(34{,}2\text{ BPM}\) (\(\lt  60\text{ BPM}\))</span>
+        <span class="slide-tag"><span class="live-dot"></span> \(34{,}2\text{ BPM}\) (\(\lt 60\text{ BPM}\))</span>
       </div>
       <div class="slide-body">
         <div class="fig-frame anim-scale">
@@ -1515,21 +1775,21 @@
         </div>
         <div class="takeaway-strip anim d3">
           <div class="takeaway-pill crimson"><strong>Triagem Automática:</strong> \(34{,}2\text{ BPM}\) na janela (\(52{,}2\text{ BPM}\) em 30 min) \(\Rightarrow\) alerta imediato de <strong>Bradicardia</strong>.</div>
-          <div class="takeaway-pill"><strong>Período Discreto \(\bar{N}\):</strong> \(\bar{N} = 631\) amostras (\(\overline{RR} = 1\,752\text{ ms}\)) — quase o triplo de um ritmo normal!</div>
+          <div class="takeaway-pill"><strong>Período Fundamental \(\bar{N}_0\):</strong> \(\bar{N}_0 = 631\) amostras (\(\overline{RR} = 1\,752\text{ ms}\)) — quase o triplo de um ritmo normal!</div>
           <div class="takeaway-pill teal"><strong>Fidelidade do Filtro:</strong> bloqueio AV 2º grau visível — ondas P não conduzidas preservadas e <strong>0 falsos positivos</strong>!</div>
         </div>
       </div>
       <div class="slide-footer">
         <span>MIT-BIH Registro 231 · Sensibilidade 100,0% e F1-Score 100,0% nos 1.571 batimentos reais</span>
-        <span class="mono">19 / 23</span>
+        <span class="mono">21 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 20: ANOMALIA 2 — ARRITMIA / PVCS (TELA CHEIA 16:9) ==================== -->
-    <section class="slide" data-title="Caso Real 2: Arritmia Ventricular (Reg. 119)" data-notes="Caso Real 2 em tela cheia: prova prática de por que o SDNN é indispensável! No bigeminismo ventricular (Reg. 119), um batimento prematuro curto (561 ms) alterna com uma pausa longa (1.378 ms). A média cai em 65,5 BPM (faixa normal!), mas SDNN = 359,5 ms denuncia imediatamente a quebra de periodicidade x[n] ≠ x[n+N]!">
+    <!-- ==================== SLIDE 22: ANOMALIA 2 — ARRITMIA / PVCS (TELA CHEIA 16:9) ==================== -->
+    <section class="slide" data-title="Caso Real 2: Arritmia Ventricular (Reg. 119)" data-notes="Caso Real 2 em tela cheia: prova prática da violação da periodicidade discreta da Aula 1 (x[n] ≠ x[n + N0])! No bigeminismo ventricular (Reg. 119), um batimento prematuro curto (561 ms) alterna com uma pausa longa (1.378 ms). A média cai em 65,5 BPM (faixa normal!), mas SDNN = 359,5 ms denuncia imediatamente a arritmia!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">05 · Detecção em Anomalias Cardíacas Reais</span>
+          <span class="chapter-kicker">05 · Aula 1 · Violação da Periodicidade \(x[n] \neq x[n + N_0]\)</span>
           <h2>Caso Real 2 · Arritmia Ventricular / Bigeminismo (Reg. 119)</h2>
         </div>
         <span class="slide-tag amber"><span class="live-dot amber"></span> \(\text{SDNN} = 359{,}5\text{ ms}\)!</span>
@@ -1541,45 +1801,45 @@
         <div class="takeaway-strip anim d3">
           <div class="takeaway-pill amber"><strong>A armadilha do BPM médio:</strong> média resulta em \(65{,}5\text{ BPM}\) (pareceria normal olhando só o BPM!).</div>
           <div class="takeaway-pill crimson"><strong>O poder do SDNN:</strong> alternância de \(561\text{ ms}\) (PVC) e \(1\,378\text{ ms}\) (pausa) gera \(\text{SDNN} = 359{,}5\text{ ms} \Rightarrow\) <strong>Alerta Arritmia</strong>!</div>
-          <div class="takeaway-pill teal"><strong>Sinais e Sistemas:</strong> prova real da violação da periodicidade discreta \(x[n] \neq x[n + N]\).</div>
+          <div class="takeaway-pill teal"><strong>Aula 1 na Prática:</strong> prova clínica direta da quebra da periodicidade discreta \(x[n] \neq x[n + N_0]\).</div>
         </div>
       </div>
       <div class="slide-footer">
         <span>MIT-BIH Registro 119 · Sensibilidade 100,0% e F1-Score 99,92% (1.987 batimentos reais)</span>
-        <span class="mono">20 / 23</span>
+        <span class="mono">22 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 21: ANOMALIA 3 — TAQUICARDIA (TELA CHEIA 16:9) ==================== -->
-    <section class="slide" data-title="Caso Real 3: Taquicardia (Reg. 209)" data-notes="Caso Real 3 em tela cheia: Taquicardia Supraventricular no Registro 209 — 27 batimentos em apenas 10 segundos (161,9 BPM!), com RR médio de 371 ms (N̄ = 133 amostras). Como o período refratário é 200 ms (teto 300 BPM), todos os 27 batimentos são detectados sem perder um único pico!">
+    <!-- ==================== SLIDE 23: ANOMALIA 3 — TAQUICARDIA (TELA CHEIA 16:9) ==================== -->
+    <section class="slide" data-title="Caso Real 3: Taquicardia (Reg. 209)" data-notes="Caso Real 3 em tela cheia (Aula 1 — período fundamental curto N0 ≈ 133 amostras!): Taquicardia Supraventricular no Registro 209 — 27 batimentos em apenas 10 segundos (161,9 BPM!), com RR médio de 371 ms. Como o período refratário é 200 ms (teto 300 BPM), todos os 27 batimentos são detectados sem perder um único pico!">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">05 · Detecção em Anomalias Cardíacas Reais</span>
+          <span class="chapter-kicker">05 · Aula 1 · Período Discreto Curto (\(\bar{N}_0 \approx 133\))</span>
           <h2>Caso Real 3 · Taquicardia Supraventricular (MIT-BIH Reg. 209)</h2>
         </div>
-        <span class="slide-tag"><span class="live-dot"></span> \(161{,}9\text{ BPM}\) (\(\gt  120\text{ BPM}\))</span>
+        <span class="slide-tag"><span class="live-dot"></span> \(161{,}9\text{ BPM}\) (\(\gt 120\text{ BPM}\))</span>
       </div>
       <div class="slide-body">
         <div class="fig-frame anim-scale">
           <img src="./figuras/slide_anomalia_209_taquicardia.png" alt="Caso Real 3: Taquicardia supraventricular no Registro 209" />
         </div>
         <div class="takeaway-strip anim d3">
-          <div class="takeaway-pill crimson"><strong>Triagem Automática:</strong> \(161{,}9\text{ BPM}\) (\(\gt  120\text{ BPM}\)) \(\Rightarrow\) alerta imediato de <strong>Taquicardia</strong>.</div>
-          <div class="takeaway-pill"><strong>Período Curto (\(\bar{N} = 133\)):</strong> \(27\) picos R em \(10\text{ s}\) (\(\overline{RR} = 371\text{ ms}\)) — 100% detectados!</div>
+          <div class="takeaway-pill crimson"><strong>Triagem Automática:</strong> \(161{,}9\text{ BPM}\) (\(\gt 120\text{ BPM}\)) \(\Rightarrow\) alerta imediato de <strong>Taquicardia</strong>.</div>
+          <div class="takeaway-pill"><strong>Período Curto (\(\bar{N}_0 = 133\)):</strong> \(27\) picos R em \(10\text{ s}\) (\(\overline{RR} = 371\text{ ms}\)) — 100% detectados!</div>
           <div class="takeaway-pill green"><strong>Refratário de \(200\text{ ms}\):</strong> bloqueia falsos positivos, mas acompanha taquicardias reais até \(300\text{ BPM}\).</div>
         </div>
       </div>
       <div class="slide-footer">
         <span>MIT-BIH Registro 209 · Sensibilidade 100,0% e F1-Score 99,95% (3.005 batimentos reais)</span>
-        <span class="mono">21 / 23</span>
+        <span class="mono">23 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 22: ENGENHARIA DO SITE POR BAIXO DOS PANOS ==================== -->
-    <section class="slide" data-title="Engenharia do Aplicativo (Dual-Mode + Upload)" data-notes="Explicar como a aplicação web foi construída: arquitetura Dual-Mode rodando localmente com FastAPI + SciPy/WFDB e online no GitHub Pages com nosso motor 100% Pure-JS (dsp_engine.js: SOS sosfiltfilt, Pan-Tompkins, FFT de Bluestein para qualquer tamanho M, Parseval e decodificador binário PhysioNet formato 212/16!). Destacar também o tratamento inteligente de uploads e o bloqueio educativo de PDFs.">
+    <!-- ==================== SLIDE 24: ENGENHARIA DO SITE POR BAIXO DOS PANOS ==================== -->
+    <section class="slide" data-title="Engenharia do Aplicativo (Dual-Mode + Bluestein)" data-notes="Explicar como toda a matemática das Aulas 1 a 16 virou um produto web aberto e rápido: arquitetura Dual-Mode rodando localmente com FastAPI + SciPy/WFDB e online no GitHub Pages com nosso motor 100% Pure-JS (dsp_engine.js: biquads em Espaço de Estados z1/z2 com sosfiltfilt, Pan-Tompkins em O(N), DFT exata via Algoritmo de Bluestein para qualquer tamanho N, Parseval e decodificador binário PhysioNet formato 212/16!). Destacar também a privacidade local e o bloqueio educativo de PDFs.">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="chapter-kicker">06 · Engenharia do Produto Computacional</span>
+          <span class="chapter-kicker">06 · Engenharia do Produto · Dual-Mode, Espaço de Estados &amp; Bluestein DFT</span>
           <h2>Como o Aplicativo Web Funciona por Baixo dos Panos</h2>
         </div>
         <span class="slide-tag navy">Dual-Mode · 60 FPS</span>
@@ -1592,7 +1852,7 @@
               <li><strong>Frontend nativo 60 FPS (HTML5 Canvas):</strong> papel milimetrado interativo com <em>pan</em>, <em>zoom</em>, sobreposição direta e reprodução em tempo real (\(25\text{ mm/s}\)).</li>
               <li><strong>Modo Servidor Local (<code>server.py</code> · FastAPI):</strong> pipeline completo em <code>NumPy / SciPy / WFDB</code> com acesso aos 30 min completos e exportação 300 DPI.</li>
               <li><strong>Modo Estático (<code>docs/</code> · GitHub Pages):</strong> aciona automaticamente o <code>dsp_engine.js</code> — <strong>100% do DSP roda no navegador</strong>:
-                Notch + Butterworth SOS <code>sosfiltfilt</code>, Pan-Tompkins, <strong>FFT de Bluestein</strong> (qualquer \(M\)) e <strong>Parseval</strong>!</li>
+                biquads SOS em Espaço de Estados (<code>z1, z2</code>), <code>sosfiltfilt</code>, Pan-Tompkins, <strong>DFT de Bluestein</strong> (qualquer \(N\)) e <strong>Parseval</strong>!</li>
               <li><strong>Privacidade por projeto:</strong> nenhum exame enviado sai do dispositivo do usuário!</li>
             </ul>
           </div>
@@ -1604,7 +1864,7 @@
               <li><strong>PhysioNet (<code>.dat</code> + <code>.hea</code> + opcional <code>.atr</code>):</strong> decodifica sinais binários de <strong>12 bits (formato 212)</strong> e <strong>16 bits</strong> diretamente no navegador!</li>
               <li><strong>Detecção e Proteção para <code>.pdf</code> / Imagens:</strong>
                 <div class="eq-box amber" style="margin-top:5px; font-size:11.6px;">
-                  Exame em PDF/foto já passou pelos filtros do eletrocardiógrafo → o site exibe o PDF para visualização, <strong>bloqueia FFT/filtragem indevida</strong> e orienta enviar o sinal bruto \(x[n]\)!
+                  Exame em PDF/foto já passou pelos filtros do eletrocardiógrafo → o site exibe o PDF para visualização, <strong>bloqueia DFT/filtragem indevida</strong> e orienta enviar o sinal bruto \(x[n]\)!
                 </div>
               </li>
             </ul>
@@ -1619,17 +1879,17 @@
       </div>
       <div class="slide-footer">
         <span>Engenharia de software: fluidez clínica 60 FPS, privacidade local e verificação automatizada</span>
-        <span class="mono">22 / 23</span>
+        <span class="mono">24 / 25</span>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 23: DEMO AO VIVO + QR CODE + ENCERRAMENTO (UNIFICADO) ==================== -->
+    <!-- ==================== SLIDE 25: DEMO AO VIVO + QR CODE + ENCERRAMENTO (UNIFICADO) ==================== -->
     <section class="slide slide-ecg-paper" data-title="Demonstração Ao Vivo & QR Code Público" data-notes="Slide final unificado: convidar o Prof. André Pinho e toda a turma a escanearem o QR Code no celular enquanto clicamos no botão vermelho para demonstrar ao vivo em https://rlasmar-uff.github.io/ECG-Digital/. Roteiro: (1) Reg. 105 ligando/desligando Notch e Butterworth + Sobreposição Direta (fase zero); (2) ▶ Reproduzir 25 mm/s; (3) Anomalias 231, 119 e 209; (4) Upload de exemplo_ruidoso_mitbih.csv e teste de um .pdf. Agradecer e abrir para perguntas (tecla G abre o índice rápido!).">
       <div class="slide-body">
         <div class="hero-card" style="border-left-color: var(--crimson); gap: clamp(8px, 1.1vh, 13px); padding: clamp(15px, 2vw, 26px);">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
             <div>
-              <span class="chapter-kicker">06 · Demonstração Prática &amp; Encerramento</span>
+              <span class="chapter-kicker">06 · Demonstração Prática &amp; Encerramento · 09/12/2026</span>
               <h2 class="anim d1" style="font-size:clamp(21px, 2.4vw, 34px); color:var(--navy); line-height:1.12; margin-top:2px;">
                 Demonstração Ao Vivo &amp; Teste Agora no Seu Celular!
               </h2>
@@ -1690,7 +1950,7 @@
       </div>
       <div class="slide-footer">
         <span>UFF · Escola de Engenharia · Sinais e Sistemas · Prof. André Pinho (09/12/2026)</span>
-        <span class="mono">23 / 23</span>
+        <span class="mono">25 / 25</span>
       </div>
     </section>
 
@@ -1706,7 +1966,7 @@
   <div class="toc-modal" id="tocModal" role="dialog" aria-label="Índice dos slides">
     <div class="toc-panel">
       <div class="toc-header">
-        <h3 style="color:var(--navy); font-size:18px;">Índice Rápido da Apresentação (23 Slides)</h3>
+        <h3 style="color:var(--navy); font-size:18px;">Índice Rápido da Apresentação (25 Slides · Aulas 1 a 16)</h3>
         <button id="btnCloseToc" style="background:var(--navy); color:#fff; border:none; border-radius:6px; padding:5px 12px; cursor:pointer; font-weight:600;">Fechar (Esc)</button>
       </div>
       <div class="toc-grid" id="tocGrid"></div>
@@ -1716,7 +1976,7 @@
   <!-- Controles de Navegação -->
   <nav class="controls" aria-label="Controles dos slides">
     <button id="btnPrev" title="Slide anterior (←)">←</button>
-    <span class="mono"><span id="curNum">1</span> / <span id="totNum">23</span></span>
+    <span class="mono"><span id="curNum">1</span> / <span id="totNum">25</span></span>
     <button id="btnNext" title="Próximo slide (→)">→</button>
     <button id="btnToc" title="Índice rápido de slides (G)">Índice</button>
     <button id="btnNotes" title="Mostrar/ocultar roteiro (N)">Roteiro</button>
@@ -1989,7 +2249,7 @@
           ctx.textAlign = "left";
           ctx.font = "700 12px 'IBM Plex Mono', monospace";
           ctx.fillStyle = "#0B2545";
-          ctx.fillText("Curva contínua x(t)  →  Hastes discretas x[n] = x(n·Ts)   |   Ts = 1/360 s = 2,78 ms", padL, 21);
+          ctx.fillText("Curva contínua xa(t)  →  Hastes discretas x[n] = xa(n·Ts)   |   Ts = 1/360 s = 2,78 ms", padL, 21);
           ctx.fillStyle = "#475569";
           ctx.font = "600 11.5px 'IBM Plex Sans', sans-serif";
           ctx.fillText("0 mV", 14, baseLine + 4);

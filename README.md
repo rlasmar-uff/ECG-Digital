@@ -5,7 +5,7 @@
 
 ### Acesso Online (GitHub Pages — 100% no Navegador)
 - **Monitor ECG Interativo (60 FPS):** https://rlasmar-uff.github.io/ECG-Digital/
-- **Apresentação Animada (23 Slides · 09/12/2026):** https://rlasmar-uff.github.io/ECG-Digital/apresentacao/
+- **Apresentação Animada (25 Slides · Aulas 1 a 16 · 09/12/2026):** https://rlasmar-uff.github.io/ECG-Digital/apresentacao/
 
 ### Equipe (ordem alfabética)
 1. Cauã Sales Cardoso de Carvalho (221038054)

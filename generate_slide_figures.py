@@ -94,14 +94,14 @@ def gen_bode_filtros() -> None:
     ax.axvline(60.0, color="#DC2626", linestyle="--", lw=1.6, alpha=0.9)
     ax.axhline(-3.0, color="#475569", linestyle=":", lw=1.3, label="Frequência de corte (−3 dB)")
 
-    ax.plot(freqs, resp["mag_notch_db"], color="#DC2626", lw=1.8, alpha=0.80, label="Notch 60 Hz (Q = 30)")
-    ax.plot(freqs, resp["mag_bp_db"], color=ACCENT_TEAL, lw=2.0, alpha=0.85, label="Butterworth 0,5–40 Hz (ordem 4, SOS)")
+    ax.plot(freqs, resp["mag_notch_db"], color="#DC2626", lw=1.8, alpha=0.80, label="Notch 60 Hz (FRF · Fq = Q = 30)")
+    ax.plot(freqs, resp["mag_bp_db"], color=ACCENT_TEAL, lw=2.0, alpha=0.85, label="Butterworth 0,5–40 Hz (FPF · ordem 4, SOS)")
     ax.plot(
         freqs,
         resp["mag_cascade_zero_phase_db"],
         color=TRACE_FILT_COLOR,
         lw=3.0,
-        label=r"Cascata Bidirecional Fase Zero $|H(e^{j\omega})|^2$ ($\angle H = 0^\circ$)",
+        label=r"Cascata Bidirecional Fase Zero $|H(e^{j\Omega})|^2$ ($\angle H = 0^\circ$)",
     )
 
     # Anotações grandes e limpas
