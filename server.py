@@ -634,6 +634,10 @@ def download_demo_csv() -> FileResponse:
 if WEB_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(WEB_DIR)), name="static")
 
+SLIDES_DIR = BASE_DIR / "apresentacao"
+if SLIDES_DIR.exists():
+    app.mount("/apresentacao", StaticFiles(directory=str(SLIDES_DIR), html=True), name="apresentacao")
+
 
 @app.get("/styles.css")
 def serve_styles() -> FileResponse:

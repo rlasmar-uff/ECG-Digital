@@ -37,8 +37,11 @@ from src.plotting import (
 )
 
 WEB_DIR = BASE_DIR / "web"
+SLIDES_DIR = BASE_DIR / "apresentacao"
 DOCS_DIR = BASE_DIR / "docs"
 DOCS_DATA_DIR = DOCS_DIR / "data"
+DOCS_SLIDES_DIR = DOCS_DIR / "apresentacao"
+DOCS_SLIDES_FIG_DIR = DOCS_SLIDES_DIR / "figuras"
 
 
 def main() -> None:
@@ -49,6 +52,25 @@ def main() -> None:
     for fname in ("index.html", "styles.css", "app.js", "dsp_engine.js"):
         shutil.copy2(WEB_DIR / fname, DOCS_DIR / fname)
     (DOCS_DIR / ".nojekyll").write_text("", encoding="utf-8")
+
+    # 1b) Copia apresentação interativa + figuras 300 DPI + QR Code para docs/apresentacao/
+    if (SLIDES_DIR / "index.html").exists():
+        DOCS_SLIDES_DIR.mkdir(parents=True, exist_ok=True)
+        DOCS_SLIDES_FIG_DIR.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(SLIDES_DIR / "index.html", DOCS_SLIDES_DIR / "index.html")
+        for fig_name in (
+            "comparacao_ecg.png",
+            "espectro_fft.png",
+            "anomalias_clinicas.png",
+            "resposta_filtros_lit.png",
+            "qrcode_app.png",
+        ):
+            src_fig = OUTPUTS_DIR / fig_name
+            if src_fig.exists():
+                shutil.copy2(src_fig, DOCS_SLIDES_FIG_DIR / fig_name)
+                # Também espelha em apresentacao/figuras para abrir localmente offline
+                (SLIDES_DIR / "figuras").mkdir(parents=True, exist_ok=True)
+                shutil.copy2(src_fig, SLIDES_DIR / "figuras" / fig_name)
 
     # 2) Gera data/meta.json (mesmo schema de GET /api/meta)
     val_csv = OUTPUTS_DIR / "tabela_validacao_mitbih.csv"

@@ -174,6 +174,8 @@ def test_no_health_professional_names_in_project_artifacts() -> None:
         *Path("src").glob("*.py"),
         *Path("web").glob("*.*"),
         *Path("docs").glob("*.*"),
+        Path("apresentacao/index.html"),
+        Path("docs/apresentacao/index.html"),
         *Path("outputs").glob("*.csv"),
         *Path("outputs").glob("*.txt"),
         Path("relatorio4/main.tex"),
