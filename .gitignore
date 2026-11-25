@@ -1,0 +1,14 @@
+# Ambiente virtual e caches Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Dados brutos baixados automaticamente do PhysioNet na raiz (NÃO ignora docs/data/)
+/data/
+
+# Entregáveis PDF locais e LaTeX em elaboração (evita expor dados da entrevista em repo público)
+entregaveis/
+Aula 1*.pdf
+relatorio4/
+relatorio4_overleaf.zip

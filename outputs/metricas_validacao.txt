@@ -1,0 +1,39 @@
+============================================================================================
+Universidade Federal Fluminense (UFF) – Escola de Engenharia
+Disciplina: Sinais e Sistemas – Prof. André Pinho (2º Semestre de 2026)
+VALIDAÇÃO COMPARATIVA – MIT-BIH ARRHYTHMIA DATABASE (PHYSIONET, fs = 360 Hz)
+============================================================================================
+Equipe (ordem alfabética):
+  - Cauã Sales Cardoso de Carvalho (221038054)
+  - Livia da Conceição Paes (221038088)
+  - Mateus Figueiredo Abreu (122038027)
+  - Pedro Lucas Nogueira Barbosa (221038084)
+  - Raphael Mello Lasmar Gonçalves (123038028)
+--------------------------------------------------------------------------------------------
+Tolerância de casamento (AAMI/ANSI EC57): ±150 ms
+Pipeline LIT Fase Zero: Notch 60 Hz (Q=30) + Butterworth 0,5–40 Hz (ordem 4, filtfilt)
+Detector QRS: Pan & Tompkins (1985) + Hamilton & Tompkins (1986) (refratário >= 200 ms)
+Limiares clínicos: < 60 BPM (Bradicardia) | 60–120 BPM (Ritmo Normal) | > 120 BPM (Taquicardia)
+--------------------------------------------------------------------------------------------
+
+    Registro  Batimentos_Reais  Batimentos_Detectados    TP  FP  FN  Sensibilidade_%  Precisao_%  F1_Score_%  BPM_Medio  SDNN_ms Classificacao
+         100              2273                   2273  2273   0   0           100.00      100.00      100.00      75.51    48.85  Ritmo Normal
+         105              2572                   2603  2554  49  18            99.30       98.12       98.71      86.53    87.32  Ritmo Normal
+         108              1763                   1820  1754  66   9            99.49       96.37       97.91      60.48   200.56  Ritmo Normal
+         119              1987                   1990  1987   3   0           100.00       99.85       99.92      66.13   256.89  Ritmo Normal
+         231              1571                   1571  1571   0   0           100.00      100.00      100.00      52.20   320.38   Bradicardia
+         209              3005                   3008  3005   3   0           100.00       99.90       99.95      99.98    83.45  Ritmo Normal
+TOTAL_GLOBAL             13171                  13265 13144 121  27            99.80       99.09       99.44      73.47   166.24             —
+
+--------------------------------------------------------------------------------------------
+COMPARAÇÃO COM A LITERATURA DE REFERÊNCIA (RELATÓRIO 1):
+--------------------------------------------------------------------------------------------
+                    Estudo                                                 Método Principal Sensibilidade (%) Precisão / +P (%)                                                                                 Observação
+     Pan & Tompkins (1985)      Passa-faixa 5–15 Hz, derivada 5 pts, quadratura, MWI 150 ms             99,75             99,54                                              Taxa global de 99,3% na base MIT-BIH completa
+Hamilton & Tompkins (1986)    Limiares adaptativos, período refratário 200 ms e search-back             99,69             99,77                                  Redução expressiva de FP causados por ondas T hiperagudas
+         Luz et al. (2016) Pipeline 4 etapas: Butterworth 0,5–40 Hz fase zero + Notch 60 Hz           > 99,0*           > 99,0* Survey de referência; métricas de BPM, R-R e SDNN (*faixa típica dos detectores revisados)
+
+Resultado Global Obtido (nos 6 registros, 13171 batimentos reais):
+  TP = 13144 | FP = 121 | FN = 27
+  Sensibilidade = 99.80% | Precisão (+P) = 99.09% | F1-Score = 99.44%
+============================================================================================

@@ -1,0 +1,8 @@
+﻿Registro,Perfil_Clinico,Duracao_min,Batimentos_Reais,Batimentos_Detectados,TP,FP,FN,Sensibilidade_%,Precisao_%,F1_Score_%,BPM_Medio,RR_Medio_ms,Periodo_N_amostras,SDNN_ms,Classificacao,Reducao_Potencia_Total_%,Reducao_Potencia_AC_%,Atenuacao_LinhaBase_%,Atenuacao_60Hz_%,Atenuacao_AltaFreq_%
+100,Ritmo Sinusal Normal,30.09,2273,2273,2273,0,0,100.0,100.0,100.0,75.51,794.59,286.05,48.85,Ritmo Normal,74.46,10.26,99.74,100.0,92.71
+105,Ruído Severo (Linha de Base + EMG),30.09,2572,2603,2554,49,18,99.3,98.12,98.71,86.53,693.42,249.63,87.32,Ritmo Normal,37.81,18.59,98.52,99.99,96.91
+108,Oscilação Extrema + QRS Atípico / Bradicardia Limítrofe,30.09,1763,1820,1754,66,9,99.49,96.37,97.91,60.48,992.12,357.16,200.56,Ritmo Normal,78.92,66.74,99.75,100.0,96.94
+119,Arritmia Ventricular (Bigeminismo / PVCs),30.09,1987,1990,1987,3,0,100.0,99.85,99.92,66.13,907.32,326.63,256.89,Ritmo Normal,75.04,10.5,97.82,99.99,92.23
+231,Bradicardia e Bloqueio AV de 2º Grau,30.09,1571,1571,1571,0,0,100.0,100.0,100.0,52.2,1149.47,413.81,320.38,Bradicardia,35.07,13.11,99.93,99.98,88.86
+209,Taquicardia Supraventricular (Episódios > 120 BPM),30.09,3005,3008,3005,3,0,100.0,99.9,99.95,99.98,600.14,216.05,83.45,Ritmo Normal,44.0,22.87,99.52,100.0,92.73
+TOTAL_GLOBAL,Agregado (6 registros MIT-BIH),180.54,13171,13265,13144,121,27,99.8,99.09,99.44,73.47,856.18,308.22,166.24,—,57.55,23.68,99.21,99.99,93.4

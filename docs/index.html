@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECG Digital — Sinais e Sistemas (UFF)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫀</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- Overlay global para Drag-and-Drop em qualquer lugar da página -->
+  <div id="globalDropOverlay" class="drop-overlay hidden">
+    <div class="drop-overlay-card">
+      <div class="drop-icon">ECG</div>
+      <h2>Solte seu arquivo de ECG aqui</h2>
+      <p>Aceita <strong>.csv</strong>, <strong>.txt</strong>, par PhysioNet (<strong>.dat + .hea</strong>) ou <strong>.pdf</strong> / imagem</p>
+    </div>
+  </div>
+
+  <!-- Cabeçalho Clínico-Acadêmico -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="pulse-mark" aria-hidden="true">
+        <svg viewBox="0 0 36 24" width="32" height="22">
+          <polyline points="1,13 8,13 11,10 14,15 17,2 21,21 24,11 27,13 35,13" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Suporte Computacional para Interpretação de ECG</h1>
+        <p class="topbar-sub">Universidade Federal Fluminense (UFF) · Sinais e Sistemas · Prof. André Pinho (2º Semestre de 2026)</p>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <button id="btnOpenUpload" class="btn btn-primary">
+        Enviar meu ECG (.csv / .txt / .dat+.hea / .pdf)
+      </button>
+      <button id="btnQuickDemoCsv" class="btn btn-secondary" title="Carrega exemplo_ruidoso_mitbih.csv pelo fluxo de importação">
+        Testar CSV ruidoso
+      </button>
+    </div>
+  </header>
+
+  <!-- Barra de Casos Reais do MIT-BIH (1 clique para trocar entre Normal, Ruído e Anomalias) -->
+  <section class="preset-ribbon" aria-label="Casos reais do MIT-BIH">
+    <span class="ribbon-label">Casos reais MIT-BIH:</span>
+    <div id="presetButtons" class="preset-list"></div>
+  </section>
+
+  <!-- Área Principal: Barra Lateral Compacta + Workstation de Análise -->
+  <div class="workspace">
+    <aside class="sidebar">
+      <!-- Bloco de Upload Direto -->
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Importar Exame de ECG</h2>
+        </div>
+        <div id="uploadDropzone" class="dropzone" tabindex="0" role="button" aria-label="Selecionar ou arrastar arquivos de ECG">
+          <input id="fileInput" type="file" multiple accept=".csv,.txt,.dat,.hea,.atr,.pdf,.png,.jpg,.jpeg,.webp" hidden />
+          <div class="dropzone-title">Clique ou arraste seu ECG</div>
+          <div class="dropzone-hint">.csv · .txt · .dat + .hea (+ .atr) · .pdf</div>
+        </div>
+        <div class="field-row">
+          <label for="inputFallbackFs">Taxa padrão fs (Hz)</label>
+          <input id="inputFallbackFs" type="number" min="50" max="2000" step="10" value="360" />
+        </div>
+        <div id="uploadStatus" class="upload-status hidden"></div>
+        <a class="link-subtle" href="/api/export/demo-csv" download>Baixar exemplo_ruidoso_mitbih.csv</a>
+      </div>
+
+      <!-- Controles de Filtragem LIT de Fase Zero -->
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Sistemas LIT (Fase Zero)</h2>
+          <span id="biboBadge" class="badge badge-ok">BIBO Estável</span>
+        </div>
+
+        <label class="toggle-row">
+          <input id="chkNotch" type="checkbox" checked />
+          <span>Notch 60 Hz (rede elétrica)</span>
+        </label>
+        <div class="slider-row">
+          <div class="slider-meta">
+            <label for="sldNotchQ">Qualidade Q</label>
+            <span id="valNotchQ" class="mono">30</span>
+          </div>
+          <input id="sldNotchQ" type="range" min="10" max="50" step="2" value="30" />
+        </div>
+
+        <label class="toggle-row">
+          <input id="chkBandpass" type="checkbox" checked />
+          <span>Butterworth Passa-Faixa</span>
+        </label>
+        <div class="slider-row">
+          <div class="slider-meta">
+            <label for="sldLowcut">Corte inferior (linha de base)</label>
+            <span id="valLowcut" class="mono">0,5 Hz</span>
+          </div>
+          <input id="sldLowcut" type="range" min="0.1" max="2.0" step="0.1" value="0.5" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-meta">
+            <label for="sldHighcut">Corte superior (EMG)</label>
+            <span id="valHighcut" class="mono">40 Hz</span>
+          </div>
+          <input id="sldHighcut" type="range" min="20" max="60" step="5" value="40" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-meta">
+            <label for="sldOrder">Ordem Butterworth</label>
+            <span id="valOrder" class="mono">4</span>
+          </div>
+          <input id="sldOrder" type="range" min="2" max="6" step="1" value="4" />
+        </div>
+        <div class="slider-row">
+          <div class="slider-meta">
+            <label for="sldRefractory">Período refratário</label>
+            <span id="valRefractory" class="mono">200 ms</span>
+          </div>
+          <input id="sldRefractory" type="range" min="200" max="320" step="10" value="200" />
+        </div>
+
+        <button id="btnApplyFilters" class="btn btn-apply">Aplicar filtros LIT</button>
+      </div>
+
+      <!-- Diagnóstico Rápido do Registro -->
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Metadados do Sinal</h2>
+        </div>
+        <dl class="meta-list" id="signalMetaList">
+          <div><dt>Fonte</dt><dd id="metaSource">—</dd></div>
+          <div><dt>Derivação</dt><dd id="metaLead">—</dd></div>
+          <div><dt>Amostragem</dt><dd id="metaFs" class="mono">—</dd></div>
+          <div><dt>Duração</dt><dd id="metaDur" class="mono">—</dd></div>
+          <div><dt>Polos Plano Z</dt><dd id="metaPoles" class="mono">—</dd></div>
+        </dl>
+      </div>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-stage">
+      <!-- Alerta especial para Upload de PDF / Imagem -->
+      <section id="pdfNoticeSection" class="pdf-notice hidden">
+        <div class="pdf-notice-header">
+          <div>
+            <h2 id="pdfWarningTitle">Formato PDF detectado</h2>
+            <p id="pdfWarningBody"></p>
+          </div>
+          <button id="btnClosePdfNotice" class="btn btn-secondary">Voltar ao ECG ativo</button>
+        </div>
+        <div id="pdfPreviewGrid" class="pdf-preview-grid"></div>
+      </section>
+
+      <!-- Faixa de Triagem Clínica + KPIs -->
+      <section id="triageBanner" class="triage-banner status-normal">
+        <div class="triage-main">
+          <div class="triage-status-line">
+            <span id="diagBadge" class="diag-pill">RITMO NORMAL</span>
+            <span id="regularityBadge" class="reg-pill">Ritmo Regular</span>
+            <div class="scope-switch" role="group" aria-label="Escopo das métricas">
+              <button id="scopeWindow" class="scope-btn active" data-scope="window">Janela visível</button>
+              <button id="scopeFull" class="scope-btn" data-scope="full">Exame completo</button>
+            </div>
+          </div>
+          <p class="triage-rule">
+            Limiares clínicos adotados: <strong>&lt; 60 BPM</strong> Bradicardia · <strong>60–120 BPM</strong> Ritmo Normal · <strong>&gt; 120 BPM</strong> Taquicardia
+          </p>
+        </div>
+        <div class="triage-bpm">
+          <span id="kpiBpmHero" class="bpm-number mono">--.-</span>
+          <span class="bpm-unit">BPM</span>
+        </div>
+      </section>
+
+      <!-- Grade de KPIs Numéricos Tabulares -->
+      <section class="kpi-strip">
+        <div class="kpi-card">
+          <div class="kpi-label">Intervalo R-R Médio</div>
+          <div id="kpiRR" class="kpi-value mono">—</div>
+          <div id="kpiN" class="kpi-sub mono">N̄ = — amostras</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">SDNN (Periodicidade / VFC)</div>
+          <div id="kpiSdnn" class="kpi-value mono">—</div>
+          <div id="kpiRmssd" class="kpi-sub mono">RMSSD = — ms</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Batimentos Detectados</div>
+          <div id="kpiBeats" class="kpi-value mono">—</div>
+          <div id="kpiBpmRange" class="kpi-sub mono">Faixa: — BPM</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Ruído Removido (Parseval)</div>
+          <div id="kpiParseval" class="kpi-value mono">—</div>
+          <div id="kpiParsevalAc" class="kpi-sub mono">Banda AC: —%</div>
+        </div>
+      </section>
+
+      <!-- Navegação por Abas -->
+      <nav class="tabs-bar" role="tablist">
+        <button class="tab-btn active" data-tab="ecg" role="tab">Monitor ECG (60 FPS)</button>
+        <button class="tab-btn" data-tab="fft" role="tab">Espectro FFT &amp; Parseval</button>
+        <button class="tab-btn" data-tab="lti" role="tab">Filtros LIT, Plano Z &amp; R-R</button>
+        <button class="tab-btn" data-tab="val" role="tab">Validação MIT-BIH vs. Literatura</button>
+      </nav>
+
+      <!-- ABA 1: Monitor ECG em Papel Milimetrado 60 FPS -->
+      <section id="tab-ecg" class="tab-panel active">
+        <div class="monitor-toolbar">
+          <div class="toolbar-group">
+            <button id="btnPlayPause" class="btn btn-primary btn-sm">▶ Reproduzir (25 mm/s)</button>
+            <select id="selPlaySpeed" class="select-sm" aria-label="Velocidade de reprodução">
+              <option value="1">1× tempo real</option>
+              <option value="2">2×</option>
+              <option value="4">4×</option>
+            </select>
+            <button id="btnJumpHighlight" class="btn btn-secondary btn-sm">Ir ao destaque clínico</button>
+          </div>
+
+          <div class="toolbar-group">
+            <label class="inline-ctrl">
+              Janela:
+              <select id="selWindowDur" class="select-sm">
+                <option value="5">5 s</option>
+                <option value="10" selected>10 s</option>
+                <option value="15">15 s</option>
+                <option value="20">20 s</option>
+                <option value="30">30 s</option>
+              </select>
+            </label>
+            <label class="inline-ctrl">
+              Modo:
+              <select id="selViewMode" class="select-sm">
+                <option value="split" selected>Antes × Depois</option>
+                <option value="overlay">Sobreposição direta</option>
+              </select>
+            </label>
+            <label id="wrapShowAtr" class="inline-ctrl hidden">
+              <input id="chkShowAtr" type="checkbox" />
+              <span>Anotações .atr</span>
+            </label>
+          </div>
+
+          <div class="toolbar-group">
+            <button id="btnExportPng" class="btn btn-secondary btn-sm">Exportar PNG (300 DPI)</button>
+            <button id="btnExportCsv" class="btn btn-secondary btn-sm">Exportar CSV</button>
+          </div>
+        </div>
+
+        <div class="canvas-shell">
+          <canvas id="ecgCanvas"></canvas>
+          <div id="hoverReadout" class="hover-readout mono hidden"></div>
+          <div id="loadingPill" class="loading-pill hidden">Processando sinal...</div>
+        </div>
+
+        <!-- Linha do tempo de navegação rápida (arraste ou clique para ir a qualquer segundo) -->
+        <div class="timeline-bar">
+          <span id="timeStartLbl" class="mono">0,0 s</span>
+          <input id="timelineSlider" type="range" min="0" max="100" step="0.2" value="0" aria-label="Posição temporal no exame" />
+          <span id="timeEndLbl" class="mono">10,0 s</span>
+          <span class="timeline-hint">Arraste o gráfico para mover · Scroll do mouse para zoom</span>
+        </div>
+      </section>
+
+      <!-- ABA 2: Espectro FFT & Teorema de Parseval -->
+      <section id="tab-fft" class="tab-panel">
+        <div class="chart-card">
+          <div class="chart-head">
+            <h3>Espectro de Frequência (FFT Antes × Depois — 0 a 100 Hz)</h3>
+            <span class="chart-sub">Destaque para linha de base (&lt; 0,5 Hz), banda ECG (0,5–40 Hz), EMG (&gt; 40 Hz) e Notch 60 Hz</span>
+          </div>
+          <canvas id="fftMainCanvas" class="plot-canvas"></canvas>
+        </div>
+
+        <div class="two-col">
+          <div class="chart-card">
+            <div class="chart-head"><h3>Zoom: Linha de Base (&lt; 0,5 Hz)</h3></div>
+            <canvas id="fftLowCanvas" class="plot-canvas-sm"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-head"><h3>Zoom: Rede Elétrica (Notch 60 Hz)</h3></div>
+            <canvas id="fftNotchCanvas" class="plot-canvas-sm"></canvas>
+          </div>
+        </div>
+
+        <div class="two-col parseval-grid">
+          <div class="chart-card">
+            <div class="chart-head"><h3>Verificação Numérica do Teorema de Parseval</h3></div>
+            <p class="formula-box mono">P_d = (1/M) Σ |x[n]|² = Σ |c_k|²</p>
+            <table class="data-table" id="parsevalSummaryTable"></table>
+          </div>
+          <div class="chart-card">
+            <div class="chart-head"><h3>Atenuação de Potência por Banda Espectral</h3></div>
+            <table class="data-table" id="parsevalBandTable"></table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABA 3: Filtros LIT, Plano Z e Periodicidade R-R -->
+      <section id="tab-lti" class="tab-panel">
+        <div class="two-col-asym">
+          <div class="chart-card">
+            <div class="chart-head">
+              <h3>Resposta em Frequência |H(e^{jω})|² (Fase Zero: ∠H = 0°)</h3>
+              <span class="chart-sub">Notch 60 Hz + Butterworth Passa-Faixa em cascata bidirecional</span>
+            </div>
+            <canvas id="bodeCanvas" class="plot-canvas-sm"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-head">
+              <h3>Estabilidade BIBO no Plano Z</h3>
+              <span id="zPlaneSubtitle" class="chart-sub mono">Polos no interior de |z| = 1</span>
+            </div>
+            <canvas id="zplaneCanvas" class="plot-canvas-sm"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-head">
+            <h3>Periodicidade Discreta x[n] ≈ x[n + N] e Frequência Cardíaca Instantânea</h3>
+            <span class="chart-sub">Faixa verde destaca a zona clínica normal (60–120 BPM)</span>
+          </div>
+          <canvas id="rrCanvas" class="plot-canvas-sm"></canvas>
+        </div>
+      </section>
+
+      <!-- ABA 4: Validação MIT-BIH vs. Literatura -->
+      <section id="tab-val" class="tab-panel">
+        <div id="liveValCard" class="chart-card hidden">
+          <div class="chart-head">
+            <h3 id="liveValTitle">Validação em Tempo Real (.atr ±150 ms)</h3>
+          </div>
+          <div id="liveValMetrics" class="live-val-grid"></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-head">
+            <h3>Tabela Consolidada — Base MIT-BIH Arrhythmia Database (6 Registros · 13.171 Batimentos)</h3>
+          </div>
+          <div class="table-scroll">
+            <table class="data-table" id="mitbihValidationTable"></table>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-head">
+            <h3>Comparação com a Literatura de Referência (Relatório 1)</h3>
+          </div>
+          <div class="table-scroll">
+            <table class="data-table" id="literatureTable"></table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Rodapé com a equipe sempre em ordem alfabética -->
+  <footer class="footer">
+    <span><strong>Equipe (ordem alfabética):</strong></span>
+    <span id="footerTeam"></span>
+  </footer>
+
+  <script src="./dsp_engine.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
