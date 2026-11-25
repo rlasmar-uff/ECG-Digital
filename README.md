@@ -3,6 +3,10 @@
 **Universidade Federal Fluminense (UFF) – Escola de Engenharia**  
 **Disciplina:** Sinais e Sistemas – Prof. André Pinho (2º Semestre de 2026)
 
+### Acesso Online (GitHub Pages — 100% no Navegador)
+- **Monitor ECG Interativo (60 FPS):** https://rlasmar-uff.github.io/ECG-Digital/
+- **Apresentação Animada (24 Slides · 09/12/2026):** https://rlasmar-uff.github.io/ECG-Digital/apresentacao/
+
 ### Equipe (ordem alfabética)
 1. Cauã Sales Cardoso de Carvalho (221038054)
 2. Livia da Conceição Paes (221038088)
@@ -38,14 +42,14 @@ Depois abra no navegador: **http://localhost:8050** (ou a porta exibida no termi
 
 A pasta `docs/` já contém o site completo com o motor de Processamento Digital de Sinais reimplementado em JavaScript puro (`dsp_engine.js` — Notch 60 Hz, Butterworth 0,5–40 Hz fase zero, Pan-Tompkins/Hamilton-Tompkins, FFT Bluestein/Radix-2 e Parseval) + trechos clínicos reais de 60 s dos 6 registros do MIT-BIH + upload local de `.csv`, `.txt`, `.dat`+`.hea` e `.pdf` direto no navegador:
 
-1. Para atualizar a pasta `docs/` após qualquer edição em `web/`:
+1. Para regenerar as 10 figuras widescreen 16:9 da apresentação e sincronizar a pasta `docs/`:
    ```powershell
+   .\.venv\Scripts\python.exe generate_slide_figures.py
    .\.venv\Scripts\python.exe build_gh_pages.py
    ```
-2. Suba o repositório para o GitHub e vá em **Settings → Pages → Build and deployment**:
-   - **Source:** `Deploy from a branch`
-   - **Branch:** `main` · **Folder:** `/docs`
-3. Salve e aguarde ~1 minuto — o site ficará online em `https://<seu-usuario>.github.io/<seu-repo>/` funcionando 100% no navegador sem precisar de servidor Python!
+2. O repositório já está publicado em **GitHub Pages** (`Branch: main`, `Folder: /docs`):
+   - **Aplicação Web:** https://rlasmar-uff.github.io/ECG-Digital/
+   - **Slides da Apresentação:** https://rlasmar-uff.github.io/ECG-Digital/apresentacao/
 
 ---
 
